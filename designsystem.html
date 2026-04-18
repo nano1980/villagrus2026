@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VillaGrus — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ──────────────────────────────────────────────────────────────
+       DESIGN SYSTEM SHELL — sidebar + main layout
+       These styles are local to designsystem.html only.
+    ────────────────────────────────────────────────────────────── */
+
+    /* Reset body grain overlay for the shell */
+    body::before { display: none; }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f0ede8;
+      overflow-x: hidden;
+    }
+
+    /* ── Sidebar ── */
+    .ds-sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background: var(--black);
+      overflow-y: auto;
+      z-index: 200;
+      padding: 32px 0 40px;
+    }
+    .ds-sidebar::-webkit-scrollbar { width: 4px; }
+    .ds-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+    .ds-logo {
+      padding: 0 24px 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 20px;
+    }
+    .ds-logo strong {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: white;
+    }
+    .ds-logo span {
+      display: block;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-top: 3px;
+    }
+    .ds-nav-group {
+      padding: 0 16px 4px;
+    }
+    .ds-nav-group-label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      padding: 8px 8px 6px;
+    }
+    .ds-nav-group a {
+      display: block;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      padding: 7px 8px;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .ds-nav-group a:hover,
+    .ds-nav-group a.active {
+      background: rgba(255,255,255,0.07);
+      color: white;
+    }
+    .ds-nav-group a.active { color: var(--sand); }
+
+    /* ── Main content ── */
+    .ds-main {
+      margin-left: 240px;
+      flex: 1;
+      min-width: 0;
+      padding: 0;
+    }
+
+    /* ── Section wrapper ── */
+    .ds-section {
+      padding: 64px 56px;
+      border-bottom: 1px solid rgba(26,26,26,0.1);
+    }
+    .ds-section:last-child { border-bottom: none; }
+    .ds-section-head {
+      margin-bottom: 40px;
+    }
+    .ds-section-head h2 {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 6px;
+    }
+    .ds-section-head h3 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--black);
+      letter-spacing: -0.02em;
+    }
+    .ds-section-head p {
+      margin-top: 8px;
+      font-size: 0.82rem;
+      color: var(--mid);
+      line-height: 1.6;
+      max-width: 540px;
+    }
+
+    /* ── Canvas (component preview area) ── */
+    .ds-canvas {
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .ds-canvas--cream { background: var(--cream); }
+    .ds-canvas--dark  { background: var(--black); }
+    .ds-canvas--grid  { background: #f0ede8; padding: 24px; }
+
+    /* ── Spec row ── */
+    .ds-spec {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .ds-chip {
+      font-size: 0.7rem;
+      font-family: 'DM Mono', 'Courier New', monospace;
+      background: rgba(26,26,26,0.06);
+      color: var(--mid);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    .ds-chip strong { color: var(--black); }
+
+    /* ── Row layout helpers ── */
+    .ds-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .ds-row--center { align-items: center; }
+    .ds-row--space { justify-content: space-between; }
+
+    /* ── Token Grid ── */
+    .token-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .token-swatch {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .token-color {
+      height: 64px;
+    }
+    .token-meta {
+      background: white;
+      padding: 10px 12px;
+    }
+    .token-name {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--black);
+      margin-bottom: 2px;
+    }
+    .token-value {
+      font-size: 0.65rem;
+      font-family: 'Courier New', monospace;
+      color: var(--mid);
+    }
+
+    /* Typography specimen */
+    .type-row {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+      align-items: baseline;
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-meta { font-size: 0.72rem; color: var(--mid); line-height: 1.6; }
+    .type-meta code { font-family: 'Courier New', monospace; font-size: 0.65rem; }
+    .type-specimen { color: var(--black); }
+
+    /* Spacing scale */
+    .spacing-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .spacing-row:last-child { border-bottom: none; }
+    .spacing-bar-wrap { flex: 1; background: rgba(26,26,26,0.06); border-radius: 2px; height: 8px; }
+    .spacing-bar { height: 100%; background: var(--sand); border-radius: 2px; }
+    .spacing-label { width: 60px; font-size: 0.72rem; color: var(--mid); font-family: 'Courier New', monospace; }
+    .spacing-val { width: 48px; font-size: 0.72rem; color: var(--black); text-align: right; }
+
+    /* ── Button demos ── */
+    .btn-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 32px;
+    }
+    .btn-row--dark { background: var(--black); }
+
+    /* ── Card demos: limit height, scroll inside ── */
+    .card-demo-wrap {
+      display: flex;
+      gap: 16px;
+      padding: 24px;
+      overflow-x: auto;
+    }
+    .card-demo-wrap .cat-card,
+    .card-demo-wrap .alt-cat-card {
+      flex: 0 0 200px;
+      height: 300px;
+    }
+    .card-demo-wrap .product-card {
+      flex: 0 0 200px;
+      height: 300px;
+    }
+
+    /* ── Section demos — full natural size ── */
+    .section-frame {
+      position: relative;
+      overflow: visible;
+    }
+    .section-frame .blog-carousel {
+      max-height: 820px;
+    }
+
+    /* ── Icon demo ── */
+    .icon-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 24px;
+    }
+    .icon-demo {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--black);
+    }
+    .icon-demo svg { width: 20px; height: 20px; }
+
+    /* ── Frosted glass preview ── */
+    .frosted-demo {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      border-radius: var(--radius);
+    }
+    .frosted-demo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .frosted-panel {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius);
+      padding: 32px 36px;
+      text-align: center;
+      color: white;
+      white-space: nowrap;
+    }
+
+    /* ── Countdown demo ── */
+    .countdown-demo .countdown {
+      display: inline-flex;
+    }
+
+    /* Mobile hide sidebar */
+    @media (max-width: 900px) {
+      .ds-sidebar { display: none; }
+      .ds-main { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════ SIDEBAR ════════════════════════════ -->
+<aside class="ds-sidebar">
+  <div class="ds-logo">
+    <strong>VillaGrus</strong>
+    <span>Design System v1.0</span>
+  </div>
+
+  <div class="ds-nav-group">
+    <div class="ds-nav-group-label">Foundations</div>
+    <a href="#tokens-color">Color Tokens</a>
+    <a href="#tokens-type">Typography</a>
+    <a href="#typo-content">Innehållstypografi</a>
+    <a href="#tokens-space">Spacing &amp; Radius</a>
+    <a href="#tokens-motion">Motion</a>
+  </div>
+
+  <div class="ds-nav-group">
+    <div class="ds-nav-group-label">Components</div>
+    <a href="#buttons">Buttons</a>
+    <a href="#badges">Badges &amp; Labels</a>
+    <a href="#icons">Icons</a>
+    <a href="#frosted">Frosted Glass</a>
+    <a href="#countdown">Countdown</a>
+    <a href="#accordion">Accordion / FAQ</a>
+  </div>
+
+  <div class="ds-nav-group">
+    <div class="ds-nav-group-label">Cards</div>
+    <a href="#product-cards">Product Cards</a>
+    <a href="#alt-cat-cards">Alt Category Cards</a>
+  </div>
+
+  <div class="ds-nav-group">
+    <div class="ds-nav-group-label">Sections</div>
+    <a href="#section-header">Header</a>
+    <a href="#section-hero">Hero</a>
+    <a href="#section-usp">USP Strip</a>
+    <a href="#section-nature">Nature Banner</a>
+    <a href="#section-banner-grid">Banner Grid</a>
+    <a href="#section-offer">Offer Section</a>
+    <a href="#section-carousel">Blog Carousel</a>
+    <a href="#section-about">About Section</a>
+    <a href="#section-footer">Footer</a>
+  </div>
+
+  <div class="ds-nav-group">
+    <div class="ds-nav-group-label">New Components</div>
+    <a href="#section-feat-banner">Featured Banner</a>
+    <a href="#section-pull-quote">Pull Quote</a>
+    <a href="#section-editorial-quote">Editorial Quote</a>
+    <a href="#section-contact">Contact Section</a>
+    <a href="#section-nav-drawer">Nav Drawer</a>
+    <a href="#section-zip-modal">Zip Modal</a>
+  </div>
+</aside>
+
+<!-- ═══════════════════════ MAIN ════════════════════════════════ -->
+<main class="ds-main">
+
+
+  <!-- ═══════ COLOR TOKENS ═══════ -->
+  <section class="ds-section" id="tokens-color">
+    <div class="ds-section-head">
+      <h2>Foundations</h2>
+      <h3>Color Tokens</h3>
+      <p>Alla färger är definierade som CSS custom properties i <code>:root</code> i <code>styles.css</code>. Använd alltid token-variablerna, aldrig hårdkodade hex-värden.</p>
+    </div>
+    <div class="token-grid">
+      <div class="token-swatch">
+        <div class="token-color" style="background:#1a1a1a"></div>
+        <div class="token-meta">
+          <div class="token-name">--black</div>
+          <div class="token-value">#1a1a1a</div>
+        </div>
+      </div>
+      <div class="token-swatch">
+        <div class="token-color" style="background:#c8a96e"></div>
+        <div class="token-meta">
+          <div class="token-name">--sand</div>
+          <div class="token-value">#c8a96e</div>
+        </div>
+      </div>
+      <div class="token-swatch">
+        <div class="token-color" style="background:#e8d5b0"></div>
+        <div class="token-meta">
+          <div class="token-name">--sand-lt</div>
+          <div class="token-value">#e8d5b0</div>
+        </div>
+      </div>
+      <div class="token-swatch">
+        <div class="token-color" style="background:#ff8057"></div>
+        <div class="token-meta">
+          <div class="token-name">--cta</div>
+          <div class="token-value">#ff8057</div>
+        </div>
+      </div>
+      <div class="token-swatch">
+        <div class="token-color" style="background:#e0633a"></div>
+        <div class="token-meta">
+          <div class="token-name">--cta-dk</div>
+          <div class="token-value">#e0633a · hover</div>
+        </div>
+      </div>
+      <div class="token-swatch">
+        <div class="token-color" style="background:#ede8e0"></div>
+        <div class="token-meta">
+          <div class="token-name">--stone</div>
+          <div class="token-value">#ede8e0 · galleribg, avsnittsbg</div>
+        </div>
+      </div>
+      <div class="token-swatch">
+        <div class="token-color" style="background:#f8f6f3"></div>
+        <div class="token-meta">
+          <div class="token-name">--cream</div>
+          <div class="token-value">#f8f6f3 · sidbg, kortbg, hover</div>
+        </div>
+      </div>
+      <div class="token-swatch">
+        <div class="token-color" style="background:#6b6560"></div>
+        <div class="token-meta">
+          <div class="token-name">--mid</div>
+          <div class="token-value">#6b6560 · muted text</div>
+        </div>
+      </div>
+      <div class="token-swatch">
+        <div class="token-color" style="background:rgba(26,26,26,0.1); border:1px solid var(--border)"></div>
+        <div class="token-meta">
+          <div class="token-name">--border</div>
+          <div class="token-value">rgba(26,26,26,0.1)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════ TYPOGRAPHY ═══════ -->
+  <section class="ds-section" id="tokens-type">
+    <div class="ds-section-head">
+      <h2>Foundations</h2>
+      <h3>Typography</h3>
+      <p><strong>Cormorant Garamond</strong> (serif) — rubriker, priser, accent. <strong>DM Sans</strong> (sans) — brödtext, knappar, labels.</p>
+    </div>
+    <div class="ds-canvas ds-canvas--cream">
+      <div style="padding: 40px 40px 24px">
+
+        <div class="type-row">
+          <div class="type-meta">
+            <code>font-family: var(--serif)</code><br>
+            <code>font-size: clamp(2.3rem, 4.7vw, 4.3rem)</code><br>
+            <code>font-weight: 300</code><br>
+            Hero H1
+          </div>
+          <div class="type-specimen" style="font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.5rem);font-weight:300;line-height:1.05;letter-spacing:-0.01em;">
+            Natursten för <em style="font-style:italic;color:var(--sand-lt)">vackra</em> trädgårdar
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <code>.section-title</code><br>
+            <code>clamp(2.2rem, 4vw, 3.5rem)</code><br>
+            Section heading
+          </div>
+          <div class="type-specimen section-title">
+            Utforska <em>sortimentet</em>
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <code>font-family: var(--serif)</code><br>
+            <code>font-size: 1.5rem, weight 400</code><br>
+            Card / product name
+          </div>
+          <div class="type-specimen" style="font-family:var(--serif);font-size:1.5rem;font-weight:400">
+            Granitsingel Grå 16–32 mm
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <code>.section-label</code><br>
+            <code>0.65rem · 500 · 0.2em spacing</code><br>
+            Eyebrow / overline
+          </div>
+          <div class="type-specimen">
+            <span class="section-label" style="display:inline-flex">Kategori</span>
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <code>font-size: 0.95rem</code><br>
+            <code>line-height: 1.85</code><br>
+            Body text / about
+          </div>
+          <div class="type-specimen" style="font-size:0.95rem;line-height:1.85;color:var(--mid);font-weight:300;max-width:480px">
+            Vi grundades med övertygelsen att rätt underlag är grunden för varje vacker trädgård. Allt vi säljer är testat för nordiskt klimat.
+          </div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta">
+            <code>font-size: 0.75–0.8rem</code><br>
+            <code>letter-spacing: 0.1–0.2em</code><br>
+            Button / label text
+          </div>
+          <div class="type-specimen" style="font-size:0.78rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase">
+            SE ALLA PRODUKTER →
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════ INNEHÅLLSTYPOGRAFI ═══════ -->
+  <section class="ds-section" id="typo-content">
+    <div class="ds-section-head">
+      <h2>Foundations</h2>
+      <h3>Innehållstypografi</h3>
+      <p>Klassen <code>.prose</code> appliceras på alla innehållsområden — tab-bodies, accordion-text, artikeltext. Den definierar konsekvent spacing och rytm för alla semantiska element och är den enda källan till sanning för innehållstypografi.</p>
+    </div>
+
+    <div class="ds-canvas ds-canvas--cream">
+      <div class="prose" style="padding: 48px; max-width: 720px;">
+        <h2>Rubriknivå 2 — Cormorant Garamond</h2>
+        <p>Brödtext direkt efter en h2. Leveranstider, produktbeskrivningar och instruktioner skrivs i denna stil. Radavståndet 1.8 ger god läsbarhet på alla skärmstorlekar.</p>
+        <h3>Rubriknivå 3 — lättare vikt</h3>
+        <p>Ytterligare ett stycke efter h3. Notera luften ovanför — <code>margin-bottom: 16px</code> på h3, sedan <code>margin-bottom: 20px</code> på varje paragraf ger en tydlig, konsekvent rytm.</p>
+        <h4>Rubriknivå 4 — eyebrow-stil</h4>
+        <p>H4 följer samma mönster som <code>.section-label</code> och <code>.pdp-step-label</code> — sand, versaler, med streck. Används som underrubrik eller kategorisering i innehåll.</p>
+        <ul>
+          <li>Oordnad lista — sand streck som listmarkör</li>
+          <li><strong>Fet text</strong> behåller svart färg och vikt 500</li>
+          <li><em>Kursiv text</em> i svart — används för betoning, inte dekoration</li>
+        </ul>
+        <ol>
+          <li>Ordnad lista med sand-siffra som markör</li>
+          <li>Används för steg-för-steg-instruktioner och rangordnade listor</li>
+          <li>Konsekvent radavstånd och gap med oordnad lista</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="ds-spec">
+      <span class="ds-chip"><strong>h2</strong>: serif, clamp(1.6–2.2rem), 300, lh 1.15, mb 20px</span>
+      <span class="ds-chip"><strong>h3</strong>: serif, 1.4rem, 300, lh 1.2, mb 16px</span>
+      <span class="ds-chip"><strong>h4</strong>: sans, 0.68rem, 500, uppercase, sand + streck, mb 12px</span>
+      <span class="ds-chip"><strong>p</strong>: sans, 0.9rem, lh 1.8, color mid, mb 20px (0 om sist)</span>
+      <span class="ds-chip"><strong>ul/ol li</strong>: sans, 0.88rem, lh 1.6, gap 12px, pl 22px</span>
+      <span class="ds-chip"><strong>ul ::before</strong>: sand streck 10×1px, top 10px</span>
+      <span class="ds-chip"><strong>ol ::before</strong>: sand counter, 0.72rem, 500</span>
+      <span class="ds-chip"><strong>Klass</strong>: .prose — appliceras på innehållscontainers</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ ACCORDION ═══════ -->
+  <section class="ds-section" id="accordion">
+    <div class="ds-section-head">
+      <h2>Components</h2>
+      <h3>Accordion / FAQ</h3>
+      <p>Används för innehållsrikt text som kan fällas ut — transport, FAQ, produktinfo. Titeln i serif, ikon i sand vid expand. Inre innehåll använder alltid <code>.prose</code> för konsekvent typografi. <strong>Regel:</strong> <code>.pdp-accordion-cols</code> får alltid <code>margin-top: 24px</code> från föregående prose-element.</p>
+    </div>
+
+    <div class="ds-canvas ds-canvas--cream" style="padding: 0;">
+      <div style="max-width: 860px; margin: 0 auto; padding: 40px 48px;">
+        <!-- Stängd rad -->
+        <div class="pdp-accordion-item" style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+          <button class="pdp-accordion-btn" aria-expanded="false" style="cursor:default;">
+            <div class="pdp-accordion-btn__left">
+              <div class="pdp-accordion-icon-wrap">
+                <svg viewBox="0 0 56 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 28 L2 18 L10 18 L15 12 L22 12 L22 28 Z"/>
+                  <path d="M22 28 L22 15 L48 10 L50 28 Z"/>
+                  <line x1="22" y1="28" x2="50" y2="28"/>
+                  <circle cx="8" cy="32" r="3.5"/>
+                  <circle cx="36" cy="32" r="3.5"/>
+                  <circle cx="44" cy="32" r="3.5"/>
+                </svg>
+              </div>
+              <div class="pdp-accordion-btn__text">
+                <span class="pdp-accordion-title">Stängd rad</span>
+                <span class="pdp-accordion-sub">Undertitel — kort beskrivning av innehållet</span>
+              </div>
+            </div>
+            <div class="pdp-accordion-plus">
+              <svg class="pdp-accordion-plus__plus" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg>
+              <svg class="pdp-accordion-plus__close" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l8 8M10 2l-8 8"/></svg>
+            </div>
+          </button>
+        </div>
+
+        <!-- Öppen rad med fullständigt prose-innehåll -->
+        <div class="pdp-accordion-item is-open" style="border-bottom: 1px solid var(--border);">
+          <button class="pdp-accordion-btn" aria-expanded="true" style="cursor:default;">
+            <div class="pdp-accordion-btn__left">
+              <div class="pdp-accordion-icon-wrap">
+                <svg viewBox="0 0 40 46" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M13 8 L13 3 Q20 1 27 3 L27 8"/>
+                  <path d="M5 10 L35 10 L31 42 L9 42 Z"/>
+                  <line x1="20" y1="10" x2="20" y2="42" stroke-width="1" stroke-dasharray="2 3"/>
+                  <line x1="5" y1="22" x2="35" y2="22" stroke-width="1" stroke-dasharray="2 3"/>
+                </svg>
+              </div>
+              <div class="pdp-accordion-btn__text">
+                <span class="pdp-accordion-title">Öppen rad — med prose-innehåll</span>
+                <span class="pdp-accordion-sub">Visar korrekt spacing: p → 20px mb → cols med 24px mt</span>
+              </div>
+            </div>
+            <div class="pdp-accordion-plus">
+              <svg class="pdp-accordion-plus__plus" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg>
+              <svg class="pdp-accordion-plus__close" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l8 8M10 2l-8 8"/></svg>
+            </div>
+          </button>
+          <div class="pdp-accordion-body" style="grid-template-rows: 1fr;">
+            <div><div class="prose" style="padding: 0 20px 40px;">
+              <p>Brödtext i .prose direkt i accordion-body. Paragraf har <code>margin-bottom: 20px</code> mot nästa element. Notera luften ner till kolumnerna nedan — den skapas av <code>margin-top: 24px</code> på <code>.pdp-accordion-cols</code>.</p>
+              <div class="pdp-accordion-cols">
+                <div>
+                  <h4>Fördelar</h4>
+                  <ul>
+                    <li>Sand streck från .prose ul li::before</li>
+                    <li><strong>Fet text</strong> behåller svart färg</li>
+                    <li>Gap 12px mellan listpunkter</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Tänk på</h4>
+                  <ul>
+                    <li>Samma listmarkör — konsekvent med resten</li>
+                    <li>H4 i .prose — sand, uppercase, med streck</li>
+                  </ul>
+                </div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-spec">
+      <span class="ds-chip"><strong>.pdp-accordion-btn</strong>: icon-wrap (52×36px, sand vid öppen) + serif titel + sans undertitel + plus-cirkel (sand)</span>
+      <span class="ds-chip"><strong>.pdp-accordion-body</strong>: grid-template-rows 0fr → 1fr, transition 0.3s</span>
+      <span class="ds-chip"><strong>.prose</strong> i body: p mb 20px, h4 mb 12px, ul gap 12px</span>
+      <span class="ds-chip"><strong>.pdp-accordion-cols</strong>: grid 1fr 1fr, gap 32px, <strong>margin-top: 24px</strong> — alltid</span>
+      <span class="ds-chip"><strong>Öppen state</strong>: .is-open på .pdp-accordion-item, aria-expanded="true"</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ SPACING & RADIUS ═══════ -->
+  <section class="ds-section" id="tokens-space">
+    <div class="ds-section-head">
+      <h2>Foundations</h2>
+      <h3>Spacing &amp; Radius</h3>
+    </div>
+    <div class="ds-canvas" style="padding:32px 40px">
+      <div class="spacing-row">
+        <div class="spacing-label">8px</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:2%"></div></div>
+        <div class="spacing-val">8px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">16px</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4%"></div></div>
+        <div class="spacing-val">16px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">24px</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:6%"></div></div>
+        <div class="spacing-val">24px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">32px</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8%"></div></div>
+        <div class="spacing-val">32px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">48px</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12%"></div></div>
+        <div class="spacing-val">48px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">64px</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16%"></div></div>
+        <div class="spacing-val">64px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">80px</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:20%"></div></div>
+        <div class="spacing-val">80px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label">120px</div>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:30%"></div></div>
+        <div class="spacing-val">120px · section</div>
+      </div>
+    </div>
+    <div class="ds-spec">
+      <span class="ds-chip"><strong>--radius</strong>: 12px · Alla kort, knappar, ramar</span>
+      <span class="ds-chip">Small: 6–8px · Badges, chips</span>
+      <span class="ds-chip">Pill: 40px · Runda knappar</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ MOTION ═══════ -->
+  <section class="ds-section" id="tokens-motion">
+    <div class="ds-section-head">
+      <h2>Foundations</h2>
+      <h3>Motion</h3>
+    </div>
+    <div class="ds-canvas" style="padding:32px 40px">
+      <div class="spacing-row">
+        <div class="spacing-label" style="width:120px;font-size:0.72rem">--ease</div>
+        <div style="flex:1;font-size:0.72rem;color:var(--mid);font-family:'Courier New',monospace">cubic-bezier(0.25, 0.46, 0.45, 0.94) · UI transitions, menus</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label" style="width:120px;font-size:0.72rem">--slow</div>
+        <div style="flex:1;font-size:0.72rem;color:var(--mid);font-family:'Courier New',monospace">cubic-bezier(0.16, 1, 0.3, 1) · Image zoom, card reveals, scroll reveal</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label" style="width:120px;font-size:0.72rem">Reveal</div>
+        <div style="flex:1;font-size:0.72rem;color:var(--mid)">0.8s --slow · opacity 0→1 + translateY(32px)→0 via IntersectionObserver</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label" style="width:120px;font-size:0.72rem">Hover</div>
+        <div style="flex:1;font-size:0.72rem;color:var(--mid)">0.3–0.55s --ease · Color, opacity, small scale, gap on buttons</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-label" style="width:120px;font-size:0.72rem">Carousel</div>
+        <div style="flex:1;font-size:0.72rem;color:var(--mid)">1.2s --ease · Background crossfade · 0.95s clip-path expand</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════ BUTTONS ═══════ -->
+  <section class="ds-section" id="buttons">
+    <div class="ds-section-head">
+      <h2>Components</h2>
+      <h3>Buttons</h3>
+      <p>Alla knappar är inline-flex med gap. Hover-state ändrar bakgrundfärg eller ökar gap mot pil-ikon.</p>
+    </div>
+
+    <!-- Primary CTA -->
+    <p style="font-size:0.72rem;color:var(--mid);margin-bottom:12px;letter-spacing:0.1em;text-transform:uppercase">.hero-cta / .offer-btn</p>
+    <div class="ds-canvas btn-row">
+      <a href="#" class="hero-cta">
+        Utforska sortimentet
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+      <a href="#" class="hero-cta" style="background:var(--black)">
+        Sekundär CTA
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+    <!-- Nature banner CTA -->
+    <p style="font-size:0.72rem;color:var(--mid);margin:20px 0 12px;letter-spacing:0.1em;text-transform:uppercase">.nature-banner__cta</p>
+    <div class="ds-canvas btn-row">
+      <a href="#" class="nature-banner__cta">
+        Visa kollektion
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+    <!-- Contact button — header -->
+    <p style="font-size:0.72rem;color:var(--mid);margin:20px 0 12px;letter-spacing:0.1em;text-transform:uppercase">.contact-btn (header, ljus bakgrund)</p>
+    <div class="ds-canvas btn-row" style="background:var(--black)">
+      <a href="#" class="contact-btn">Kontakta oss</a>
+    </div>
+
+    <!-- See-all link -->
+    <p style="font-size:0.72rem;color:var(--mid);margin:20px 0 12px;letter-spacing:0.1em;text-transform:uppercase">.see-all</p>
+    <div class="ds-canvas btn-row">
+      <a href="#" class="see-all">
+        Se alla produkter
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+    <!-- Ghost button (cat-card--tint) -->
+    <p style="font-size:0.72rem;color:var(--mid);margin:20px 0 12px;letter-spacing:0.1em;text-transform:uppercase">.cat-ghost-btn (fristående)</p>
+    <div class="ds-canvas btn-row" style="background:var(--cream)">
+      <button class="cat-ghost-btn" style="position:static;opacity:1;transform:none">
+        Se kategori
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+    </div>
+
+    <!-- Alt cat button -->
+    <p style="font-size:0.72rem;color:var(--mid);margin:20px 0 12px;letter-spacing:0.1em;text-transform:uppercase">.alt-cat-btn</p>
+    <div class="ds-canvas btn-row" style="background:var(--black)">
+      <button class="alt-cat-btn">
+        Utforska <span class="arr">→</span>
+      </button>
+      <button class="alt-cat-btn" style="background:var(--cta);border-color:var(--cta)">
+        Hover-state
+      </button>
+    </div>
+
+    <div class="ds-spec">
+      <span class="ds-chip"><strong>Pill radius</strong>: var(--radius) 12px</span>
+      <span class="ds-chip"><strong>Font</strong>: 0.72–0.8rem · 500 · 0.12em spacing</span>
+      <span class="ds-chip"><strong>Hover gap</strong>: +6px mot pil-ikon</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ BADGES & LABELS ═══════ -->
+  <section class="ds-section" id="badges">
+    <div class="ds-section-head">
+      <h2>Components</h2>
+      <h3>Badges &amp; Labels</h3>
+    </div>
+    <div class="ds-canvas btn-row" style="padding:32px;flex-wrap:wrap;align-items:center;gap:12px">
+      <!-- product-tag -->
+      <span style="font-size:0.58rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;background:var(--cta);color:white;padding:4px 10px;border-radius:var(--radius)">.product-tag · Bästsäljare</span>
+      <!-- section-label -->
+      <span class="section-label" style="display:inline-flex">.section-label</span>
+      <!-- offer-badge -->
+      <span style="background:var(--sand);color:white;font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:8px 16px;border-radius:var(--radius)">.offer-badge · Månadens Erbjudande</span>
+      <!-- hero-tag -->
+      <span class="hero-tag" style="position:static">.hero-tag</span>
+      <!-- pay-badge -->
+      <span class="pay-badge">Visa</span>
+      <span class="pay-badge">Mastercard</span>
+      <span class="pay-badge klarna">Klarna</span>
+      <!-- block-num -->
+      <span class="block-num" style="color:var(--mid)">.block-num — 01</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ ICONS ═══════ -->
+  <section class="ds-section" id="icons">
+    <div class="ds-section-head">
+      <h2>Components</h2>
+      <h3>Icons</h3>
+      <p>Alla ikoner är inline SVG. Stroke-width 1.5, fill none. Storlek 14–22px beroende på kontext.</p>
+    </div>
+    <div class="ds-canvas">
+      <div class="icon-row">
+        <div class="icon-demo" title="Sök">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <div class="icon-demo" title="Varukorg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </div>
+        <div class="icon-demo" title="Pil höger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="icon-demo" title="Pil vänster">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="icon-demo" title="Plus">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+        </div>
+        <div class="icon-demo" title="Leverans">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="icon-demo" title="Blad">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V12M12 12C12 7 16 3 21 3c0 5-4 9-9 9zM12 12C12 7 8 3 3 3c0 5 4 9 9 9z"/></svg>
+        </div>
+        <div class="icon-demo" title="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+        </div>
+        <div class="icon-demo" title="Spara / löv">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 8v8M8 12h8"/></svg>
+        </div>
+        <div class="icon-demo" title="Klocka">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="icon-demo" title="Pil upp-höger (social)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="ds-spec">
+      <span class="ds-chip">stroke-width: 1.5</span>
+      <span class="ds-chip">fill: none</span>
+      <span class="ds-chip">Header: 22px</span>
+      <span class="ds-chip">Button: 14–16px</span>
+      <span class="ds-chip">Footer social: 15px</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ FROSTED GLASS ═══════ -->
+  <section class="ds-section" id="frosted">
+    <div class="ds-section-head">
+      <h2>Components</h2>
+      <h3>Frosted Glass</h3>
+      <p>Används i USP-strip, nature banners, banner-grid, header-scroll. Alla frosted-ytor delar samma padding: <code>32px 36px</code>.</p>
+    </div>
+    <div class="ds-canvas">
+      <div class="frosted-demo">
+        <img src="bergskross.jpg" alt="">
+        <div class="frosted-panel">
+          <p style="font-family:var(--serif);font-size:1.2rem;font-weight:300;color:white;margin-bottom:6px">Frosted Glass Panel</p>
+          <p style="font-size:0.72rem;color:rgba(255,255,255,0.6)">backdrop-filter: blur(16px) · rgba(255,255,255,0.12)</p>
+        </div>
+      </div>
+    </div>
+    <div class="ds-spec">
+      <span class="ds-chip"><strong>bg</strong>: rgba(255,255,255,0.12)</span>
+      <span class="ds-chip"><strong>blur</strong>: 16px</span>
+      <span class="ds-chip"><strong>border</strong>: rgba(255,255,255,0.2)</span>
+      <span class="ds-chip"><strong>padding</strong>: 32px 36px</span>
+      <span class="ds-chip"><strong>border-radius</strong>: var(--radius)</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ COUNTDOWN ═══════ -->
+  <section class="ds-section" id="countdown">
+    <div class="ds-section-head">
+      <h2>Components</h2>
+      <h3>Countdown Timer</h3>
+      <p>Använder <code>sessionStorage</code> för att bevara sluttid vid sidladdning. Ingår i Offer-sektionen.</p>
+    </div>
+    <div class="ds-canvas ds-canvas--dark countdown-demo" style="padding:40px">
+      <div class="countdown">
+        <div class="cd-unit">
+          <span class="cd-num" id="dsDays">02</span>
+          <span class="cd-label">Dagar</span>
+        </div>
+        <div class="cd-unit">
+          <span class="cd-num" id="dsHours">14</span>
+          <span class="cd-label">Timmar</span>
+        </div>
+        <div class="cd-unit">
+          <span class="cd-num" id="dsMins">38</span>
+          <span class="cd-label">Minuter</span>
+        </div>
+        <div class="cd-unit">
+          <span class="cd-num" id="dsSecs">22</span>
+          <span class="cd-label">Sekunder</span>
+        </div>
+      </div>
+    </div>
+    <div class="ds-spec">
+      <span class="ds-chip"><strong>font</strong>: var(--serif) · 2rem · weight 300</span>
+      <span class="ds-chip"><strong>border</strong>: rgba(255,255,255,0.08)</span>
+      <span class="ds-chip"><strong>persist</strong>: sessionStorage</span>
+    </div>
+  </section>
+
+
+
+
+  <!-- ═══════ PRODUCT CARDS ═══════ -->
+  <section class="ds-section" id="product-cards">
+    <div class="ds-section-head">
+      <h2>Cards</h2>
+      <h3>Product Cards</h3>
+      <p>.product-card · Aspect ratio 3:5 · Sand-toned gradient background · Add-to-cart hover state</p>
+    </div>
+    <div class="ds-canvas ds-canvas--cream" style="padding:24px">
+      <div class="products-grid">
+
+        <div class="product-card">
+          <span class="product-tag">Bästsäljare</span>
+          <img src="cat-dekorsten.png" alt="Vit Marmorgrus">
+          <div class="product-info">
+            <p class="product-cat">Singel & Makadam</p>
+            <h4>Vit Marmorgrus</h4>
+            <p class="product-size">8–12 mm · 25 kg</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">349 kr</span>
+            <button class="add-btn">Köp →</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <img src="cat-jord.png" alt="Planteringsjord">
+          <div class="product-info">
+            <p class="product-cat">Jord &amp; Bäddmaterial</p>
+            <h4>Planteringsjord</h4>
+            <p class="product-size">Premium · 40 L</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">189 kr</span>
+            <button class="add-btn">Köp →</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <span class="product-tag">Nyhet</span>
+          <img src="cat-natursingel.png" alt="Naturgrus 8–16">
+          <div class="product-info">
+            <p class="product-cat">Grus &amp; Fyllning</p>
+            <h4>Naturgrus 8–16</h4>
+            <p class="product-size">Rund · 25 kg</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">199 kr</span>
+            <button class="add-btn">Köp →</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <img src="cat-makadam.png" alt="Makadam">
+          <span class="product-tag" style="background:var(--cta)">Rea</span>
+          <div class="product-info">
+            <p class="product-cat">Bergskross</p>
+            <h4>Makadam</h4>
+            <p class="product-size">Fraktion 16–32 mm</p>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">249 kr</span>
+            <button class="add-btn">Köp →</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════ ALT CATEGORY CARDS ═══════ -->
+  <section class="ds-section" id="alt-cat-cards">
+    <div class="ds-section-head">
+      <h2>Cards</h2>
+      <h3>Alt Category Cards</h3>
+      <p>.alt-cat-card · Sibling dim-effect via CSS :has() · Scroll-carousel on mobile · Dark and light variants</p>
+    </div>
+
+    <p style="font-size:0.72rem;color:var(--mid);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.1em">Dark variant (default)</p>
+    <div class="ds-canvas" style="background:var(--black);padding:32px">
+      <div class="alt-cat-grid">
+        <div class="alt-cat-card">
+          <img src="jord.jpg" alt="Jord" style="object-position:left bottom">
+          <div class="alt-cat-overlay"></div>
+          <div class="alt-cat-content"><h3>Jord</h3><p>Gräsmatte-, trädgårds- &amp; rabattjord</p></div>
+          <div class="alt-cat-footer"><a href="#" class="alt-cat-btn">Utforska <span class="arr">›</span></a></div>
+        </div>
+        <div class="alt-cat-card">
+          <img src="makadam.jpg" alt="Makadam">
+          <div class="alt-cat-overlay"></div>
+          <div class="alt-cat-content"><h3>Makadam</h3><p>Krossat berg för uppfarter &amp; dränering</p></div>
+          <div class="alt-cat-footer"><a href="#" class="alt-cat-btn">Utforska <span class="arr">›</span></a></div>
+        </div>
+        <div class="alt-cat-card">
+          <img src="natursingel.jpg" alt="Natursingel">
+          <div class="alt-cat-overlay"></div>
+          <div class="alt-cat-content"><h3>Natursingel</h3><p>Naturligt rundad singel i flera fraktioner</p></div>
+          <div class="alt-cat-footer"><a href="#" class="alt-cat-btn">Utforska <span class="arr">›</span></a></div>
+        </div>
+        <div class="alt-cat-card">
+          <img src="dekorsten.jpg" alt="Dekorsten">
+          <div class="alt-cat-overlay"></div>
+          <div class="alt-cat-content"><h3>Dekorsten</h3><p>Vit marmor, färgad singel och natursten</p></div>
+          <div class="alt-cat-footer"><a href="#" class="alt-cat-btn">Utforska <span class="arr">›</span></a></div>
+        </div>
+        <div class="alt-cat-card">
+          <img src="bergskross.jpg" alt="Bergkross">
+          <div class="alt-cat-overlay"></div>
+          <div class="alt-cat-content"><h3>Stenmjöl &amp;<br>Bergkross</h3><p>Packning, dränering &amp; markarbeten</p></div>
+          <div class="alt-cat-footer"><a href="#" class="alt-cat-btn">Utforska <span class="arr">›</span></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════ HEADER ═══════ -->
+  <section class="ds-section" id="section-header">
+    <div class="ds-section-head">
+      <h2>Sections</h2>
+      <h3>Header</h3>
+      <p>Fixed, transparent mot dark hero. Scrolled-state: <code>.scrolled</code> — frosted cream bakgrund, mörk text. Höjd: 80px.</p>
+    </div>
+    <div class="ds-canvas" style="position:relative;height:100px;overflow:hidden">
+      <!-- Transparent state (dark bg) -->
+      <div style="position:absolute;inset:0;background:var(--black);"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 48px;justify-content:space-between;">
+        <a class="logo" href="#" style="font-family:var(--serif);font-size:1.4rem;font-weight:600;color:white">Villa<span style="color:var(--sand)">Grus</span></a>
+        <nav style="gap:32px">
+          <a href="#" style="color:rgba(255,255,255,0.85);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase">Produkter</a>
+          <a href="#" style="color:rgba(255,255,255,0.85);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase">Inspiration</a>
+          <a href="#" style="color:rgba(255,255,255,0.85);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase">Om oss</a>
+        </nav>
+        <a href="#" class="contact-btn">Kontakta oss</a>
+      </div>
+    </div>
+    <p style="font-size:0.72rem;color:var(--mid);margin:12px 0;text-transform:uppercase;letter-spacing:0.1em">Scrolled state (.scrolled)</p>
+    <div class="ds-canvas scrolled" style="position:relative;height:80px;overflow:hidden;background:rgba(248,246,243,0.95);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--border)">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 48px;justify-content:space-between;">
+        <a class="logo" href="#" style="font-family:var(--serif);font-size:1.4rem;font-weight:600;color:var(--black)">Villa<span style="color:var(--sand)">Grus</span></a>
+        <nav style="gap:32px">
+          <a href="#" style="color:var(--mid);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase">Produkter</a>
+          <a href="#" style="color:var(--mid);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase">Inspiration</a>
+        </nav>
+        <a href="#" class="contact-btn" style="border-color:var(--black);color:var(--black)">Kontakta oss</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════ HERO ═══════ -->
+  <section class="ds-section" id="section-hero">
+    <div class="ds-section-head">
+      <h2>Sections</h2>
+      <h3>Hero</h3>
+      <p>.hero · 100vh · Video eller bild bakgrund. Gradient overlay tyngre mot botten-vänster. USP-strip fast i botten.</p>
+    </div>
+    <div class="ds-canvas section-frame section-frame--hero" style="position:relative">
+      <div class="hero" style="height:680px;min-height:0;padding-top:0;padding-bottom:100px">
+        <div class="hero-bg">
+          <img src="bergskross.jpg" alt="" class="loaded">
+        </div>
+        <div class="hero-gradient"></div>
+        <div class="hero-content" style="padding:0 40px">
+          <span class="hero-tag">Natursten &amp; Grus — Sedan 2004</span>
+          <h1>Skapa en <em>vacker</em><br>trädgård med rätt material</h1>
+          <p class="hero-sub">Vi levererar naturmaterial av högsta kvalitet direkt hem till dig.</p>
+          <a href="#" class="hero-cta">
+            Utforska sortimentet
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </div>
+      <!-- USP strip -->
+      <div class="usp-strip" style="position:absolute;bottom:0">
+        <div class="usp-item">
+          <div class="usp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <div class="usp-text"><h4>Fri frakt</h4><p>Över 1 000 kr</p></div>
+        </div>
+        <div class="usp-item">
+          <div class="usp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="usp-text"><h4>48h leverans</h4><p>Vardagar</p></div>
+        </div>
+        <div class="usp-item">
+          <div class="usp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M12 22V12M12 12C12 7 16 3 21 3c0 5-4 9-9 9zM12 12C12 7 8 3 3 3c0 5 4 9 9 9z"/></svg></div>
+          <div class="usp-text"><h4>Naturmaterial</h4><p>Hållbart &amp; äkta</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-spec">
+      <span class="ds-chip"><strong>height</strong>: 100vh · min-height 700px</span>
+      <span class="ds-chip"><strong>padding-bottom</strong>: 130px (USP clearance)</span>
+      <span class="ds-chip">.hero-tag · .hero h1 · .hero-sub · .hero-cta</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ NATURE BANNER ═══════ -->
+  <section class="ds-section" id="section-nature">
+    <div class="ds-section-head">
+      <h2>Sections</h2>
+      <h3>Nature Banner</h3>
+      <p>Tre varianter: default (centered), frosted (.nature-banner--frosted), left-aligned (.nature-banner--left). Höjd 700px.</p>
+    </div>
+
+    <p style="font-size:0.72rem;color:var(--mid);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.1em">Default (centered)</p>
+    <div class="ds-canvas section-frame section-frame--banner">
+      <div class="nature-banner" style="height:600px">
+        <div class="nature-banner__bg">
+          <img src="jord.jpg" alt="">
+        </div>
+        <div class="nature-banner__fade"></div>
+        <div class="nature-banner__content" style="margin-bottom:40px">
+          <span class="block-num">02</span>
+          <h2>Skapa din <em>drömträdgård</em></h2>
+          <p>Med rätt underlag blomstrar varje trädgård.</p>
+          <a href="#" class="nature-banner__cta">Se sortimentet <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:0.72rem;color:var(--mid);margin:20px 0 10px;text-transform:uppercase;letter-spacing:0.1em">Frosted variant · .nature-banner--frosted</p>
+    <div class="ds-canvas section-frame section-frame--banner">
+      <div class="nature-banner nature-banner--frosted" style="height:600px;justify-content:flex-start;align-items:flex-start">
+        <div class="nature-banner__bg">
+          <img src="jord-4.jpg" alt="">
+        </div>
+        <div class="nature-banner__fade"></div>
+        <div class="nature-banner__content">
+          <span class="block-num">03</span>
+          <h2>Hållbara <em>naturmaterial</em></h2>
+          <p>Bark och täckmaterial för lågt underhåll.</p>
+          <a href="#" class="nature-banner__cta">Läs mer <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════ BANNER GRID ═══════ -->
+  <section class="ds-section" id="section-banner-grid">
+    <div class="ds-section-head">
+      <h2>Sections</h2>
+      <h3>Banner Grid 2×2</h3>
+      <p>.banner-grid · 2-kolumns grid · Valfritt frostad overlay (.banner-grid__content--frosted)</p>
+    </div>
+    <div class="ds-canvas" style="height:360px;overflow:hidden">
+      <div class="banner-grid" style="height:360px">
+        <div class="banner-grid__item" style="height:360px">
+          <img src="bergskross.jpg" alt="">
+          <div class="banner-grid__fade"></div>
+          <div class="banner-grid__content">
+            <span class="block-num">01</span>
+            <h3>Singel &amp; <em>Makadam</em></h3>
+            <a href="#" class="banner-grid__cta">Se kollektion <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+        <div class="banner-grid__item" style="height:360px">
+          <img src="natursingel.jpg" alt="">
+          <div class="banner-grid__fade"></div>
+          <div class="banner-grid__content banner-grid__content--frosted">
+            <span class="block-num">02</span>
+            <h3>Natursten &amp; <em>Marksten</em></h3>
+            <a href="#" class="banner-grid__cta">Se kollektion <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════ OFFER SECTION ═══════ -->
+  <section class="ds-section" id="section-offer">
+    <div class="ds-section-head">
+      <h2>Sections</h2>
+      <h3>Offer Section + Companion Cards</h3>
+      <p>.offer-section--card · .offer-grid · Tre layoutvarianter: 100% (--1), 50/50 (--2), 25×4 (--4). Erbjudandekort (.offer-inner) kombineras med kategori-spotlight (.offer-companion).</p>
+    </div>
+
+    <p style="font-size:0.72rem;color:var(--mid);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.1em">50 / 50 — .offer-grid--2 · Erbjudande + Kategori-spotlight</p>
+    <div class="ds-canvas" style="padding:0;background:var(--cream)">
+      <section class="offer-section offer-section--card">
+        <div class="offer-grid offer-grid--2">
+
+          <div class="offer-inner">
+            <div class="offer-img">
+              <img src="makadam-2.jpg" alt="Makadam">
+              <span class="offer-badge">Månadens erbjudande</span>
+            </div>
+            <div class="offer-content">
+              <div class="offer-eyebrow">Begränsat erbjudande</div>
+              <h2 class="offer-title">Makadam<br><em>till specialpris</em></h2>
+              <p class="offer-desc">Vår populäraste bergskross-produkt — perfekt för uppfarter, dränering och markarbeten. Nu till kraftigt reducerat pris.</p>
+              <div class="offer-price">
+                <span class="offer-price-current">249 kr</span>
+                <span class="offer-price-old">350 kr</span>
+                <span class="offer-price-unit">/ säck</span>
+              </div>
+              <div class="offer-countdown">
+                <div class="offer-unit"><span class="offer-num">07</span><span class="offer-unit-label">Dagar</span></div>
+                <div class="offer-unit"><span class="offer-num">14</span><span class="offer-unit-label">Timmar</span></div>
+                <div class="offer-unit"><span class="offer-num">26</span><span class="offer-unit-label">Minuter</span></div>
+                <div class="offer-unit"><span class="offer-num">07</span><span class="offer-unit-label">Sekunder</span></div>
+              </div>
+              <a href="#" class="offer-cta">Köp nu <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            </div>
+          </div>
+
+          <div class="offer-companion">
+            <div class="offer-companion__img"><img src="natursingel.jpg" alt="Natursingel"></div>
+            <div class="offer-companion__overlay"></div>
+            <div class="offer-companion__body">
+              <p class="offer-companion__eyebrow">Kategori</p>
+              <h2 class="offer-companion__title">Natursingel<br><em>i alla fraktioner</em></h2>
+              <p class="offer-companion__desc">Från fint dekorsgrus till grov dräneringssingel — naturligt rundade stenar för varje ändamål.</p>
+              <a href="#" class="offer-companion__cta">Utforska sortimentet <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <p style="font-size:0.72rem;color:var(--mid);margin:24px 0 10px;text-transform:uppercase;letter-spacing:0.1em">25 × 4 — .offer-grid--4 · Kategori-spotlights</p>
+    <div class="ds-canvas" style="padding:0;background:var(--cream)">
+      <section class="offer-section offer-section--card">
+        <div class="offer-grid offer-grid--4">
+
+          <div class="offer-companion">
+            <div class="offer-companion__img"><img src="jord.jpg" alt="Jord"></div>
+            <div class="offer-companion__overlay"></div>
+            <div class="offer-companion__body">
+              <p class="offer-companion__eyebrow">Kategori</p>
+              <h2 class="offer-companion__title">Jord &amp;<br><em>Planteringsjord</em></h2>
+              <p class="offer-companion__desc">Gräsmatte-, trädgårds- och rabattjord för varje ändamål.</p>
+              <a href="#" class="offer-companion__cta">Utforska <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            </div>
+          </div>
+
+          <div class="offer-companion">
+            <div class="offer-companion__img"><img src="dekorsten.jpg" alt="Dekorsten"></div>
+            <div class="offer-companion__overlay"></div>
+            <div class="offer-companion__body">
+              <p class="offer-companion__eyebrow">Kategori</p>
+              <h2 class="offer-companion__title">Dekorsten &amp;<br><em>Marmorgrus</em></h2>
+              <p class="offer-companion__desc">Vit marmor, färgad singel och exklusiv natursten.</p>
+              <a href="#" class="offer-companion__cta">Utforska <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            </div>
+          </div>
+
+          <div class="offer-companion">
+            <div class="offer-companion__img"><img src="bergskross.jpg" alt="Bergkross"></div>
+            <div class="offer-companion__overlay"></div>
+            <div class="offer-companion__body">
+              <p class="offer-companion__eyebrow">Kategori</p>
+              <h2 class="offer-companion__title">Bergkross &amp;<br><em>Stenmjöl</em></h2>
+              <p class="offer-companion__desc">Packning, dränering och markarbeten för alla projekt.</p>
+              <a href="#" class="offer-companion__cta">Utforska <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            </div>
+          </div>
+
+          <div class="offer-companion">
+            <div class="offer-companion__img"><img src="natursingel.jpg" alt="Natursingel"></div>
+            <div class="offer-companion__overlay"></div>
+            <div class="offer-companion__body">
+              <p class="offer-companion__eyebrow">Kategori</p>
+              <h2 class="offer-companion__title">Natursingel<br><em>i alla fraktioner</em></h2>
+              <p class="offer-companion__desc">Naturligt rundade stenar från fint dekorsgrus till grov dränering.</p>
+              <a href="#" class="offer-companion__cta">Utforska <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <div class="ds-spec">
+      <span class="ds-chip">.offer-section--card → display: block · padding: 120px 48px · background: var(--cream)</span>
+      <span class="ds-chip">.offer-grid--2 → grid 1fr 1fr · gap: 24px</span>
+      <span class="ds-chip">.offer-grid--4 → grid repeat(4,1fr) · gap: 24px</span>
+      <span class="ds-chip">.offer-inner → mörkt kort · bild + innehåll</span>
+      <span class="ds-chip">.offer-companion → mörkt bildkort · overlay + body nere till vänster</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ BLOG CAROUSEL ═══════ -->
+  <section class="ds-section" id="section-carousel">
+    <div class="ds-section-head">
+      <h2>Sections</h2>
+      <h3>Blog / Inspiration Carousel</h3>
+      <p>Full-bleed sektion. Vänster: hero-text + CTA. Höger: 4 kort (desktop). Auto-advance med progress bar. Clip-path animation på aktiv bakgrund.</p>
+    </div>
+    <div class="ds-spec" style="margin-bottom:16px">
+      <span class="ds-chip"><strong>AUTO_MS</strong>: 3500ms</span>
+      <span class="ds-chip"><strong>VISIBLE</strong>: 4 cards</span>
+      <span class="ds-chip"><strong>ANIM_MS</strong>: 950ms</span>
+      <span class="ds-chip"><strong>CLIP_MS</strong>: 1050ms</span>
+      <span class="ds-chip"><strong>Card</strong>: 162×240px mobile · 200×260px desktop</span>
+      <span class="ds-chip"><strong>.blog-cards-outer</strong>: 53% desktop · overflow:visible mobile</span>
+    </div>
+    <div class="ds-canvas" style="background:#0d0d0b;border-color:transparent;height:600px;overflow:hidden;position:relative">
+      <div style="position:absolute;inset:0">
+        <img src="bergskross.jpg" style="width:100%;height:100%;object-fit:cover;opacity:0.4">
+      </div>
+      <div style="position:absolute;inset:0;background:linear-gradient(105deg,rgba(10,10,8,0.84) 0%,rgba(10,10,8,0.52) 42%,rgba(10,10,8,0.12) 100%)"></div>
+      <div style="position:absolute;top:3px;left:0;right:0;height:3px;background:rgba(255,255,255,0.1)">
+        <div style="width:60%;height:100%;background:var(--cta)"></div>
+      </div>
+      <div style="position:absolute;left:40px;top:50%;transform:translateY(-50%);z-index:3;color:white;max-width:300px">
+        <span style="display:block;font-size:11px;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;color:var(--sand);margin-bottom:12px">Inspiration</span>
+        <p style="font-family:var(--serif);font-size:1.8rem;font-weight:300;line-height:1.15;margin-bottom:16px">Japansk <em>trädgård</em> med grus och sten</p>
+        <a href="#" style="display:inline-flex;align-items:center;gap:8px;background:var(--cta);color:white;font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:10px 20px;border-radius:var(--radius)">Läs mer →</a>
+      </div>
+      <!-- Sample cards -->
+      <div style="position:absolute;right:0;top:0;bottom:0;display:flex;align-items:center;gap:14px;padding-right:40px">
+        <div style="width:180px;height:300px;border-radius:12px;overflow:hidden;flex-shrink:0;border:2px solid rgba(255,255,255,0.35)">
+          <img src="bergskross.jpg" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div style="width:180px;height:300px;border-radius:12px;overflow:hidden;flex-shrink:0;opacity:0.6">
+          <img src="natursingel.jpg" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div style="width:180px;height:300px;border-radius:12px;overflow:hidden;flex-shrink:0;opacity:0.35">
+          <img src="jord.jpg" style="width:100%;height:100%;object-fit:cover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════ ABOUT ═══════ -->
+  <section class="ds-section" id="section-about">
+    <div class="ds-section-head">
+      <h2>Sections</h2>
+      <h3>About Section</h3>
+      <p>.about-section · 1fr 1fr grid · Stats grid 3-kolumner · Dekorativt offset-hörn på bild (.about-image::before)</p>
+    </div>
+    <div class="ds-canvas ds-canvas--cream" style="overflow:hidden">
+      <div class="about-section" style="grid-template-columns:1fr 1fr;gap:60px;padding:48px 40px">
+        <div class="about-image" style="aspect-ratio:6/5">
+          <img src="jord.jpg" alt="">
+        </div>
+        <div class="about-content">
+          <span class="section-label">Om VillaGrus</span>
+          <h2 class="section-title">Naturmaterial<br>för <em>nordiska</em> trädgårdar</h2>
+          <p>Vi källsorterar och väljer ut material från pålitliga leverantörer — granit från Skandinavien, marmor från Medelhavet. Allt testat för nordiskt klimat.</p>
+          <div class="stats-grid">
+            <div class="stat-item"><div class="stat-num">200+</div><div class="stat-label">Produkter</div></div>
+            <div class="stat-item"><div class="stat-num">20 år</div><div class="stat-label">Erfarenhet</div></div>
+            <div class="stat-item"><div class="stat-num">48h</div><div class="stat-label">Leverans</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-spec">
+      <span class="ds-chip">.about-image → aspect-ratio 6/5</span>
+      <span class="ds-chip">.stats-grid → 3-col with 1px gap background</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <section class="ds-section" id="section-footer">
+    <div class="ds-section-head">
+      <h2>Sections</h2>
+      <h3>Footer</h3>
+      <p>.footer-top: 2fr 1fr 1fr 1fr grid · Social-links · Pay-badges · Copyright row.</p>
+    </div>
+    <div class="ds-canvas section-frame section-frame--footer">
+      <footer style="padding:48px 40px 32px">
+        <div class="footer-top" style="padding-bottom:40px;margin-bottom:28px">
+          <div class="footer-brand">
+            <span class="logo-footer">VillaGrus</span>
+            <p>Naturmaterial för nordiska trädgårdar sedan 2004.</p>
+            <div class="footer-social">
+              <a href="#" class="social-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+              </a>
+              <a href="#" class="social-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h5>Produkter</h5>
+            <ul>
+              <li><a href="#">Singel & Makadam</a></li>
+              <li><a href="#">Marksten</a></li>
+              <li><a href="#">Jord & Bäddmaterial</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Information</h5>
+            <ul>
+              <li><a href="#">Om oss</a></li>
+              <li><a href="#">Leverans & Frakt</a></li>
+              <li><a href="#">Kontakt</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Inspiration</h5>
+            <ul>
+              <li><a href="#">Blogg</a></li>
+              <li><a href="#">Guider</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 VillaGrus AB — Org.nr 556xxx-xxxx</p>
+          <div class="payment-icons">
+            <span class="pay-badge">Visa</span>
+            <span class="pay-badge">Mastercard</span>
+            <span class="pay-badge klarna">Klarna</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+
+
+  <!-- ═══════ FEATURED BANNER ═══════ -->
+  <section class="ds-section" id="section-feat-banner">
+    <div class="ds-section-head">
+      <h2>New Components</h2>
+      <h3>Featured Banner</h3>
+      <p>.feat-banner: padded full-width bildkort med frostat glaskort nere till vänster. padding: 48px 40px · border-radius: 20px · höjd: 840px. Label med streck (.feat-banner__num), serif-rubrik, brödtext och CTA-knapp.</p>
+    </div>
+    <div class="ds-canvas section-frame" style="padding:0;background:#f0ede8">
+      <section class="feat-banner" style="padding:32px">
+        <div class="feat-banner__img-wrap" style="height:840px">
+          <img src="jord-4.jpg" alt="Featured" style="width:100%;height:100%;object-fit:cover">
+          <div class="feat-banner__overlay"></div>
+          <div class="feat-banner__card">
+            <span class="feat-banner__num">Utvalda produkter</span>
+            <h2 class="feat-banner__title">Rätt jord.<br><em>För varje ändamål.</em></h2>
+            <p class="feat-banner__sub">Från gräsmattejord till rabattjord — vi har vad din trädgård behöver.</p>
+            <a href="#" class="feat-banner__cta">
+              Utforska jordtyper
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="ds-chips">
+      <span class="ds-chip">.feat-banner → padding: 48px 40px · background: var(--cream)</span>
+      <span class="ds-chip">.feat-banner__img-wrap → 840px · border-radius: 20px</span>
+      <span class="ds-chip">.feat-banner__card → frostat glas · position: absolute · bottom: 72px left: 64px</span>
+      <span class="ds-chip">.feat-banner__num → sand-färg med ::before streck</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ PULL QUOTE ═══════ -->
+  <section class="ds-section" id="section-pull-quote">
+    <div class="ds-section-head">
+      <h2>New Components</h2>
+      <h3>Pull Quote</h3>
+      <p>.pull-quote: svart bakgrund med stor serif-citattecken till vänster, vänsterställd citat-text och siffror till höger. grid-template-columns: 1fr auto.</p>
+    </div>
+    <div class="ds-canvas section-frame" style="padding:0">
+      <section class="pull-quote" style="padding:72px 64px">
+        <div class="pull-quote__num" style="display:none"></div>
+        <div class="pull-quote__body">
+          <span class="pull-quote__mark">"</span>
+          <p class="pull-quote__text">Rätt material gör skillnaden mellan en trädgård som kräver tid — och en som ger tid tillbaka.</p>
+          <p class="pull-quote__author">— Alexander Johansson, VD Villagrus</p>
+        </div>
+        <div class="pull-quote__stats">
+          <div><div class="pull-quote__stat-val">48h</div><div class="pull-quote__stat-label">Leveranstid</div></div>
+          <div><div class="pull-quote__stat-val">10 år</div><div class="pull-quote__stat-label">Erfarenhet</div></div>
+        </div>
+      </section>
+    </div>
+    <div class="ds-chips">
+      <span class="ds-chip">.pull-quote → background: var(--black) · grid 1fr auto · gap: 140px</span>
+      <span class="ds-chip">.pull-quote__mark → var(--sand) · font-size: 8rem</span>
+      <span class="ds-chip">.pull-quote__body → max-width: 50% · text-align: center</span>
+      <span class="ds-chip">.pull-quote__stat-val → var(--sand) · serif · 2.5rem</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ EDITORIAL QUOTE ═══════ -->
+  <section class="ds-section" id="section-editorial-quote">
+    <div class="ds-section-head">
+      <h2>New Components</h2>
+      <h3>Editorial Quote</h3>
+      <p>.editorial-quote · Tvåkolumns editoriallayout · Stor serif-rubrik vänster, body + textlänk höger (offset nedåt). Två varianter: ljus (default) och mörk (.editorial-quote--dark).</p>
+    </div>
+
+    <p style="font-size:0.72rem;color:var(--mid);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.1em">Ljus variant (default)</p>
+    <div class="ds-canvas" style="padding:0;background:var(--cream)">
+      <section class="editorial-quote" style="padding:80px 56px">
+        <h2 class="editorial-quote__heading">Leverans som når hela vägen fram — oavsett hur din tomt ser ut.</h2>
+        <div class="editorial-quote__right">
+          <p class="editorial-quote__body">Vi levererar med kranbil — liten eller stor beroende på vad din tomt kräver — och för dig som behöver större volymer kör vi även ut tipplass. Enkelt, smidigt och alltid på dina villkor.</p>
+          <a href="#" class="editorial-quote__link">Läs mer om leverans</a>
+        </div>
+      </section>
+    </div>
+
+    <p style="font-size:0.72rem;color:var(--mid);margin:24px 0 10px;text-transform:uppercase;letter-spacing:0.1em">Mörk variant · .editorial-quote--dark</p>
+    <div class="ds-canvas" style="padding:0">
+      <section class="editorial-quote editorial-quote--dark" style="padding:80px 56px">
+        <h2 class="editorial-quote__heading">Leverans som når hela vägen fram — oavsett hur din tomt ser ut.</h2>
+        <div class="editorial-quote__right">
+          <p class="editorial-quote__body">Vi levererar med kranbil — liten eller stor beroende på vad din tomt kräver — och för dig som behöver större volymer kör vi även ut tipplass. Enkelt, smidigt och alltid på dina villkor.</p>
+          <a href="#" class="editorial-quote__link">Läs mer om leverans</a>
+        </div>
+      </section>
+    </div>
+
+    <div class="ds-spec">
+      <span class="ds-chip">.editorial-quote → grid 1fr 1fr · gap: 80px · background: var(--cream)</span>
+      <span class="ds-chip">.editorial-quote--dark → background: var(--black) · text: white · link: var(--sand)</span>
+      <span class="ds-chip">.editorial-quote__heading → serif · clamp(2.6–5rem) · weight 600</span>
+      <span class="ds-chip">.editorial-quote__right → padding-top: clamp(60–120px)</span>
+      <span class="ds-chip">.editorial-quote__link → 0.65rem · letter-spacing 0.22em · border-bottom</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ CONTACT SECTION ═══════ -->
+  <section class="ds-section" id="section-contact">
+    <div class="ds-section-head">
+      <h2>New Components</h2>
+      <h3>Contact Section</h3>
+      <p>.contact-section: tvåkolumnslayout med kontaktinfo till vänster och vitt formulärskort till höger. background: var(--cream).</p>
+    </div>
+    <div class="ds-canvas section-frame" style="padding:0;background:var(--cream)">
+      <section class="contact-section" style="padding:64px">
+        <div class="contact-inner">
+          <div class="contact-left">
+            <div class="section-label">Kontakt</div>
+            <h2 class="section-title">Har du en fråga?<br><em>Vi hjälper dig.</em></h2>
+            <p style="color:rgba(30,28,24,0.65);line-height:1.75;margin:24px 0 36px;font-size:15px">Oavsett om det gäller produktval, leverans eller mängdberäkning — hör av dig så hjälper vi dig hitta rätt.</p>
+            <ul class="contact-details">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" style="stroke:var(--cta)"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14h-.08z"/></svg><span>010-123 45 67</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" style="stroke:var(--cta)"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>info@villagrus.se</span></li>
+            </ul>
+          </div>
+          <form class="contact-form" onsubmit="return false">
+            <div class="contact-form__group">
+              <label>Namn</label>
+              <input type="text" placeholder="Ditt namn">
+            </div>
+            <div class="contact-form__group">
+              <label>E-post</label>
+              <input type="email" placeholder="din@email.se">
+            </div>
+            <div class="contact-form__group">
+              <label>Meddelande</label>
+              <textarea rows="4" placeholder="Hur kan vi hjälpa dig?"></textarea>
+            </div>
+            <button type="submit" class="contact-form__btn">
+              Skicka meddelande
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
+    <div class="ds-chips">
+      <span class="ds-chip">.contact-inner → grid 1fr 1fr · gap: 80px</span>
+      <span class="ds-chip">.contact-form → white bg · border-radius: 20px · padding: 48px</span>
+      <span class="ds-chip">.contact-form__group input/textarea → border: 1px · focus: var(--cta)</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ NAV DRAWER ═══════ -->
+  <section class="ds-section" id="section-nav-drawer">
+    <div class="ds-section-head">
+      <h2>New Components</h2>
+      <h3>Nav Drawer</h3>
+      <p>.nav-drawer: mobilnavigering som glider in från höger. Frostat glas · width: min(340px, 85vw). Triggas av .hamburger-knappen som visas vid ≤1024px. Stängs med kryss, backdrop-klick eller Escape.</p>
+    </div>
+    <div class="ds-canvas" style="background:var(--cream);border-radius:12px;overflow:hidden;position:relative;height:600px;display:flex">
+      <!-- Static preview of the drawer -->
+      <div style="position:absolute;top:0;right:0;width:300px;height:100%;background:rgba(252,250,247,0.72);backdrop-filter:blur(28px);display:flex;flex-direction:column;border-left:1px solid rgba(255,255,255,0.4)">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid rgba(30,28,24,0.08)">
+          <span style="font-family:var(--serif);font-size:1.4rem;font-weight:400;color:var(--black)">Navigering</span>
+          <div style="width:34px;height:34px;background:rgba(30,28,24,0.07);border-radius:50%;display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </div>
+        </div>
+        <div style="flex:1;padding:16px 20px;overflow-y:auto">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 0">
+              <div style="width:32px;height:32px;background:rgba(30,28,24,0.06);border-radius:8px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" width="16" height="16"><path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/></svg></div>
+              <span style="font-size:.95rem">Hem</span>
+              <div style="margin-left:auto;width:34px;height:34px;border:1px solid rgba(30,28,24,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 0">
+              <div style="width:32px;height:32px;background:rgba(30,28,24,0.06);border-radius:8px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" width="16" height="16"><rect x="2" y="2" width="7" height="7" rx="1"/><rect x="11" y="2" width="7" height="7" rx="1"/><rect x="2" y="11" width="7" height="7" rx="1"/><rect x="11" y="11" width="7" height="7" rx="1"/></svg></div>
+              <span style="font-size:.95rem">Produkter</span>
+              <div style="margin-left:auto;width:34px;height:34px;border:1px solid rgba(30,28,24,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 0">
+              <div style="width:32px;height:32px;background:rgba(30,28,24,0.06);border-radius:8px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" width="16" height="16"><rect x="2" y="3" width="16" height="12" rx="1"/><path d="M6 9h8M6 12h5"/></svg></div>
+              <span style="font-size:.95rem">Inspiration</span>
+              <div style="margin-left:auto;width:34px;height:34px;border:1px solid rgba(30,28,24,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:0 20px;border-top:1px solid rgba(30,28,24,0.08)">
+          <div style="display:flex;align-items:center;gap:12px;padding:16px 0">
+            <div style="width:32px;height:32px;background:rgba(30,28,24,0.06);border-radius:8px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" width="16" height="16"><circle cx="10" cy="7" r="3"/><path d="M4 17c0-2.8 2.7-5 6-5s6 2.2 6 5"/></svg></div>
+            <span style="font-size:.95rem">Logga in</span>
+            <div style="margin-left:auto;width:34px;height:34px;border:1px solid rgba(30,28,24,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+          </div>
+          <div style="height:1px;background:rgba(30,28,24,0.08);margin-bottom:16px"></div>
+          <div style="display:flex;align-items:center;gap:8px;background:var(--black);color:white;padding:13px 16px;border-radius:10px;margin-bottom:28px;font-size:13px">
+            Kontakta oss
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="margin-left:auto"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-chips">
+      <span class="ds-chip">.nav-drawer → frostat glas · translateX(100%) → öppen: translateX(0)</span>
+      <span class="ds-chip">.hamburger → visas vid max-width: 1024px · döljer header nav + .contact-btn</span>
+      <span class="ds-chip">.nav-drawer__icon → 32px · background: rgba(30,28,24,0.06) · border-radius: 8px</span>
+      <span class="ds-chip">.nav-drawer__arrow → 34px · outlined cirkel · margin-left: auto</span>
+      <span class="ds-chip">:active → scale(0.97) + outline</span>
+    </div>
+  </section>
+
+
+  <!-- ═══════ ZIP MODAL ═══════ -->
+  <section class="ds-section" id="section-zip-modal">
+    <div class="ds-section-head">
+      <h2>New Components</h2>
+      <h3>Zip Modal (Postnummer)</h3>
+      <p>.zip-modal: dyker upp 0.8s efter sidladdning. Frostad backdrop (.zip-backdrop) + centerat kort med platsikon, rubrik, postnummer-input och knapp. Stängs via kryss, backdrop-klick eller Escape.</p>
+    </div>
+    <div class="ds-canvas" style="background:rgba(10,10,8,0.6);border-radius:12px;overflow:hidden;position:relative;min-height:500px;display:flex;align-items:center;justify-content:center">
+      <!-- Static preview — uses actual .zip-modal classes -->
+      <div class="zip-modal" style="position:relative;top:auto;left:auto;transform:none;opacity:1;pointer-events:all">
+        <button class="zip-modal__close" style="pointer-events:none">×</button>
+        <div class="zip-modal__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        </div>
+        <h2 class="zip-modal__title">Levererar vi till dig?</h2>
+        <p class="zip-modal__sub">Ange ditt postnummer för att se om vi levererar till din adress.</p>
+        <form class="zip-modal__form" onsubmit="return false">
+          <input class="zip-modal__input" type="text" placeholder="123 45">
+          <button class="zip-modal__btn" type="submit">
+            Kontrollera
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </button>
+        </form>
+        <p class="zip-modal__note">Vi levererar till hela Sverige inom 48h.</p>
+      </div>
+    </div>
+    <div class="ds-chips">
+      <span class="ds-chip">.zip-backdrop → fixed · blur(6px) · rgba(10,10,8,0.6) · opacity 0→1</span>
+      <span class="ds-chip">.zip-modal → white · border-radius: 24px · translateY(-48%)→(-50%) on open</span>
+      <span class="ds-chip">Auto-formatering av postnummer "123 45" via input-event i main.js</span>
+      <span class="ds-chip">Triggas: setTimeout(openModal, 800) vid sidladdning</span>
+    </div>
+  </section>
+
+
+</main>
+
+<script>
+  /* Highlight active sidebar link based on scroll position */
+  const links = document.querySelectorAll('.ds-nav-group a');
+  const sections = document.querySelectorAll('.ds-section[id]');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.ds-nav-group a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { root: null, rootMargin: '0px 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(s => obs.observe(s));
+
+  /* Live countdown demo */
+  (function () {
+    function pad(n) { return String(n).padStart(2, '0'); }
+    const KEY = 'ds-countdown-end';
+    let end = parseInt(sessionStorage.getItem(KEY));
+    if (!end || end < Date.now()) {
+      end = Date.now() + (2 * 86400 + 14 * 3600 + 38 * 60 + 22) * 1000;
+      sessionStorage.setItem(KEY, end);
+    }
+    function tick() {
+      const diff = Math.max(0, end - Date.now());
+      const days  = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins  = Math.floor((diff % 3600000) / 60000);
+      const secs  = Math.floor((diff % 60000) / 1000);
+      document.getElementById('dsDays').textContent  = pad(days);
+      document.getElementById('dsHours').textContent = pad(hours);
+      document.getElementById('dsMins').textContent  = pad(mins);
+      document.getElementById('dsSecs').textContent  = pad(secs);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VillaGrus — Startsida E (Bento Katalog)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── HERO — centred typographic splash ── */
+    .cat-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 680px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: var(--cream);
+    }
+    .cat-hero__bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .cat-hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 60%;
+      filter: brightness(0.55) saturate(0.8);
+    }
+    .cat-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(26,26,26,0.15) 0%,
+        rgba(26,26,26,0.5) 50%,
+        rgba(26,26,26,0.75) 100%
+      );
+    }
+    .cat-hero__content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .cat-hero__eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 28px;
+    }
+    .cat-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(4rem, 9vw, 10rem);
+      font-weight: 300;
+      line-height: 0.88;
+      color: white;
+      letter-spacing: -0.03em;
+    }
+    .cat-hero__title em {
+      font-style: italic;
+      color: var(--sand-lt);
+    }
+    .cat-hero__divider {
+      width: 1px;
+      height: 60px;
+      background: rgba(255,255,255,0.3);
+      margin: 36px auto;
+    }
+    .cat-hero__sub {
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+    .cat-hero__scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 2;
+    }
+    .cat-hero__scroll span {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .cat-hero__scroll-line {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-hero__scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 1px;
+      height: 100%;
+      background: var(--sand);
+      animation: scrollDrop 1.8s var(--slow) infinite;
+    }
+    @keyframes scrollDrop {
+      0% { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    /* ── BENTO GRID — kategori-utforskare ── */
+    .bento {
+      padding: 80px max(32px, 5vw);
+      background: var(--cream);
+    }
+    .bento__header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+    .bento__title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+    }
+    .bento__title span { font-style: italic; color: var(--sand); }
+    .bento__link {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 2px;
+    }
+    .bento__grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 320px 240px;
+      gap: 12px;
+    }
+    .bento-cell {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      cursor: pointer;
+    }
+    .bento-cell:hover .bento-cell__img img {
+      transform: scale(1.06);
+    }
+    .bento-cell--a { grid-column: 1 / 6; grid-row: 1; }
+    .bento-cell--b { grid-column: 6 / 9; grid-row: 1; }
+    .bento-cell--c { grid-column: 9 / 13; grid-row: 1; }
+    .bento-cell--d { grid-column: 1 / 5; grid-row: 2; }
+    .bento-cell--e { grid-column: 5 / 9; grid-row: 2; }
+    .bento-cell--f { grid-column: 9 / 13; grid-row: 2; }
+    .bento-cell--text {
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 32px;
+    }
+    .bento-cell__img {
+      position: absolute;
+      inset: 0;
+    }
+    .bento-cell__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s var(--slow);
+    }
+    .bento-cell__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,26,26,0.65) 0%, transparent 55%);
+    }
+    .bento-cell__label {
+      position: absolute;
+      bottom: 28px;
+      left: 28px;
+      right: 28px;
+      z-index: 2;
+    }
+    .bento-cell__num {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--sand);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .bento-cell__name {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: white;
+      letter-spacing: -0.01em;
+    }
+    .bento-cell--text .bento-cell__label { position: static; }
+    .bento-cell--text .bento-cell__name { font-size: 2rem; }
+    .bento-cell--text .bento-cell__num { color: var(--sand); }
+    .bento-cell--text p {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.45);
+      margin-top: 10px;
+    }
+    .bento-cell--text a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cta);
+    }
+    .bento-cell--text a svg { width: 12px; height: 12px; }
+
+    /* ── PULL QUOTE — typografisk mellansektion ── */
+    .pull-quote {
+      padding: 100px max(32px, 5vw);
+      background: var(--black);
+      display: grid;
+      grid-template-columns: 1fr 2.2fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+    .pull-quote__num {
+      font-family: var(--serif);
+      font-size: clamp(5rem, 10vw, 12rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.06);
+      line-height: 1;
+      text-align: right;
+    }
+    .pull-quote__body {
+      text-align: center;
+    }
+    .pull-quote__mark {
+      font-family: var(--serif);
+      font-size: 5rem;
+      color: var(--sand);
+      line-height: 0.5;
+      margin-bottom: 24px;
+      display: block;
+    }
+    .pull-quote__text {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 2.8vw, 2.8rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.35;
+      color: white;
+      letter-spacing: -0.01em;
+    }
+    .pull-quote__author {
+      margin-top: 32px;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .pull-quote__stats {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .pull-quote__stat-val {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--sand);
+      line-height: 1;
+    }
+    .pull-quote__stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-top: 4px;
+    }
+
+    /* ── PRODUKT STRIP — horisontell scroll ── */
+    .prod-strip {
+      padding: 80px 0 80px max(32px, 5vw);
+      background: var(--cream);
+      overflow: hidden;
+    }
+    .prod-strip__head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      padding-right: max(32px, 5vw);
+    }
+    .prod-strip__title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+    }
+    .prod-strip__nav {
+      display: flex;
+      gap: 8px;
+    }
+    .prod-strip__btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .prod-strip__btn:hover { background: var(--black); border-color: var(--black); }
+    .prod-strip__btn:hover svg path { stroke: white; }
+    .prod-strip__btn svg { width: 16px; height: 16px; }
+    .prod-strip__btn svg path { stroke: var(--black); stroke-width: 1.5; fill: none; transition: stroke 0.2s; }
+    .prod-strip__track-wrap {
+      overflow: hidden;
+    }
+    .prod-strip__track {
+      display: flex;
+      gap: 16px;
+      transition: transform 0.5s var(--slow);
+    }
+    .prod-card-h {
+      flex: 0 0 280px;
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .prod-card-h__img {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+    .prod-card-h__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--slow);
+    }
+    .prod-card-h:hover .prod-card-h__img img { transform: scale(1.05); }
+    .prod-card-h__badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--cta);
+      color: white;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 40px;
+    }
+    .prod-card-h__body {
+      padding: 20px 20px 22px;
+    }
+    .prod-card-h__cat {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 6px;
+    }
+    .prod-card-h__name {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+    .prod-card-h__desc {
+      font-size: 0.78rem;
+      color: var(--mid);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+    .prod-card-h__foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .prod-card-h__price {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+    .prod-card-h__add {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .prod-card-h__add svg { width: 14px; height: 14px; }
+    .prod-card-h__add svg path { stroke: white; stroke-width: 1.5; fill: none; }
+
+    /* ── MOSAIC — inspirationsgalleri ── */
+    .mosaic {
+      padding: 80px max(32px, 5vw);
+      background: var(--cream);
+    }
+    .mosaic__head {
+      display: flex;
+      align-items: baseline;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .mosaic__title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+    }
+    .mosaic__title em { font-style: italic; color: var(--sand); }
+    .mosaic__sub {
+      font-size: 0.82rem;
+      color: var(--mid);
+      max-width: 300px;
+      line-height: 1.6;
+    }
+    .mosaic__grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: 260px 200px 300px;
+      gap: 10px;
+    }
+    .mosaic-cell {
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+    .mosaic-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s var(--slow);
+    }
+    .mosaic-cell:hover img { transform: scale(1.05); }
+    .mosaic-cell--1 { grid-column: 1 / 4; grid-row: 1; }
+    .mosaic-cell--2 { grid-column: 4 / 6; grid-row: 1; }
+    .mosaic-cell--3 { grid-column: 6 / 9; grid-row: 1 / 3; }
+    .mosaic-cell--4 { grid-column: 1 / 3; grid-row: 2; }
+    .mosaic-cell--5 { grid-column: 3 / 6; grid-row: 2; }
+    .mosaic-cell--6 { grid-column: 1 / 5; grid-row: 3; }
+    .mosaic-cell--7 { grid-column: 5 / 9; grid-row: 3; }
+    .mosaic-cell--tag {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 40px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--black);
+    }
+    .mosaic__cta {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .mosaic__cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--black);
+      padding: 14px 32px;
+      border-radius: 40px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .mosaic__cta a:hover { background: var(--black); color: white; }
+
+    /* ── MANIFESTO — text + bild split ── */
+    .manifesto {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 540px;
+    }
+    .manifesto__text {
+      background: var(--black);
+      padding: 80px max(40px, 6vw);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .manifesto__eyebrow {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 32px;
+    }
+    .manifesto__h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: white;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+    }
+    .manifesto__h2 em { font-style: italic; color: var(--sand-lt); }
+    .manifesto__body {
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.5);
+      max-width: 420px;
+    }
+    .manifesto__body p + p { margin-top: 16px; }
+    .manifesto__actions {
+      margin-top: 40px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .manifesto__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--cta);
+      color: white;
+      padding: 13px 26px;
+      border-radius: 40px;
+      transition: background 0.2s;
+    }
+    .manifesto__btn:hover { background: var(--cta-dk); }
+    .manifesto__secondary {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .manifesto__secondary:hover { color: white; border-color: white; }
+    .manifesto__image {
+      position: relative;
+      overflow: hidden;
+    }
+    .manifesto__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .manifesto__image-caption {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 8px;
+      padding: 12px 18px;
+    }
+    .manifesto__image-caption strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 2px;
+    }
+    .manifesto__image-caption span {
+      font-size: 0.72rem;
+      color: var(--mid);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── MOBILE OVERRIDES ── */
+    @media (max-width: 960px) {
+      .bento__grid {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: 260px 200px 200px;
+      }
+      .bento-cell--a { grid-column: 1 / 4; grid-row: 1; }
+      .bento-cell--b { grid-column: 4 / 7; grid-row: 1; }
+      .bento-cell--c { grid-column: 1 / 7; grid-row: 2; }
+      .bento-cell--d { display: none; }
+      .bento-cell--e { grid-column: 1 / 4; grid-row: 3; }
+      .bento-cell--f { grid-column: 4 / 7; grid-row: 3; }
+      .pull-quote {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 32px;
+      }
+      .pull-quote__num { display: none; }
+      .pull-quote__stats {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 32px 48px;
+        text-align: center;
+      }
+      .mosaic__grid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 180px 160px 240px;
+      }
+      .mosaic-cell--3 { grid-column: 3 / 5; grid-row: 1 / 3; }
+      .mosaic-cell--6 { grid-column: 1 / 3; grid-row: 3; }
+      .mosaic-cell--7 { grid-column: 3 / 5; grid-row: 3; }
+      .manifesto { grid-template-columns: 1fr; }
+      .manifesto__image { height: 360px; }
+    }
+    @media (max-width: 640px) {
+      .cat-hero__title { font-size: clamp(3.2rem, 14vw, 5rem); }
+      .bento__grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(4, 200px);
+        gap: 8px;
+      }
+      .bento-cell--a { grid-column: 1 / 3; grid-row: 1; }
+      .bento-cell--b { grid-column: 1; grid-row: 2; }
+      .bento-cell--c { grid-column: 2; grid-row: 2; }
+      .bento-cell--d { display: none; }
+      .bento-cell--e { grid-column: 1; grid-row: 3; }
+      .bento-cell--f { grid-column: 2; grid-row: 3; }
+      .mosaic__grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(5, 160px);
+      }
+      .mosaic-cell--1 { grid-column: 1 / 3; grid-row: 1; }
+      .mosaic-cell--2 { grid-column: 1; grid-row: 2; }
+      .mosaic-cell--3 { grid-column: 2; grid-row: 2 / 4; }
+      .mosaic-cell--4 { grid-column: 1; grid-row: 3; }
+      .mosaic-cell--5 { grid-column: 1 / 3; grid-row: 4; }
+      .mosaic-cell--6 { grid-column: 1; grid-row: 5; }
+      .mosaic-cell--7 { grid-column: 2; grid-row: 5; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo">Villa<span>Grus</span></a>
+      <nav>
+        <a href="#">Produkter</a>
+        <a href="#">Inspiration</a>
+        <a href="#">Om oss</a>
+        <a href="#">Kontakt</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Sök">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" aria-label="Varukorg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════ HERO ═════════════════════════════ -->
+  <section class="cat-hero">
+    <div class="cat-hero__bg">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=80" alt="Stenmiljö">
+    </div>
+    <div class="cat-hero__overlay"></div>
+    <div class="cat-hero__content">
+      <p class="cat-hero__eyebrow">Natursten & Grus — Sedan 2004</p>
+      <h1 class="cat-hero__title">Villa<em>Grus</em></h1>
+      <div class="cat-hero__divider"></div>
+      <p class="cat-hero__sub">Naturmaterial för vackrare trädgårdar</p>
+    </div>
+    <div class="cat-hero__scroll">
+      <span>Scrolla</span>
+      <div class="cat-hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ BENTO GRID ══════════════════════════ -->
+  <section class="bento reveal">
+    <div class="bento__header">
+      <h2 class="bento__title">Utforska <span>sortimentet</span></h2>
+      <a href="#" class="bento__link">Visa alla kategorier</a>
+    </div>
+    <div class="bento__grid">
+
+      <!-- A — stor vänster -->
+      <div class="bento-cell bento-cell--a">
+        <div class="bento-cell__img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=75" alt="Dekorativ singel">
+        </div>
+        <div class="bento-cell__overlay"></div>
+        <div class="bento-cell__label">
+          <span class="bento-cell__num">01 — Singel & Makadam</span>
+          <p class="bento-cell__name">Dekorativ Singel</p>
+        </div>
+      </div>
+
+      <!-- B — mitten smal -->
+      <div class="bento-cell bento-cell--b">
+        <div class="bento-cell__img">
+          <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=75" alt="Marksten">
+        </div>
+        <div class="bento-cell__overlay"></div>
+        <div class="bento-cell__label">
+          <span class="bento-cell__num">02 — Marksten</span>
+          <p class="bento-cell__name">Natursten</p>
+        </div>
+      </div>
+
+      <!-- C — höger -->
+      <div class="bento-cell bento-cell--c">
+        <div class="bento-cell__img">
+          <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?w=700&q=75" alt="Bäddmaterial">
+        </div>
+        <div class="bento-cell__overlay"></div>
+        <div class="bento-cell__label">
+          <span class="bento-cell__num">03 — Jord & Bäddmaterial</span>
+          <p class="bento-cell__name">Planteringsjord</p>
+        </div>
+      </div>
+
+      <!-- D — text-cell -->
+      <div class="bento-cell bento-cell--d bento-cell--text">
+        <div class="bento-cell__label">
+          <span class="bento-cell__num">VillaGrus 2026</span>
+          <p class="bento-cell__name">Nytt i sortimentet</p>
+          <p>Fyra nya gruskvaliteter för 2026, utvalda för nordiska klimat och låg skötsel.</p>
+          <a href="#">
+            Se nyheter
+            <svg viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- E -->
+      <div class="bento-cell bento-cell--e">
+        <div class="bento-cell__img">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=75" alt="Bark & Täckmaterial">
+        </div>
+        <div class="bento-cell__overlay"></div>
+        <div class="bento-cell__label">
+          <span class="bento-cell__num">04 — Bark & Täckmaterial</span>
+          <p class="bento-cell__name">Täckbark</p>
+        </div>
+      </div>
+
+      <!-- F -->
+      <div class="bento-cell bento-cell--f">
+        <div class="bento-cell__img">
+          <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=600&q=75" alt="Grus & Singel">
+        </div>
+        <div class="bento-cell__overlay"></div>
+        <div class="bento-cell__label">
+          <span class="bento-cell__num">05 — Grus & Fyllning</span>
+          <p class="bento-cell__name">Grus 8–16 mm</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════ PULL QUOTE ══════════════════════════ -->
+  <section class="pull-quote reveal">
+    <div class="pull-quote__num">20</div>
+    <div class="pull-quote__body">
+      <span class="pull-quote__mark">"</span>
+      <p class="pull-quote__text">Rätt material gör skillnaden mellan en trädgård som kräver tid — och en som ger tid tillbaka.</p>
+      <p class="pull-quote__author">— Anna Lindqvist, Trädgårdsdesigner</p>
+    </div>
+    <div class="pull-quote__stats">
+      <div>
+        <div class="pull-quote__stat-val">200+</div>
+        <div class="pull-quote__stat-label">Produkter i lager</div>
+      </div>
+      <div>
+        <div class="pull-quote__stat-val">48h</div>
+        <div class="pull-quote__stat-label">Leveranstid</div>
+      </div>
+      <div>
+        <div class="pull-quote__stat-val">20 år</div>
+        <div class="pull-quote__stat-label">Erfarenhet</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ PRODUCT STRIP ═══════════════════════ -->
+  <section class="prod-strip reveal">
+    <div class="prod-strip__head">
+      <h2 class="prod-strip__title">Populära produkter</h2>
+      <div class="prod-strip__nav">
+        <button class="prod-strip__btn" id="prodPrev" aria-label="Föregående">
+          <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="prod-strip__btn" id="prodNext" aria-label="Nästa">
+          <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="prod-strip__track-wrap" id="prodTrackWrap">
+      <div class="prod-strip__track" id="prodTrack">
+
+        <div class="prod-card-h">
+          <div class="prod-card-h__img">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75" alt="Vit marmorgrus">
+            <span class="prod-card-h__badge">Bästsäljare</span>
+          </div>
+          <div class="prod-card-h__body">
+            <p class="prod-card-h__cat">Singel & Makadam</p>
+            <h3 class="prod-card-h__name">Vit Marmorgrus 8–12 mm</h3>
+            <p class="prod-card-h__desc">Exklusivt grus för dekorativa ytor och japanska trädgårdar.</p>
+            <div class="prod-card-h__foot">
+              <span class="prod-card-h__price">349 kr/säck</span>
+              <button class="prod-card-h__add" aria-label="Lägg i korg">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="prod-card-h">
+          <div class="prod-card-h__img">
+            <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=75" alt="Granitsingel">
+          </div>
+          <div class="prod-card-h__body">
+            <p class="prod-card-h__cat">Natursten</p>
+            <h3 class="prod-card-h__name">Granitsingel Grå 16–32 mm</h3>
+            <p class="prod-card-h__desc">Klassisk grå granit, perfekt för uppfarter och gångar.</p>
+            <div class="prod-card-h__foot">
+              <span class="prod-card-h__price">229 kr/säck</span>
+              <button class="prod-card-h__add" aria-label="Lägg i korg">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="prod-card-h">
+          <div class="prod-card-h__img">
+            <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?w=400&q=75" alt="Planteringsjord">
+            <span class="prod-card-h__badge">Nyhet</span>
+          </div>
+          <div class="prod-card-h__body">
+            <p class="prod-card-h__cat">Jord & Bäddmaterial</p>
+            <h3 class="prod-card-h__name">Premium Planteringsjord</h3>
+            <p class="prod-card-h__desc">Näringrik jord med perlit för optimal dränering.</p>
+            <div class="prod-card-h__foot">
+              <span class="prod-card-h__price">189 kr/säck</span>
+              <button class="prod-card-h__add" aria-label="Lägg i korg">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="prod-card-h">
+          <div class="prod-card-h__img">
+            <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=75" alt="Täckbark">
+          </div>
+          <div class="prod-card-h__body">
+            <p class="prod-card-h__cat">Bark & Täckmaterial</p>
+            <h3 class="prod-card-h__name">Täckbark Grov 40–80 mm</h3>
+            <p class="prod-card-h__desc">Naturlig bark som håller fukten och ger ett rent utseende.</p>
+            <div class="prod-card-h__foot">
+              <span class="prod-card-h__price">149 kr/säck</span>
+              <button class="prod-card-h__add" aria-label="Lägg i korg">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="prod-card-h">
+          <div class="prod-card-h__img">
+            <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&q=75" alt="Grus">
+          </div>
+          <div class="prod-card-h__body">
+            <p class="prod-card-h__cat">Grus & Fyllning</p>
+            <h3 class="prod-card-h__name">Naturgrus Runt 8–16 mm</h3>
+            <p class="prod-card-h__desc">Avrundade kanter, trevlig att gå på, idealisk för trädgårdar.</p>
+            <div class="prod-card-h__foot">
+              <span class="prod-card-h__price">199 kr/säck</span>
+              <button class="prod-card-h__add" aria-label="Lägg i korg">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="prod-card-h">
+          <div class="prod-card-h__img">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Svart lavasten">
+            <span class="prod-card-h__badge">Premium</span>
+          </div>
+          <div class="prod-card-h__body">
+            <p class="prod-card-h__cat">Lavasten & Exklusivt</p>
+            <h3 class="prod-card-h__name">Svart Lavasten 10–20 mm</h3>
+            <p class="prod-card-h__desc">Vulkanisk sten med dramatisk effekt, perfekt som kontrast.</p>
+            <div class="prod-card-h__foot">
+              <span class="prod-card-h__price">459 kr/säck</span>
+              <button class="prod-card-h__add" aria-label="Lägg i korg">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ MOSAIC ══════════════════════════════ -->
+  <section class="mosaic reveal">
+    <div class="mosaic__head">
+      <h2 class="mosaic__title">Inspiration <em>&amp; Idéer</em></h2>
+      <p class="mosaic__sub">Låt dig inspireras av hur andra skapat vackra utemiljöer med naturmaterial.</p>
+    </div>
+    <div class="mosaic__grid">
+      <div class="mosaic-cell mosaic-cell--1">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=75" alt="Japansk trädgård">
+        <span class="mosaic-cell--tag">Japansk stil</span>
+      </div>
+      <div class="mosaic-cell mosaic-cell--2">
+        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500&q=75" alt="Modern entré">
+        <span class="mosaic-cell--tag">Modern entré</span>
+      </div>
+      <div class="mosaic-cell mosaic-cell--3">
+        <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?w=500&q=75" alt="Trädgårdsdesign">
+      </div>
+      <div class="mosaic-cell mosaic-cell--4">
+        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&q=75" alt="Bädd">
+      </div>
+      <div class="mosaic-cell mosaic-cell--5">
+        <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=700&q=75" alt="Gångväg">
+        <span class="mosaic-cell--tag">Gångväg</span>
+      </div>
+      <div class="mosaic-cell mosaic-cell--6">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Uteplats">
+        <span class="mosaic-cell--tag">Uteplats</span>
+      </div>
+      <div class="mosaic-cell mosaic-cell--7">
+        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=700&q=80" alt="Marksten">
+        <span class="mosaic-cell--tag">Marksten</span>
+      </div>
+    </div>
+    <div class="mosaic__cta">
+      <a href="#">Fler inspirationsbilder →</a>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ MANIFESTO ═══════════════════════════ -->
+  <section class="manifesto reveal">
+    <div class="manifesto__text">
+      <p class="manifesto__eyebrow">Om VillaGrus</p>
+      <h2 class="manifesto__h2">Vi tror på <em>naturmaterial</em> som håller i generationer.</h2>
+      <div class="manifesto__body">
+        <p>VillaGrus grundades med övertygelsen att rätt underlag är grunden för varje vacker trädgård. Vi källsorterar och väljer ut material från pålitliga leverantörer — granit från Skandinavien, marmor från Medelhavet.</p>
+        <p>Allt vi säljer är testat för nordiskt klimat. Vi hjälper dig välja rätt kvalitet för din specifika yta, oavsett om det handlar om en uppfart, en uteplats eller en fullständig trädgårdsdesign.</p>
+      </div>
+      <div class="manifesto__actions">
+        <a href="#" class="manifesto__btn">Kontakta oss</a>
+        <a href="#" class="manifesto__secondary">Läs vår historia</a>
+      </div>
+    </div>
+    <div class="manifesto__image">
+      <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?w=900&q=80" alt="VillaGrus showroom">
+      <div class="manifesto__image-caption">
+        <strong>Showroom Uppsala</strong>
+        <span>Öppet mån–lör 9–17</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Villa<span>Grus</span></div>
+        <p class="footer-tagline">Naturmaterial för nordiska trädgårdar sedan 2004.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.03-2.83.19-.77 1.27-5.38 1.27-5.38s-.32-.65-.32-1.61c0-1.51.88-2.64 1.97-2.64.93 0 1.38.7 1.38 1.54 0 .94-.6 2.35-.91 3.65-.26 1.09.54 1.98 1.61 1.98 1.93 0 3.42-2.04 3.42-4.97 0-2.6-1.87-4.42-4.54-4.42-3.09 0-4.9 2.32-4.9 4.72 0 .93.36 1.93.8 2.48.09.11.1.2.08.31l-.3 1.22c-.05.2-.16.24-.37.14-1.39-.65-2.26-2.68-2.26-4.31 0-3.51 2.55-6.74 7.35-6.74 3.86 0 6.86 2.75 6.86 6.42 0 3.83-2.41 6.91-5.76 6.91-1.12 0-2.18-.58-2.54-1.27l-.69 2.58c-.25.97-.93 2.18-1.39 2.92.05.01.09.02.14.03C12.47 21.97 12.23 22 12 22c-5.52 0-10-4.48-10-10S6.48 2 12 2z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-nav">
+        <h4>Produkter</h4>
+        <a href="#">Singel & Makadam</a>
+        <a href="#">Marksten</a>
+        <a href="#">Jord & Bäddmaterial</a>
+        <a href="#">Bark & Täckmaterial</a>
+      </div>
+      <div class="footer-nav">
+        <h4>Information</h4>
+        <a href="#">Om oss</a>
+        <a href="#">Leverans & Frakt</a>
+        <a href="#">Retur & Reklamation</a>
+        <a href="#">Kontakt</a>
+      </div>
+      <div class="footer-nav">
+        <h4>Inspiration</h4>
+        <a href="#">Blogg</a>
+        <a href="#">Guider</a>
+        <a href="#">Beräkna åtgång</a>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 VillaGrus AB — Org.nr 556xxx-xxxx</p>
+      <p>Integritetspolicy · Cookies · Villkor</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    /* ── Horizontal product strip ── */
+    (function () {
+      const track = document.getElementById('prodTrack');
+      const wrap  = document.getElementById('prodTrackWrap');
+      const prev  = document.getElementById('prodPrev');
+      const next  = document.getElementById('prodNext');
+      if (!track) return;
+
+      let offset = 0;
+      const CARD_W = 280 + 16; // card width + gap
+
+      function clampOffset() {
+        const maxOffset = track.scrollWidth - wrap.offsetWidth;
+        offset = Math.max(0, Math.min(offset, maxOffset));
+      }
+
+      next.addEventListener('click', () => {
+        offset += CARD_W * 2;
+        clampOffset();
+        track.style.transform = `translateX(-${offset}px)`;
+      });
+      prev.addEventListener('click', () => {
+        offset -= CARD_W * 2;
+        clampOffset();
+        track.style.transform = `translateX(-${offset}px)`;
+      });
+    })();
+  </script>
+</body>
+</html>

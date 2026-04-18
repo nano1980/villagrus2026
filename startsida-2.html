@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VillaGrus — Startsida B</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- VARIANT B: Hero → Om oss → Kategorier → Nature banner → Produkter → Erbjudande → Inspiration-slider → Footer -->
+  <!-- Tyngdpunkt: Varumärkesdriven. Bygg förtroende och känsla först, sedan konvertera. -->
+
+  <header id="header">
+    <a href="#" class="logo"><img src="logo.png" alt="VillaGrus" class="logo-img"></a>
+    <nav>
+      <a href="#">Hem</a><a href="#">Produkter</a><a href="#">Om oss</a><a href="#">Kontakt</a>
+    </nav>
+    <div class="header-right">
+      <button class="cart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
+      <a href="#" class="contact-btn">Kontakta oss</a>
+    </div>
+  </header>
+
+  <!-- 1. HERO — bildbaserad, mer poetic koppling till naturen -->
+  <section class="hero">
+    <div class="hero-bg">
+      <video autoplay muted loop playsinline>
+        <source src="hero.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-gradient"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Naturens material sedan 2014</div>
+      <h1>Sten, singel<br>&amp; jord —<br><em>direkt från</em><br>naturen.</h1>
+      <p class="hero-sub">Skapa din drömträdgård med material av högsta kvalitet. Vi levererar direkt hem till dig.</p>
+      <a href="#" class="hero-cta">Utforska sortimentet <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    </div>
+    <div class="hero-scroll">Scrolla</div>
+    <div class="usp-strip">
+      <div class="usp-item">
+        <div class="usp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+        <div class="usp-text"><h4>Klarna Betalning</h4><p>Dela upp på 3 räntefria delar</p></div>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <div class="usp-text"><h4>Kostnadsfri rådgivning</h4><p>Vi hjälper dig välja rätt produkt</p></div>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="usp-text"><h4>Hemleverans</h4><p>Leverans direkt till din adress</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. OM VILLAGRUS — varumärket tidigt för att skapa förtroende -->
+  <section class="about-section">
+    <div class="about-image reveal">
+      <img src="bergskross.jpg" alt="Om VillaGrus">
+    </div>
+    <div class="about-content">
+      <div class="section-label reveal">Om VillaGrus</div>
+      <h2 class="section-title reveal">Vi levererar<br><em>naturen</em><br>till dig.</h2>
+      <p class="reveal reveal-delay-1">VillaGrus grundades med ett enkelt mål — att göra det enkelt och prisvärt att förskönna din trädgård med naturens egna material. Vi erbjuder ett brett sortiment av dekorsten, singel, kross och jordprodukter.</p>
+      <p class="reveal reveal-delay-2">Med fri rådgivning och smidig hemleverans ser vi till att du alltid hittar rätt produkt för ditt projekt, oavsett om det är en liten rabatt eller en stor markarbete.</p>
+      <div class="stats-grid">
+        <div class="stat-item reveal"><div class="stat-num">500+</div><div class="stat-label">Produkter</div></div>
+        <div class="stat-item reveal reveal-delay-1"><div class="stat-num">10+</div><div class="stat-label">Års erfarenhet</div></div>
+        <div class="stat-item reveal reveal-delay-2"><div class="stat-num">4.9</div><div class="stat-label">Kundbetyg</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. NATURE BANNER — atmosfärisk bild, mjuk övergång -->
+  <section class="nature-banner nature-banner--frosted">
+    <div class="nature-banner__bg">
+      <img src="dekor-3.jpg" alt="Naturens material">
+      <div class="nature-banner__fade"></div>
+    </div>
+    <div class="nature-banner__content reveal">
+      <span class="block-num">01</span>
+      <h2>Naturens material.<br><em>Direkt till din trädgård.</em></h2>
+      <p>Vi levererar kvalitetssten, singel och jord från naturen — enkelt, prisvärt och hållbart.</p>
+      <a href="#" class="nature-banner__cta">Se alla produkter <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    </div>
+  </section>
+
+  <!-- 4. KATEGORIER -->
+  <section class="categories-section">
+    <div class="categories-header">
+      <div>
+        <div class="section-label reveal">Sortiment</div>
+        <h2 class="section-title reveal">Välj din<br><em>produktkategori</em></h2>
+      </div>
+      <a href="#" class="see-all reveal">Se alla <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+    </div>
+    <div class="alt-cat-grid" id="altCatGrid">
+      <div class="alt-cat-card reveal"><img src="jord.jpg" alt="Jord" style="object-position:left bottom"><div class="alt-cat-overlay"></div><div class="alt-cat-content"><h3>Jord</h3><p>Gräsmatte-, trädgårds- &amp; rabattjord</p></div><div class="alt-cat-footer"><a href="#" class="alt-cat-btn">Utforska <span class="arr">›</span></a></div></div>
+      <div class="alt-cat-card reveal reveal-delay-1"><img src="makadam.jpg" alt="Makadam"><div class="alt-cat-overlay"></div><div class="alt-cat-content"><h3>Makadam</h3><p>Krossat berg för uppfarter &amp; dränering</p></div><div class="alt-cat-footer"><a href="#" class="alt-cat-btn">Utforska <span class="arr">›</span></a></div></div>
+      <div class="alt-cat-card reveal reveal-delay-2"><img src="natursingel.jpg" alt="Natursingel"><div class="alt-cat-overlay"></div><div class="alt-cat-content"><h3>Natursingel</h3><p>Naturligt rundad singel i flera fraktioner</p></div><div class="alt-cat-footer"><a href="#" class="alt-cat-btn">Utforska <span class="arr">›</span></a></div></div>
+      <div class="alt-cat-card reveal reveal-delay-3"><img src="dekorsten.jpg" alt="Dekorsten"><div class="alt-cat-overlay"></div><div class="alt-cat-content"><h3>Dekorsten</h3><p>Vit marmor, färgad singel och natursten</p></div><div class="alt-cat-footer"><a href="#" class="alt-cat-btn">Utforska <span class="arr">›</span></a></div></div>
+      <div class="alt-cat-card reveal reveal-delay-4"><img src="bergskross.jpg" alt="Bergkross"><div class="alt-cat-overlay"></div><div class="alt-cat-content"><h3>Stenmjöl &amp;<br>Bergkross</h3><p>Packning, dränering &amp; markarbeten</p></div><div class="alt-cat-footer"><a href="#" class="alt-cat-btn">Utforska <span class="arr">›</span></a></div></div>
+    </div>
+    <div class="alt-cat-nav" id="altCatNav">
+      <button class="alt-nav-btn" id="altPrev"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 4l-5 5 5 5"/></svg></button>
+      <button class="alt-nav-btn" id="altNext"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4l5 5-5 5"/></svg></button>
+    </div>
+  </section>
+
+  <!-- 5. POPULÄRA PRODUKTER -->
+  <section class="products-section">
+    <div class="products-header">
+      <div>
+        <div class="section-label reveal">Populärt just nu</div>
+        <h2 class="section-title reveal">Utvalda<br><em>produkter</em></h2>
+      </div>
+      <a href="#" class="see-all reveal">Se alla <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal"><img src="cat-dekorsten.png" alt="Dekorsten"><span class="product-tag">Nyhet</span><div class="product-info"><div class="product-cat">Dekorsten</div><h4>Vit Marmorgrus</h4><div class="product-size">Fraktion 8–16 mm</div></div><div class="product-footer"><button class="add-btn">Lägg i korg</button><span class="product-price">189 kr</span></div></div>
+      <div class="product-card reveal reveal-delay-1"><img src="cat-natursingel.png" alt="Natursingel"><div class="product-info"><div class="product-cat">Natursingel</div><h4>Natursingel Grå</h4><div class="product-size">Fraktion 4–8 mm</div></div><div class="product-footer"><button class="add-btn">Lägg i korg</button><span class="product-price">149 kr</span></div></div>
+      <div class="product-card reveal reveal-delay-2"><img src="cat-makadam.png" alt="Makadam"><span class="product-tag" style="background:var(--cta)">Rea</span><div class="product-info"><div class="product-cat">Bergskross</div><h4>Makadam</h4><div class="product-size">Fraktion 16–32 mm</div></div><div class="product-footer"><button class="add-btn">Lägg i korg</button><span class="product-price">249 kr</span></div></div>
+      <div class="product-card reveal reveal-delay-3"><img src="cat-jord.png" alt="Jord"><div class="product-info"><div class="product-cat">Jordtyper</div><h4>Trädgårdsjord Premium</h4><div class="product-size">40 liter säck</div></div><div class="product-footer"><button class="add-btn">Lägg i korg</button><span class="product-price">99 kr</span></div></div>
+    </div>
+  </section>
+
+  <!-- 6. ERBJUDANDE — längre ner, besökaren är varm nu -->
+  <div class="offer-section">
+    <div class="offer-image">
+      <img src="makadam-2.jpg" alt="Månadens erbjudande">
+      <div class="offer-badge">Månadens erbjudande</div>
+    </div>
+    <div class="offer-content">
+      <div class="section-label reveal">Begränsat erbjudande</div>
+      <h2 class="section-title reveal">Makadam<br><em>till specialpris</em></h2>
+      <p class="offer-desc reveal">Vår populäraste bergskross-produkt — perfekt för uppfarter, dränering och markarbeten.</p>
+      <div class="offer-price reveal">
+        <span class="price-now">249 kr</span><span class="price-old">350 kr</span><span class="price-unit">/ säck</span>
+      </div>
+      <div class="countdown reveal" id="countdown">
+        <div class="cd-unit"><span class="cd-num" id="cd-days">07</span><span class="cd-label">Dagar</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-hours">14</span><span class="cd-label">Timmar</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-mins">32</span><span class="cd-label">Minuter</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-secs">08</span><span class="cd-label">Sekunder</span></div>
+      </div>
+      <a href="#" class="offer-btn reveal">Köp nu <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    </div>
+  </div>
+
+  <!-- 7. INSPIRATION SLIDER -->
+  <section class="blog-carousel" id="blog">
+    <div class="blog-progress"><div class="blog-progress__bar" id="bBar"></div></div>
+    <div class="blog-bgs" id="blogBgs">
+      <div class="blog-bg active"><img src="jord.jpg" alt=""></div>
+      <div class="blog-bg"><img src="makadam.jpg" alt=""></div>
+      <div class="blog-bg"><img src="natursingel.jpg" alt=""></div>
+      <div class="blog-bg"><img src="dekorsten.jpg" alt=""></div>
+      <div class="blog-bg"><img src="bergskross.jpg" alt=""></div>
+    </div>
+    <div class="blog-overlay"></div>
+    <div class="blog-hero" id="bHero">
+      <span class="blog-hero__label" id="bLabel"></span>
+      <h2 class="blog-hero__title" id="bTitle"></h2>
+      <p class="blog-hero__intro" id="bIntro"></p>
+      <a href="#" class="blog-hero__cta">Läs mer <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    </div>
+    <div class="blog-cards-outer">
+      <div class="blog-cards-track" id="bTrack"></div>
+      <div class="blog-controls">
+        <button class="blog-nav-btn" id="bPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19l-7-7 7-7"/></svg></button>
+        <button class="blog-nav-btn" id="bNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <div class="blog-counter" id="bCounter"></div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo.png" alt="VillaGrus" style="height:32px;width:auto;object-fit:contain;filter:invert(1) brightness(2);margin-bottom:20px;display:block;">
+        <p>Naturens material direkt hem till dig. Kvalitetsprodukter inom dekorsten, singel, bergskross och jord sedan 2014.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+          <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Produkter</h5><ul><li><a href="#">Dekorsten</a></li><li><a href="#">Natursingel</a></li><li><a href="#">Bergskross</a></li><li><a href="#">Jordtyper</a></li></ul></div>
+      <div class="footer-col"><h5>Information</h5><ul><li><a href="#">Om oss</a></li><li><a href="#">Leveransinformation</a></li><li><a href="#">Köpvillkor</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h5>Kontakt</h5><ul><li><a href="#">info@villagrus.se</a></li><li><a href="#">010-123 45 67</a></li><li><a href="#">Mån–Fre 08–17</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 VillaGrus AB. Alla rättigheter förbehållna.</p>
+      <div class="payment-icons"><span class="pay-badge klarna">Klarna</span><span class="pay-badge">Visa</span><span class="pay-badge">Mastercard</span><span class="pay-badge">Swish</span></div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

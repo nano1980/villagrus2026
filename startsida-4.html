@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VillaGrus — Startsida D (Editorial)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── EDITORIAL HERO — vertikal text + stor bild ── */
+    .ed-hero {
+      display: grid;
+      grid-template-columns: 72px 1fr 1fr;
+      height: 100vh;
+      min-height: 700px;
+      overflow: hidden;
+      background: var(--black);
+      padding: 0;
+    }
+    .ed-hero__side {
+      border-right: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px 0 40px;
+      z-index: 3;
+    }
+    .ed-hero__side-num {
+      font-family: var(--serif);
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+      writing-mode: vertical-rl;
+    }
+    .ed-hero__side-year {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.2);
+      writing-mode: vertical-rl;
+    }
+    .ed-hero__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 64px 72px;
+      z-index: 3;
+      position: relative;
+    }
+    .ed-hero__label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cta);
+      margin-bottom: 24px;
+    }
+    .ed-hero__h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 5.5vw, 6rem);
+      font-weight: 300;
+      line-height: 0.95;
+      color: white;
+      margin-bottom: 32px;
+      letter-spacing: -0.02em;
+    }
+    .ed-hero__h1 em { font-style: italic; color: var(--sand-lt); }
+    .ed-hero__sub {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.55);
+      max-width: 340px;
+      margin-bottom: 40px;
+    }
+    .ed-hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: white;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      padding-bottom: 6px;
+      width: fit-content;
+      transition: border-color 0.3s, gap 0.3s;
+    }
+    .ed-hero__cta:hover { border-color: var(--cta); gap: 16px; }
+    .ed-hero__cta svg { width: 14px; height: 14px; }
+    .ed-hero__img {
+      position: relative;
+      overflow: hidden;
+    }
+    .ed-hero__img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+    }
+    .ed-hero__img-label {
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── EDITORIAL STATS BAR ── */
+    .ed-stats {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 0;
+    }
+    .ed-stat {
+      padding: 32px 48px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .ed-stat:last-child { border-right: none; }
+    .ed-stat-num {
+      font-family: var(--serif);
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: white;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .ed-stat-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── EDITORIAL PRODUCT STRIP ── */
+    .ed-products {
+      background: var(--cream);
+      padding: 100px 0 0;
+    }
+    .ed-products-header {
+      padding: 0 72px 56px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .ed-products-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+    .ed-product-item {
+      border-right: 1px solid var(--border);
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      cursor: pointer;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .ed-product-item:last-child { border-right: none; }
+    .ed-product-item:hover { background: var(--cream); }
+    .ed-product-item--featured {
+      padding: 0;
+      overflow: hidden;
+    }
+    .ed-product-item--featured img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      min-height: 480px;
+      opacity: 0.85;
+      transition: transform 8s var(--slow);
+    }
+    .ed-product-item--featured:hover img { transform: scale(1.04); }
+    .ed-product-item--featured .ed-prod-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%);
+    }
+    .ed-product-item--featured .ed-prod-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 36px 40px;
+    }
+    .ed-prod-num {
+      font-family: var(--serif);
+      font-size: 11px;
+      color: var(--sand);
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+    .ed-prod-name {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .ed-product-item--featured .ed-prod-name { color: white; font-size: 1.8rem; }
+    .ed-prod-desc {
+      font-size: 0.78rem;
+      color: var(--mid);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .ed-product-item--featured .ed-prod-desc { color: rgba(255,255,255,0.6); }
+    .ed-prod-price {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--black);
+    }
+    .ed-product-item--featured .ed-prod-price { color: white; font-size: 1.8rem; }
+    .ed-prod-img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: contain;
+      padding: 12px;
+    }
+    .ed-prod-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cta);
+      border-bottom: 1px solid rgba(255,128,87,0.3);
+      padding-bottom: 3px;
+      width: fit-content;
+      transition: gap 0.3s;
+    }
+    .ed-prod-cta:hover { gap: 14px; }
+
+    /* ── EDITORIAL MARQUEE ── */
+    .ed-marquee {
+      background: var(--cta);
+      overflow: hidden;
+      padding: 18px 0;
+      white-space: nowrap;
+    }
+    .ed-marquee-inner {
+      display: inline-block;
+      animation: marquee 20s linear infinite;
+    }
+    .ed-marquee span {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: white;
+      padding: 0 40px;
+    }
+    .ed-marquee span::before {
+      content: '✦';
+      margin-right: 40px;
+      opacity: 0.6;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── EDITORIAL FEATURE SPLIT ── */
+    .ed-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+    }
+    .ed-feature__img {
+      overflow: hidden;
+      position: relative;
+    }
+    .ed-feature__img img { width:100%; height:100%; object-fit:cover; transition: transform 8s var(--slow); }
+    .ed-feature:hover .ed-feature__img img { transform: scale(1.03); }
+    .ed-feature__content {
+      background: var(--cream);
+      padding: 80px 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .ed-feature__num {
+      font-family: var(--serif);
+      font-size: 72px;
+      font-weight: 300;
+      color: var(--sand-lt);
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+    }
+    .ed-feature__title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.2vw, 3rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--black);
+      margin-bottom: 20px;
+    }
+    .ed-feature__title em { font-style: italic; }
+    .ed-feature__body {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--mid);
+      max-width: 380px;
+      margin-bottom: 36px;
+    }
+    .ed-feature__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--black);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      width: fit-content;
+      transition: border-color 0.3s, gap 0.3s, color 0.3s;
+    }
+    .ed-feature__link:hover { border-color: var(--cta); color: var(--cta); gap: 16px; }
+    .ed-feature__link svg { width: 14px; height: 14px; }
+
+    @media (max-width: 768px) {
+      .ed-hero { grid-template-columns: 0 1fr; }
+      .ed-hero__side { display: none; }
+      .ed-stats { grid-template-columns: 1fr 1fr; }
+      .ed-products-grid { grid-template-columns: 1fr; }
+      .ed-feature { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- VARIANT D: Editorial magazine — vertikal rubrik, dramatisk typografi, produkter som stories -->
+
+  <header id="header">
+    <a href="#" class="logo"><img src="logo.png" alt="VillaGrus" class="logo-img"></a>
+    <nav>
+      <a href="#">Hem</a><a href="#">Produkter</a><a href="#">Om oss</a><a href="#">Kontakt</a>
+    </nav>
+    <div class="header-right">
+      <button class="cart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
+      <a href="#" class="contact-btn">Kontakta oss</a>
+    </div>
+  </header>
+
+  <!-- 1. EDITORIAL HERO -->
+  <div class="ed-hero">
+    <div class="ed-hero__side">
+      <span class="ed-hero__side-num">VG — 2026</span>
+      <span class="ed-hero__side-year">Naturens material</span>
+    </div>
+    <div class="ed-hero__text">
+      <div class="ed-hero__label">Naturens material sedan 2014</div>
+      <h1 class="ed-hero__h1">Sten.<br>Singel.<br><em>Jord.</em></h1>
+      <p class="ed-hero__sub">Premiumprodukter för din trädgård, levererade direkt hem till dig. Enkelt, snabbt och prisvärt.</p>
+      <a href="#" class="ed-hero__cta">Utforska sortimentet <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    </div>
+    <div class="ed-hero__img">
+      <img src="dekorsten.jpg" alt="Dekorsten">
+      <span class="ed-hero__img-label">Dekorsten — vit marmor</span>
+    </div>
+  </div>
+
+  <!-- 2. STATS BAR -->
+  <div class="ed-stats">
+    <div class="ed-stat"><div class="ed-stat-num">500+</div><div class="ed-stat-label">Produkter i lager</div></div>
+    <div class="ed-stat"><div class="ed-stat-num">10+</div><div class="ed-stat-label">Års erfarenhet</div></div>
+    <div class="ed-stat"><div class="ed-stat-num">4.9</div><div class="ed-stat-label">Kundbetyg</div></div>
+    <div class="ed-stat"><div class="ed-stat-num">48h</div><div class="ed-stat-label">Snabbaste leverans</div></div>
+  </div>
+
+  <!-- 3. MARQUEE -->
+  <div class="ed-marquee">
+    <div class="ed-marquee-inner">
+      <span>Dekorsten</span><span>Natursingel</span><span>Makadam</span><span>Trädgårdsjord</span><span>Bergskross</span><span>Stenmjöl</span><span>Fri rådgivning</span><span>Hemleverans</span>
+      <span>Dekorsten</span><span>Natursingel</span><span>Makadam</span><span>Trädgårdsjord</span><span>Bergskross</span><span>Stenmjöl</span><span>Fri rådgivning</span><span>Hemleverans</span>
+    </div>
+  </div>
+
+  <!-- 4. EDITORIAL PRODUCT STRIP -->
+  <section class="ed-products">
+    <div class="ed-products-header">
+      <div>
+        <div class="section-label reveal">Sortiment</div>
+        <h2 class="section-title reveal">Välj din<br><em>kategori</em></h2>
+      </div>
+      <a href="#" class="see-all reveal">Se alla produkter <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+    </div>
+    <div class="ed-products-grid">
+      <div class="ed-product-item ed-product-item--featured reveal">
+        <img src="natursingel.jpg" alt="Natursingel">
+        <div class="ed-prod-overlay"></div>
+        <div class="ed-prod-info">
+          <div class="ed-prod-num">01 — Utvalda</div>
+          <div class="ed-prod-name">Natursingel<br><em>grå</em></div>
+          <div class="ed-prod-desc">Naturligt rundad singel, perfekt för trädgårdar och uppfarter.</div>
+          <div class="ed-prod-price">149 kr <span style="font-size:0.75rem;opacity:0.5">/ säck</span></div>
+        </div>
+      </div>
+      <div class="ed-product-item reveal">
+        <img class="ed-prod-img" src="cat-dekorsten.png" alt="Dekorsten">
+        <div>
+          <div class="ed-prod-num">02</div>
+          <div class="ed-prod-name">Vit Marmorgrus</div>
+          <div class="ed-prod-desc">Fraktion 8–16 mm</div>
+          <div class="ed-prod-price">189 kr</div>
+        </div>
+        <a href="#" class="ed-prod-cta">Köp nu <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="ed-product-item reveal reveal-delay-1">
+        <img class="ed-prod-img" src="cat-makadam.png" alt="Makadam">
+        <div>
+          <div class="ed-prod-num">03 — Rea</div>
+          <div class="ed-prod-name">Makadam</div>
+          <div class="ed-prod-desc">Fraktion 16–32 mm</div>
+          <div class="ed-prod-price">249 kr</div>
+        </div>
+        <a href="#" class="ed-prod-cta">Köp nu <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="ed-product-item reveal reveal-delay-2">
+        <img class="ed-prod-img" src="cat-jord.png" alt="Jord">
+        <div>
+          <div class="ed-prod-num">04</div>
+          <div class="ed-prod-name">Trädgårdsjord Premium</div>
+          <div class="ed-prod-desc">40 liter säck</div>
+          <div class="ed-prod-price">99 kr</div>
+        </div>
+        <a href="#" class="ed-prod-cta">Köp nu <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. FEATURE SPLIT — erbjudandet som en story -->
+  <div class="ed-feature">
+    <div class="ed-feature__img reveal">
+      <img src="makadam-2.jpg" alt="Makadam erbjudande">
+    </div>
+    <div class="ed-feature__content">
+      <div class="ed-feature__num">249</div>
+      <h2 class="ed-feature__title">Makadam<br><em>till specialpris</em></h2>
+      <p class="ed-feature__body">Vår populäraste bergskross-produkt — perfekt för uppfarter, dränering och markarbeten. Nu till kraftigt reducerat pris. Erbjudandet gäller till månadsslut.</p>
+      <a href="#" class="ed-feature__link">Köp nu — 249 kr/säck <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    </div>
+  </div>
+
+  <!-- 6. INSPIRATION SLIDER -->
+  <section class="blog-carousel" id="blog">
+    <div class="blog-progress"><div class="blog-progress__bar" id="bBar"></div></div>
+    <div class="blog-bgs" id="blogBgs">
+      <div class="blog-bg active"><img src="jord.jpg" alt=""></div>
+      <div class="blog-bg"><img src="makadam.jpg" alt=""></div>
+      <div class="blog-bg"><img src="natursingel.jpg" alt=""></div>
+      <div class="blog-bg"><img src="dekorsten.jpg" alt=""></div>
+      <div class="blog-bg"><img src="bergskross.jpg" alt=""></div>
+    </div>
+    <div class="blog-overlay"></div>
+    <div class="blog-hero" id="bHero">
+      <span class="blog-hero__label" id="bLabel"></span>
+      <h2 class="blog-hero__title" id="bTitle"></h2>
+      <p class="blog-hero__intro" id="bIntro"></p>
+      <a href="#" class="blog-hero__cta">Läs mer <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    </div>
+    <div class="blog-cards-outer">
+      <div class="blog-cards-track" id="bTrack"></div>
+      <div class="blog-controls">
+        <button class="blog-nav-btn" id="bPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19l-7-7 7-7"/></svg></button>
+        <button class="blog-nav-btn" id="bNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <div class="blog-counter" id="bCounter"></div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo.png" alt="VillaGrus" style="height:32px;width:auto;object-fit:contain;filter:invert(1) brightness(2);margin-bottom:20px;display:block;">
+        <p>Naturens material direkt hem till dig. Kvalitetsprodukter sedan 2014.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+          <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Produkter</h5><ul><li><a href="#">Dekorsten</a></li><li><a href="#">Natursingel</a></li><li><a href="#">Bergskross</a></li><li><a href="#">Jordtyper</a></li></ul></div>
+      <div class="footer-col"><h5>Information</h5><ul><li><a href="#">Om oss</a></li><li><a href="#">Leveransinformation</a></li><li><a href="#">Köpvillkor</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h5>Kontakt</h5><ul><li><a href="#">info@villagrus.se</a></li><li><a href="#">010-123 45 67</a></li><li><a href="#">Mån–Fre 08–17</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 VillaGrus AB. Alla rättigheter förbehållna.</p>
+      <div class="payment-icons"><span class="pay-badge klarna">Klarna</span><span class="pay-badge">Visa</span><span class="pay-badge">Mastercard</span><span class="pay-badge">Swish</span></div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

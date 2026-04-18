@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Makadam 2–6 mm — VillaGrus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <div class="nav-drawer" id="navDrawer" aria-label="Meny">
+    <div class="nav-drawer__top">
+      <span class="nav-drawer__heading">Navigering</span>
+      <button class="nav-drawer__close" id="navClose" aria-label="Stäng meny">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="nav-drawer__body">
+      <nav class="nav-drawer__nav">
+        <a href="#">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/></svg></span>
+          Hem
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="#">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="7" height="7" rx="1"/><rect x="11" y="2" width="7" height="7" rx="1"/><rect x="2" y="11" width="7" height="7" rx="1"/><rect x="11" y="11" width="7" height="7" rx="1"/></svg></span>
+          Produkter
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="#">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="7" r="3"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6"/></svg></span>
+          Om oss
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="#">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4h16v2L10 13 2 6V4z"/><path d="M2 4v12h16V4"/></svg></span>
+          Kontakt
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+      </nav>
+    </div>
+    <div class="nav-drawer__bottom">
+      <a href="#" class="nav-drawer__link">
+        <span class="nav-drawer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+        Varukorg
+        <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </a>
+      <div class="nav-drawer__divider"></div>
+      <a href="#" class="nav-drawer__cta">
+        Kontakta oss
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <header id="header">
+    <a href="#" class="logo"><img src="logo.png" alt="VillaGrus" class="logo-img"></a>
+    <nav>
+      <a href="#">Hem</a>
+      <a href="#" class="active">Produkter</a>
+      <a href="#">Inspiration</a>
+      <a href="#">Om oss</a>
+      <a href="#">Kontakt</a>
+    </nav>
+    <div class="header-right">
+      <button class="cart-btn" aria-label="Kundvagn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </button>
+      <a href="#" class="contact-btn">Kontakta oss</a>
+      <button class="hamburger" id="hamburger" aria-label="Öppna meny">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <div class="pdp-breadcrumb">
+    <div class="pdp-breadcrumb__inner">
+      <a href="#">Hem</a>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 4l4 4-4 4"/></svg>
+      <a href="#">Produkter</a>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 4l4 4-4 4"/></svg>
+      <a href="#">Makadam</a>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 4l4 4-4 4"/></svg>
+      <span>Makadam 2–6 mm</span>
+    </div>
+  </div>
+
+  <!-- PRODUKTSEKTION: galleri + konfigurator -->
+  <section class="pdp-section">
+
+    <!-- VÄNSTER: Bildgalleri -->
+    <div class="pdp-gallery">
+      <div class="pdp-gallery__main">
+        <img src="makadam.jpg" alt="Makadam 2–6 mm" id="pdpMainImg">
+        <div class="pdp-gallery__badge">Makadam</div>
+      </div>
+      <div class="pdp-gallery__thumbs">
+        <button class="pdp-thumb is-active" data-src="makadam.jpg">
+          <img src="makadam.jpg" alt="Makadam 2–6 mm">
+        </button>
+        <button class="pdp-thumb" data-src="makadam-2.jpg">
+          <img src="makadam-2.jpg" alt="Makadam närbild">
+        </button>
+        <button class="pdp-thumb" data-src="cat-makadam.png">
+          <img src="cat-makadam.png" alt="Makadam produktbild">
+        </button>
+      </div>
+    </div>
+
+    <!-- HÖGER: Konfigurator -->
+    <div class="pdp-configurator" id="pdp-configurator">
+
+      <div class="pdp-meta">
+        <div class="section-label">Bergskross · Makadam</div>
+        <h1 class="pdp-title">Makadam 2–6 mm</h1>
+        <p class="pdp-desc">Krossat berg i fraktionen 2–6 mm. Passar utmärkt för dränering, stabilisering av mark och fyllnad under plattor och kantsten. Levereras med kranbil direkt till din adress.</p>
+        <div class="pdp-rating">
+          <div class="pdp-stars">
+            <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4L6 1z"/></svg>
+            <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4L6 1z"/></svg>
+            <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4L6 1z"/></svg>
+            <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4L6 1z"/></svg>
+            <svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.4 2.8 3.1.4-2.2 2.2.5 3.1L6 8l-2.8 1.5.5-3.1L1.5 4.2l3.1-.4L6 1z"/></svg>
+          </div>
+          <span>4,8 (124 recensioner)</span>
+        </div>
+      </div>
+
+      <!-- ── STEG 1: Leveranssätt ── -->
+      <div class="pdp-step">
+        <div class="pdp-step-label">Leveranssätt <button class="pdp-info-btn" data-info="leveranssatt" aria-label="Mer info om leveranssätt"></button></div>
+        <div class="pdp-delivery-grid">
+          <button class="pdp-delivery-card" data-delivery="tipplass" id="cardTipplass">
+            <div class="pdp-delivery-icon">
+              <!-- Tipplass: dump truck -->
+              <svg viewBox="0 0 56 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 28 L2 18 L10 18 L15 12 L22 12 L22 28 Z"/>
+                <path d="M22 28 L22 15 L48 10 L50 28 Z"/>
+                <line x1="22" y1="28" x2="50" y2="28"/>
+                <circle cx="8" cy="32" r="3.5"/>
+                <circle cx="36" cy="32" r="3.5"/>
+                <circle cx="44" cy="32" r="3.5"/>
+                <path d="M42 28 Q46 22 50 28" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="pdp-delivery-text">
+              <strong>Tipplass</strong>
+              <span>Löslast tippas på plats, bäst för större volymer och öppna ytor.</span>
+            </div>
+          </button>
+          <button class="pdp-delivery-card" data-delivery="storsack" id="cardStorsack">
+            <div class="pdp-delivery-icon">
+              <!-- Storsäck: big bag FIBC -->
+              <svg viewBox="0 0 40 46" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 8 L13 3 Q20 1 27 3 L27 8"/>
+                <path d="M5 10 L35 10 L31 42 L9 42 Z"/>
+                <line x1="20" y1="10" x2="20" y2="42" stroke-width="1" stroke-dasharray="2 3"/>
+                <line x1="5" y1="22" x2="35" y2="22" stroke-width="1" stroke-dasharray="2 3"/>
+              </svg>
+            </div>
+            <div class="pdp-delivery-text">
+              <strong>Storsäck</strong>
+              <span>Levereras i säck, smidigt för mindre mängder och trånga utrymmen.</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEG 2a: Storsäck-alternativ ── -->
+      <div class="pdp-storsack" id="pdpStorsack" hidden>
+
+        <!-- Säckstorlek -->
+        <div class="pdp-step">
+          <div class="pdp-step-label">Säckstorlek <button class="pdp-info-btn" data-info="sackstorlek" aria-label="Mer info om säckstorlek"></button></div>
+          <div class="pdp-toggle-group" id="bagSizeGroup">
+            <button class="pdp-toggle-btn is-active" data-size="500">500 kg</button>
+            <button class="pdp-toggle-btn" data-size="1000">1 000 kg</button>
+          </div>
+        </div>
+
+        <!-- Antal säckar -->
+        <div class="pdp-step" id="pdpCountStep">
+          <div class="pdp-step-label" id="pdpCountLabel">Antal säckar 500 kg</div>
+          <div class="pdp-dropdown" id="bagCount">
+            <button class="pdp-dropdown__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="pdp-dropdown__qty"></span>
+              <div class="pdp-dropdown__trigger-right">
+                <span class="pdp-dropdown__total"></span>
+                <svg class="pdp-dropdown__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+              </div>
+            </button>
+            <div class="pdp-dropdown__panel" hidden role="listbox"><div class="pdp-dropdown__panel-inner"></div></div>
+          </div>
+          <p class="pdp-price-note" id="pdpPriceNote">2 195 kr per säck inkl leverans</p>
+        </div>
+
+        <!-- Storlek på kran -->
+        <div class="pdp-step">
+          <div class="pdp-step-label">Storlek på kran? <button class="pdp-info-btn" data-info="kran" aria-label="Mer info om kranbil"></button></div>
+          <div class="pdp-delivery-grid pdp-delivery-grid--sm">
+            <button class="pdp-delivery-card pdp-delivery-card--sm is-active" data-crane="standard" id="cardCraneStd">
+              <div class="pdp-delivery-icon">
+                <!-- Standard kran -->
+                <svg viewBox="0 0 56 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="20" width="52" height="12" rx="1"/>
+                  <path d="M2 20 L2 14 L18 14 L22 20"/>
+                  <rect x="29" y="12" width="7" height="8" rx="1"/>
+                  <path d="M32 12 L32 4 L44 4"/>
+                  <line x1="44" y1="4" x2="44" y2="12"/>
+                  <circle cx="10" cy="34" r="3"/>
+                  <circle cx="40" cy="34" r="3"/>
+                  <circle cx="50" cy="34" r="3"/>
+                </svg>
+              </div>
+              <div class="pdp-delivery-text">
+                <strong>Standard</strong>
+                <span>3–5 m från farbar väg</span>
+              </div>
+            </button>
+            <button class="pdp-delivery-card pdp-delivery-card--sm" data-crane="big" id="cardCraneBig">
+              <div class="pdp-delivery-icon">
+                <!-- Stor kranbil -->
+                <svg viewBox="0 0 62 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="22" width="58" height="11" rx="1"/>
+                  <path d="M2 22 L2 16 L16 16 L20 22"/>
+                  <rect x="27" y="14" width="7" height="8" rx="1"/>
+                  <path d="M30 14 L30 3 L60 3"/>
+                  <line x1="60" y1="3" x2="60" y2="14"/>
+                  <circle cx="10" cy="35" r="3"/>
+                  <circle cx="44" cy="35" r="3"/>
+                  <circle cx="54" cy="35" r="3"/>
+                </svg>
+              </div>
+              <div class="pdp-delivery-text">
+                <strong>Stor kranbil</strong>
+                <span>Upp till 14 m (+150 kr/säck)</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Leveranstid -->
+        <div class="pdp-step">
+          <div class="pdp-step-label">Leveranstid <button class="pdp-info-btn" data-info="leveranstid" aria-label="Mer info om leveranstid"></button></div>
+          <div class="pdp-toggle-group" id="bagTimeGroup">
+            <button class="pdp-toggle-btn is-active" data-time="standard">Standard</button>
+            <button class="pdp-toggle-btn" data-time="express">Express (+495 kr)</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── STEG 2b: Tipplass-alternativ ── -->
+      <div class="pdp-tipplass" id="pdpTipplass" hidden>
+
+        <!-- Val av mängd -->
+        <div class="pdp-step">
+          <div class="pdp-step-label">Val av mängd <button class="pdp-info-btn" data-info="mangd" aria-label="Mer info om mängd"></button></div>
+          <div class="pdp-toggle-group" id="tippTypeGroup">
+            <button class="pdp-toggle-btn is-active" data-tipp="ton">Antal ton (1–13)</button>
+            <button class="pdp-toggle-btn" data-tipp="lass">Antal lass (13 ton/st)</button>
+          </div>
+        </div>
+
+        <!-- Mängdinput -->
+        <div class="pdp-step">
+          <div class="pdp-step-label" id="tippCountLabel">Antal ton</div>
+          <div class="pdp-dropdown" id="tippCount">
+            <button class="pdp-dropdown__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="pdp-dropdown__qty"></span>
+              <div class="pdp-dropdown__trigger-right">
+                <span class="pdp-dropdown__total"></span>
+                <svg class="pdp-dropdown__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+              </div>
+            </button>
+            <div class="pdp-dropdown__panel" hidden role="listbox"><div class="pdp-dropdown__panel-inner"></div></div>
+          </div>
+          <p class="pdp-price-note" id="tippPriceNote">890 kr per ton inkl leverans</p>
+        </div>
+
+        <!-- Leveranstid -->
+        <div class="pdp-step">
+          <div class="pdp-step-label">Leveranstid <button class="pdp-info-btn" data-info="leveranstid" aria-label="Mer info om leveranstid"></button></div>
+          <div class="pdp-toggle-group" id="tippTimeGroup">
+            <button class="pdp-toggle-btn is-active" data-time="standard">Standard</button>
+            <button class="pdp-toggle-btn" data-time="express">Express (+495 kr)</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── TOTALSUMMA ── -->
+      <div class="pdp-total-bar">
+        <div class="pdp-total-summary">
+          <span class="pdp-total-label">Totalsumma</span>
+          <span class="pdp-total-price" id="pdpTotal">— kr</span>
+        </div>
+        <button class="pdp-add-btn" id="pdpAddBtn">
+          <span id="pdpAddBtnText">Välj leveranssätt</span>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </button>
+      </div>
+
+      <!-- Leveranslöfte -->
+      <div class="pdp-delivery-promise">
+        <div class="pdp-promise-item">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <span>Leverans inom 48h</span>
+        </div>
+        <div class="pdp-promise-item">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l2 2 4-4"/><path d="M10 2a8 8 0 100 16A8 8 0 0010 2z"/></svg>
+          <span>Fri rådgivning</span>
+        </div>
+        <div class="pdp-promise-item">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="16" height="12" rx="1"/><polyline points="2,4 10,11 18,4"/></svg>
+          <span>Klarna-betalning</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRODUKTINFO TABS -->
+  <section class="pdp-info">
+    <div class="pdp-info__inner">
+      <div class="pdp-tabs" role="tablist">
+        <button class="pdp-tab is-active" data-tab="beskrivning" role="tab">Beskrivning</button>
+        <button class="pdp-tab" data-tab="spec" role="tab">Specifikationer</button>
+        <button class="pdp-tab" data-tab="leverans" role="tab">Leverans &amp; retur</button>
+        <button class="pdp-tab" data-tab="transport" role="tab">Transport</button>
+      </div>
+
+      <div class="pdp-tab-content is-active" id="pdpTabBeskrivning">
+        <div class="pdp-tab-body prose">
+          <h3>Om Makadam 2–6 mm</h3>
+          <p>Makadam 2–6 mm är ett krossat bergmaterial med skarp, kantigt utseende och hög hållbarhet. Den mindre fraktionen passar utmärkt i situationer där ett tätt, stabilt lager krävs utan alltför stor luftighet.</p>
+          <p>Vanliga användningsområden inkluderar dräneringslager under plattor och kantsten, stabilisering av gångvägar och uppfarter, fyllnadsmaterial i gabionkorgar samt underlag i trädgård och på terrass.</p>
+          <h3>Fördelar</h3>
+          <ul class="pdp-list">
+            <li>Utmärkt dräneringsförmåga tack vare skarp kornform</li>
+            <li>Hög bärförmåga och kompakterar väl under belastning</li>
+            <li>Naturgrå färg som passar de flesta trädgårdsmiljöer</li>
+            <li>Levereras direkt på plats med kranbil — smidigt och tidseffektivt</li>
+          </ul>
+          <div class="pdp-usage-grid">
+            <div class="pdp-usage-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 20h18M6 20V10l6-7 6 7v10"/><path d="M10 20v-5h4v5"/></svg>
+              <span>Uppfart</span>
+            </div>
+            <div class="pdp-usage-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="14" width="20" height="6" rx="1"/><path d="M5 14 L5 8 L19 8 L19 14"/><line x1="12" y1="8" x2="12" y2="14"/></svg>
+              <span>Under plattor</span>
+            </div>
+            <div class="pdp-usage-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2M2 12h20"/><path d="M7 7l5 5 5-5"/><path d="M7 17l5-5 5 5"/></svg>
+              <span>Dränering</span>
+            </div>
+            <div class="pdp-usage-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              <span>Gabion</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pdp-tab-content" id="pdpTabSpec">
+        <div class="pdp-tab-body prose">
+          <table class="pdp-spec-table">
+            <tbody>
+              <tr><th>Fraktion</th><td>2–6 mm</td></tr>
+              <tr><th>Material</th><td>Krossat berg (granit)</td></tr>
+              <tr><th>Färg</th><td>Grå, naturlig</td></tr>
+              <tr><th>Densitet</th><td>ca 1 600 kg/m³ (lösvikt)</td></tr>
+              <tr><th>Vikt per storsäck 500 kg</th><td>500 kg ± 5%</td></tr>
+              <tr><th>Vikt per storsäck 1 000 kg</th><td>1 000 kg ± 5%</td></tr>
+              <tr><th>Volym per storsäck 500 kg</th><td>ca 0,31 m³</td></tr>
+              <tr><th>Volym per storsäck 1 000 kg</th><td>ca 0,63 m³</td></tr>
+              <tr><th>Volym per tipplass</th><td>ca 8 m³ (13 ton)</td></tr>
+              <tr><th>Ursprung</th><td>Sverige</td></tr>
+              <tr><th>Förpackning</th><td>Storsäck (FIBC) eller tipplass</td></tr>
+            </tbody>
+          </table>
+          <p class="pdp-spec-note">Beräkna hur mycket du behöver: 1 m² med 5 cm djup ≈ 80 kg. <a href="#">Kontakta oss</a> för rådgivning.</p>
+        </div>
+      </div>
+
+      <div class="pdp-tab-content" id="pdpTabLeverans">
+        <div class="pdp-tab-body pdp-tab-body--two-col prose">
+          <div>
+            <h3>Leveransinformation</h3>
+            <ul class="pdp-list">
+              <li><strong>Standard:</strong> Leverans inom 2–5 arbetsdagar. Vi hör av oss med ett leveransfönster.</li>
+              <li><strong>Express:</strong> Leverans inom 24–48 timmar (+495 kr). Beställ före kl 12 för nästkommande dag.</li>
+              <li>Leverans med kranbil direkt till angiven plats på er tomt.</li>
+              <li>Standardkran räcker 3–5 meter från farbar väg. Stor kranbil når upp till 14 meter.</li>
+              <li>Vi levererar till hela Sverige. Kontakta oss för leverans till öar och svårtillgängliga platser.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Retur &amp; reklamation</h3>
+            <ul class="pdp-list">
+              <li>Öppet köp i 14 dagar på oöppnad och orörd storsäck.</li>
+              <li>Vid reklamation — ta foto och kontakta oss inom 48h efter leverans.</li>
+              <li>Vi ersätter eller återbetalar vid fel i produkt eller leverans.</li>
+              <li>Tipplass kan inte returneras efter lossning.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="pdp-tab-content" id="pdpTabTransport">
+        <div class="pdp-tab-body prose">
+          <div class="pdp-accordion">
+
+            <!-- Tipplass -->
+            <div class="pdp-accordion-item">
+              <button class="pdp-accordion-btn" aria-expanded="false">
+                <div class="pdp-accordion-btn__left">
+                  <div class="pdp-accordion-icon-wrap">
+                    <svg viewBox="0 0 56 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 28 L2 18 L10 18 L15 12 L22 12 L22 28 Z"/>
+                      <path d="M22 28 L22 15 L48 10 L50 28 Z"/>
+                      <line x1="22" y1="28" x2="50" y2="28"/>
+                      <circle cx="8" cy="32" r="3.5"/>
+                      <circle cx="36" cy="32" r="3.5"/>
+                      <circle cx="44" cy="32" r="3.5"/>
+                    </svg>
+                  </div>
+                  <div class="pdp-accordion-btn__text">
+                    <span class="pdp-accordion-title">Tipplass</span>
+                    <span class="pdp-accordion-sub">Löslast direkt på plats — för större volymer</span>
+                  </div>
+                </div>
+                <div class="pdp-accordion-plus">
+                  <svg class="pdp-accordion-plus__plus" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg>
+                  <svg class="pdp-accordion-plus__close" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l8 8M10 2l-8 8"/></svg>
+                </div>
+              </button>
+              <div class="pdp-accordion-body"><div class="prose">
+                <p>Har du plats på uppfarten eller går det att tippa materialet direkt där det ska användas? Tipplass passar bäst för större volymer och öppna ytor. Vid riktigt stora mängder levererar vi med tippbil och släp.</p>
+                <div class="pdp-accordion-cols">
+                  <div>
+                    <h4>Fördelar</h4>
+                    <ul class="">
+                      <li>Snabbt, prisvärt och enkelt</li>
+                      <li>Bra för stora anläggningsprojekt</li>
+                      <li>Favoriten för singel på uppfarten</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Tänk på</h4>
+                    <ul class="">
+                      <li>Kräver utrymme för att komma fram</li>
+                      <li>Kan inte köra över gräsmattor eller asfalt</li>
+                    </ul>
+                  </div>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- Kranbil -->
+            <div class="pdp-accordion-item">
+              <button class="pdp-accordion-btn" aria-expanded="false">
+                <div class="pdp-accordion-btn__left">
+                  <div class="pdp-accordion-icon-wrap">
+                    <svg viewBox="0 0 62 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="22" width="58" height="11" rx="1"/>
+                      <path d="M2 22 L2 16 L16 16 L20 22"/>
+                      <rect x="27" y="14" width="7" height="8" rx="1"/>
+                      <path d="M30 14 L30 3 L60 3"/>
+                      <line x1="60" y1="3" x2="60" y2="14"/>
+                      <circle cx="10" cy="35" r="3"/>
+                      <circle cx="44" cy="35" r="3"/>
+                      <circle cx="54" cy="35" r="3"/>
+                    </svg>
+                  </div>
+                  <div class="pdp-accordion-btn__text">
+                    <span class="pdp-accordion-title">Kranbil</span>
+                    <span class="pdp-accordion-sub">Lyfter material över häckar och staket</span>
+                  </div>
+                </div>
+                <div class="pdp-accordion-plus">
+                  <svg class="pdp-accordion-plus__plus" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg>
+                  <svg class="pdp-accordion-plus__close" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l8 8M10 2l-8 8"/></svg>
+                </div>
+              </button>
+              <div class="pdp-accordion-body"><div class="prose">
+                <p>Med en kranbil utrustad med skopa kan vi lyfta ditt material exakt dit du vill — upp till 10 meter från vägen, över häckar och staket. Storsäckar levereras alltid med kranbil.</p>
+                <div class="pdp-accordion-cols">
+                  <div>
+                    <h4>Fördelar</h4>
+                    <ul class="">
+                      <li>Exakt leveransplats, max 10 m från vägen</li>
+                      <li>Mångsidig — blanda material och storsäckar</li>
+                      <li>Kan lasta schakt och jord på returlasten</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Tänk på</h4>
+                    <ul class="">
+                      <li>Kan inte leverera om träd eller byggnader är i vägen</li>
+                      <li>Kräver extra bredd för stödben</li>
+                    </ul>
+                  </div>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- Storsäck -->
+            <div class="pdp-accordion-item">
+              <button class="pdp-accordion-btn" aria-expanded="false">
+                <div class="pdp-accordion-btn__left">
+                  <div class="pdp-accordion-icon-wrap">
+                    <svg viewBox="0 0 40 46" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M13 8 L13 3 Q20 1 27 3 L27 8"/>
+                      <path d="M5 10 L35 10 L31 42 L9 42 Z"/>
+                      <line x1="20" y1="10" x2="20" y2="42" stroke-width="1" stroke-dasharray="2 3"/>
+                      <line x1="5" y1="22" x2="35" y2="22" stroke-width="1" stroke-dasharray="2 3"/>
+                    </svg>
+                  </div>
+                  <div class="pdp-accordion-btn__text">
+                    <span class="pdp-accordion-title">Storsäck</span>
+                    <span class="pdp-accordion-sub">Flexibel leverans för mindre mängder</span>
+                  </div>
+                </div>
+                <div class="pdp-accordion-plus">
+                  <svg class="pdp-accordion-plus__plus" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg>
+                  <svg class="pdp-accordion-plus__close" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l8 8M10 2l-8 8"/></svg>
+                </div>
+              </button>
+              <div class="pdp-accordion-body"><div class="prose">
+                <p>Storsäcken passar när du behöver en exakt mängd, vill hålla material separerade, eller planerar att använda materialet i etapper. Levereras alltid med kranbil.</p>
+                <div class="pdp-accordion-cols">
+                  <div>
+                    <h4>Fördelar</h4>
+                    <ul class="">
+                      <li>Exakt leveransplats, max 10 m från vägen</li>
+                      <li>Blanda material i separata säckar</li>
+                      <li>Materialet skyddas från regn</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Tänk på</h4>
+                    <ul class="">
+                      <li>Kan inte leverera om träd eller byggnader är i vägen</li>
+                      <li>Kräver extra bredd för kranbilens stödben</li>
+                    </ul>
+                  </div>
+                </div>
+              </div></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATERADE PRODUKTER -->
+  <section class="products-section">
+    <div class="products-header">
+      <div>
+        <div class="section-label reveal">Passar bra till</div>
+        <h2 class="section-title reveal">Relaterade<br><em>produkter</em></h2>
+      </div>
+      <a href="#" class="see-all reveal">Se alla <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal">
+        <img src="cat-bergkross.png" alt="Bergkross">
+        <div class="product-info">
+          <div class="product-cat">Bergskross</div>
+          <h4>Bergkross 8–16 mm</h4>
+          <div class="product-size">Fraktion 8–16 mm</div>
+        </div>
+        <div class="product-footer">
+          <button class="add-btn">Välj produkt</button>
+          <span class="product-price">från 1 890 kr</span>
+        </div>
+      </div>
+      <div class="product-card reveal reveal-delay-1">
+        <img src="cat-natursingel.png" alt="Natursingel">
+        <div class="product-info">
+          <div class="product-cat">Natursingel</div>
+          <h4>Natursingel 4–8 mm</h4>
+          <div class="product-size">Fraktion 4–8 mm</div>
+        </div>
+        <div class="product-footer">
+          <button class="add-btn">Välj produkt</button>
+          <span class="product-price">från 2 095 kr</span>
+        </div>
+      </div>
+      <div class="product-card reveal reveal-delay-2">
+        <img src="cat-jord.png" alt="Trädgårdsjord">
+        <div class="product-info">
+          <div class="product-cat">Jordtyper</div>
+          <h4>Trädgårdsjord Premium</h4>
+          <div class="product-size">Fraktion finjord</div>
+        </div>
+        <div class="product-footer">
+          <button class="add-btn">Välj produkt</button>
+          <span class="product-price">från 1 395 kr</span>
+        </div>
+      </div>
+      <div class="product-card reveal reveal-delay-3">
+        <img src="cat-dekorsten.png" alt="Dekorsten">
+        <div class="product-info">
+          <div class="product-cat">Dekorsten</div>
+          <h4>Vit Marmorgrus</h4>
+          <div class="product-size">Fraktion 8–16 mm</div>
+        </div>
+        <div class="product-footer">
+          <button class="add-btn">Välj produkt</button>
+          <span class="product-price">från 1 695 kr</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSTNUMMER MODAL -->
+  <div class="zip-backdrop" id="zipBackdrop"></div>
+  <div class="zip-modal" id="zipModal" role="dialog" aria-modal="true" aria-label="Kontrollera leverans">
+    <button class="zip-modal__close" id="zipClose" aria-label="Stäng">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="zip-modal__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+    </div>
+    <h2 class="zip-modal__title">Levererar vi till dig?</h2>
+    <p class="zip-modal__sub">Ange ditt postnummer för att se om vi levererar till din adress.</p>
+    <form class="zip-modal__form" id="zipForm" onsubmit="return false">
+      <input class="zip-modal__input" id="zipInput" type="text" inputmode="numeric" maxlength="6" placeholder="123 45" autocomplete="postal-code">
+      <button class="zip-modal__btn" type="submit" id="zipSubmit">
+        Kontrollera
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+    </form>
+    <p class="zip-modal__note">Vi levererar till hela Sverige inom 48h.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo.png" alt="VillaGrus" style="height:32px;width:auto;object-fit:contain;filter:invert(1) brightness(2);margin-bottom:20px;display:block;">
+        <p>Naturens material direkt hem till dig. Kvalitetsprodukter inom dekorsten, singel, bergskross och jord sedan 2014.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+          <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Produkter</h5><ul><li><a href="#">Dekorsten</a></li><li><a href="#">Natursingel</a></li><li><a href="#">Bergskross</a></li><li><a href="#">Jordtyper</a></li></ul></div>
+      <div class="footer-col"><h5>Information</h5><ul><li><a href="#">Om oss</a></li><li><a href="#">Leveransinformation</a></li><li><a href="#">Köpvillkor</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h5>Kontakt</h5><ul><li><a href="#">info@villagrus.se</a></li><li><a href="#">010-123 45 67</a></li><li><a href="#">Mån–Fre 08–17</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 VillaGrus AB. Alla rättigheter förbehållna.</p>
+      <div class="payment-icons"><span class="pay-badge klarna">Klarna</span><span class="pay-badge">Visa</span><span class="pay-badge">Mastercard</span><span class="pay-badge">Swish</span></div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

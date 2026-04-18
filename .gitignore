@@ -1,0 +1,14 @@
+.DS_Store
+sftp.txt
+*.env
+deploy.env
+.wp-skill-state.json
+Skärmavbild*
+.claude/
+.netlify/
+Blog images/
+*.zip
+ziyASw3U
+content-till-blogg-plugin/
+hero.mp4
+CLAUDE.md
