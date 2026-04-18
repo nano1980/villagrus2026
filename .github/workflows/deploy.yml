@@ -1,0 +1,27 @@
+name: Deploy to one.com
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Deploy via rsync
+        env:
+          SSHPASS: ${{ secrets.SFTP_PASSWORD }}
+        run: |
+          sshpass -e rsync -avz \
+            -e "ssh -p 22 -o StrictHostKeyChecking=no" \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.gitignore' \
+            --exclude='.DS_Store' \
+            ./ \
+            "hernangil.com@ssh.hernangil.com:/customers/d/6/9/hernangil.com/httpd.www/villagraus2026/"
