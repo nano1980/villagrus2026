@@ -342,12 +342,14 @@
     <a href="#frosted">Frosted Glass</a>
     <a href="#countdown">Countdown</a>
     <a href="#accordion">Accordion / FAQ</a>
+    <a href="#section-nav-drawer">Nav Drawer</a>
+    <a href="#section-zip-modal">Zip Modal</a>
   </div>
 
   <div class="ds-nav-group">
     <div class="ds-nav-group-label">Cards</div>
     <a href="#product-cards">Product Cards</a>
-    <a href="#alt-cat-cards">Alt Category Cards</a>
+    <a href="#alt-cat-cards">Category Cards</a>
   </div>
 
   <div class="ds-nav-group">
@@ -361,16 +363,10 @@
     <a href="#section-carousel">Blog Carousel</a>
     <a href="#section-about">About Section</a>
     <a href="#section-footer">Footer</a>
-  </div>
-
-  <div class="ds-nav-group">
-    <div class="ds-nav-group-label">New Components</div>
     <a href="#section-feat-banner">Featured Banner</a>
     <a href="#section-pull-quote">Pull Quote</a>
     <a href="#section-editorial-quote">Editorial Quote</a>
     <a href="#section-contact">Contact Section</a>
-    <a href="#section-nav-drawer">Nav Drawer</a>
-    <a href="#section-zip-modal">Zip Modal</a>
   </div>
 </aside>
 
@@ -573,100 +569,6 @@
       <span class="ds-chip"><strong>ul ::before</strong>: sand streck 10×1px, top 10px</span>
       <span class="ds-chip"><strong>ol ::before</strong>: sand counter, 0.72rem, 500</span>
       <span class="ds-chip"><strong>Klass</strong>: .prose — appliceras på innehållscontainers</span>
-    </div>
-  </section>
-
-
-  <!-- ═══════ ACCORDION ═══════ -->
-  <section class="ds-section" id="accordion">
-    <div class="ds-section-head">
-      <h2>Components</h2>
-      <h3>Accordion / FAQ</h3>
-      <p>Används för innehållsrikt text som kan fällas ut — transport, FAQ, produktinfo. Titeln i serif, ikon i sand vid expand. Inre innehåll använder alltid <code>.prose</code> för konsekvent typografi. <strong>Regel:</strong> <code>.pdp-accordion-cols</code> får alltid <code>margin-top: 24px</code> från föregående prose-element.</p>
-    </div>
-
-    <div class="ds-canvas ds-canvas--cream" style="padding: 0;">
-      <div style="max-width: 860px; margin: 0 auto; padding: 40px 48px;">
-        <!-- Stängd rad -->
-        <div class="pdp-accordion-item" style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-          <button class="pdp-accordion-btn" aria-expanded="false" style="cursor:default;">
-            <div class="pdp-accordion-btn__left">
-              <div class="pdp-accordion-icon-wrap">
-                <svg viewBox="0 0 56 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M2 28 L2 18 L10 18 L15 12 L22 12 L22 28 Z"/>
-                  <path d="M22 28 L22 15 L48 10 L50 28 Z"/>
-                  <line x1="22" y1="28" x2="50" y2="28"/>
-                  <circle cx="8" cy="32" r="3.5"/>
-                  <circle cx="36" cy="32" r="3.5"/>
-                  <circle cx="44" cy="32" r="3.5"/>
-                </svg>
-              </div>
-              <div class="pdp-accordion-btn__text">
-                <span class="pdp-accordion-title">Stängd rad</span>
-                <span class="pdp-accordion-sub">Undertitel — kort beskrivning av innehållet</span>
-              </div>
-            </div>
-            <div class="pdp-accordion-plus">
-              <svg class="pdp-accordion-plus__plus" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg>
-              <svg class="pdp-accordion-plus__close" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l8 8M10 2l-8 8"/></svg>
-            </div>
-          </button>
-        </div>
-
-        <!-- Öppen rad med fullständigt prose-innehåll -->
-        <div class="pdp-accordion-item is-open" style="border-bottom: 1px solid var(--border);">
-          <button class="pdp-accordion-btn" aria-expanded="true" style="cursor:default;">
-            <div class="pdp-accordion-btn__left">
-              <div class="pdp-accordion-icon-wrap">
-                <svg viewBox="0 0 40 46" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M13 8 L13 3 Q20 1 27 3 L27 8"/>
-                  <path d="M5 10 L35 10 L31 42 L9 42 Z"/>
-                  <line x1="20" y1="10" x2="20" y2="42" stroke-width="1" stroke-dasharray="2 3"/>
-                  <line x1="5" y1="22" x2="35" y2="22" stroke-width="1" stroke-dasharray="2 3"/>
-                </svg>
-              </div>
-              <div class="pdp-accordion-btn__text">
-                <span class="pdp-accordion-title">Öppen rad — med prose-innehåll</span>
-                <span class="pdp-accordion-sub">Visar korrekt spacing: p → 20px mb → cols med 24px mt</span>
-              </div>
-            </div>
-            <div class="pdp-accordion-plus">
-              <svg class="pdp-accordion-plus__plus" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg>
-              <svg class="pdp-accordion-plus__close" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l8 8M10 2l-8 8"/></svg>
-            </div>
-          </button>
-          <div class="pdp-accordion-body" style="grid-template-rows: 1fr;">
-            <div><div class="prose" style="padding: 0 20px 40px;">
-              <p>Brödtext i .prose direkt i accordion-body. Paragraf har <code>margin-bottom: 20px</code> mot nästa element. Notera luften ner till kolumnerna nedan — den skapas av <code>margin-top: 24px</code> på <code>.pdp-accordion-cols</code>.</p>
-              <div class="pdp-accordion-cols">
-                <div>
-                  <h4>Fördelar</h4>
-                  <ul>
-                    <li>Sand streck från .prose ul li::before</li>
-                    <li><strong>Fet text</strong> behåller svart färg</li>
-                    <li>Gap 12px mellan listpunkter</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4>Tänk på</h4>
-                  <ul>
-                    <li>Samma listmarkör — konsekvent med resten</li>
-                    <li>H4 i .prose — sand, uppercase, med streck</li>
-                  </ul>
-                </div>
-              </div>
-            </div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="ds-spec">
-      <span class="ds-chip"><strong>.pdp-accordion-btn</strong>: icon-wrap (52×36px, sand vid öppen) + serif titel + sans undertitel + plus-cirkel (sand)</span>
-      <span class="ds-chip"><strong>.pdp-accordion-body</strong>: grid-template-rows 0fr → 1fr, transition 0.3s</span>
-      <span class="ds-chip"><strong>.prose</strong> i body: p mb 20px, h4 mb 12px, ul gap 12px</span>
-      <span class="ds-chip"><strong>.pdp-accordion-cols</strong>: grid 1fr 1fr, gap 32px, <strong>margin-top: 24px</strong> — alltid</span>
-      <span class="ds-chip"><strong>Öppen state</strong>: .is-open på .pdp-accordion-item, aria-expanded="true"</span>
     </div>
   </section>
 
@@ -973,6 +875,100 @@
 
 
 
+  <!-- ═══════ ACCORDION ═══════ -->
+  <section class="ds-section" id="accordion">
+    <div class="ds-section-head">
+      <h2>Components</h2>
+      <h3>Accordion / FAQ</h3>
+      <p>Används för innehållsrikt text som kan fällas ut — transport, FAQ, produktinfo. Titeln i serif, ikon i sand vid expand. Inre innehåll använder alltid <code>.prose</code> för konsekvent typografi. <strong>Regel:</strong> <code>.pdp-accordion-cols</code> får alltid <code>margin-top: 24px</code> från föregående prose-element.</p>
+    </div>
+
+    <div class="ds-canvas ds-canvas--cream" style="padding: 0;">
+      <div style="max-width: 860px; margin: 0 auto; padding: 40px 48px;">
+        <!-- Stängd rad -->
+        <div class="pdp-accordion-item" style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+          <button class="pdp-accordion-btn" aria-expanded="false" style="cursor:default;">
+            <div class="pdp-accordion-btn__left">
+              <div class="pdp-accordion-icon-wrap">
+                <svg viewBox="0 0 56 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 28 L2 18 L10 18 L15 12 L22 12 L22 28 Z"/>
+                  <path d="M22 28 L22 15 L48 10 L50 28 Z"/>
+                  <line x1="22" y1="28" x2="50" y2="28"/>
+                  <circle cx="8" cy="32" r="3.5"/>
+                  <circle cx="36" cy="32" r="3.5"/>
+                  <circle cx="44" cy="32" r="3.5"/>
+                </svg>
+              </div>
+              <div class="pdp-accordion-btn__text">
+                <span class="pdp-accordion-title">Stängd rad</span>
+                <span class="pdp-accordion-sub">Undertitel — kort beskrivning av innehållet</span>
+              </div>
+            </div>
+            <div class="pdp-accordion-plus">
+              <svg class="pdp-accordion-plus__plus" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg>
+              <svg class="pdp-accordion-plus__close" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l8 8M10 2l-8 8"/></svg>
+            </div>
+          </button>
+        </div>
+
+        <!-- Öppen rad med fullständigt prose-innehåll -->
+        <div class="pdp-accordion-item is-open" style="border-bottom: 1px solid var(--border);">
+          <button class="pdp-accordion-btn" aria-expanded="true" style="cursor:default;">
+            <div class="pdp-accordion-btn__left">
+              <div class="pdp-accordion-icon-wrap">
+                <svg viewBox="0 0 40 46" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M13 8 L13 3 Q20 1 27 3 L27 8"/>
+                  <path d="M5 10 L35 10 L31 42 L9 42 Z"/>
+                  <line x1="20" y1="10" x2="20" y2="42" stroke-width="1" stroke-dasharray="2 3"/>
+                  <line x1="5" y1="22" x2="35" y2="22" stroke-width="1" stroke-dasharray="2 3"/>
+                </svg>
+              </div>
+              <div class="pdp-accordion-btn__text">
+                <span class="pdp-accordion-title">Öppen rad — med prose-innehåll</span>
+                <span class="pdp-accordion-sub">Visar korrekt spacing: p → 20px mb → cols med 24px mt</span>
+              </div>
+            </div>
+            <div class="pdp-accordion-plus">
+              <svg class="pdp-accordion-plus__plus" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 1v10M1 6h10"/></svg>
+              <svg class="pdp-accordion-plus__close" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l8 8M10 2l-8 8"/></svg>
+            </div>
+          </button>
+          <div class="pdp-accordion-body" style="grid-template-rows: 1fr;">
+            <div><div class="prose" style="padding: 0 20px 40px;">
+              <p>Brödtext i .prose direkt i accordion-body. Paragraf har <code>margin-bottom: 20px</code> mot nästa element. Notera luften ner till kolumnerna nedan — den skapas av <code>margin-top: 24px</code> på <code>.pdp-accordion-cols</code>.</p>
+              <div class="pdp-accordion-cols">
+                <div>
+                  <h4>Fördelar</h4>
+                  <ul>
+                    <li>Sand streck från .prose ul li::before</li>
+                    <li><strong>Fet text</strong> behåller svart färg</li>
+                    <li>Gap 12px mellan listpunkter</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Tänk på</h4>
+                  <ul>
+                    <li>Samma listmarkör — konsekvent med resten</li>
+                    <li>H4 i .prose — sand, uppercase, med streck</li>
+                  </ul>
+                </div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-spec">
+      <span class="ds-chip"><strong>.pdp-accordion-btn</strong>: icon-wrap (52×36px, sand vid öppen) + serif titel + sans undertitel + plus-cirkel (sand)</span>
+      <span class="ds-chip"><strong>.pdp-accordion-body</strong>: grid-template-rows 0fr → 1fr, transition 0.3s</span>
+      <span class="ds-chip"><strong>.prose</strong> i body: p mb 20px, h4 mb 12px, ul gap 12px</span>
+      <span class="ds-chip"><strong>.pdp-accordion-cols</strong>: grid 1fr 1fr, gap 32px, <strong>margin-top: 24px</strong> — alltid</span>
+      <span class="ds-chip"><strong>Öppen state</strong>: .is-open på .pdp-accordion-item, aria-expanded="true"</span>
+    </div>
+  </section>
+
+
   <!-- ═══════ PRODUCT CARDS ═══════ -->
   <section class="ds-section" id="product-cards">
     <div class="ds-section-head">
@@ -1047,7 +1043,7 @@
   <section class="ds-section" id="alt-cat-cards">
     <div class="ds-section-head">
       <h2>Cards</h2>
-      <h3>Alt Category Cards</h3>
+      <h3>Category Cards</h3>
       <p>.alt-cat-card · Sibling dim-effect via CSS :has() · Scroll-carousel on mobile · Dark and light variants</p>
     </div>
 
@@ -1186,7 +1182,6 @@
         </div>
         <div class="nature-banner__fade"></div>
         <div class="nature-banner__content" style="margin-bottom:40px">
-          <span class="block-num">02</span>
           <h2>Skapa din <em>drömträdgård</em></h2>
           <p>Med rätt underlag blomstrar varje trädgård.</p>
           <a href="#" class="nature-banner__cta">Se sortimentet <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
@@ -1202,7 +1197,6 @@
         </div>
         <div class="nature-banner__fade"></div>
         <div class="nature-banner__content">
-          <span class="block-num">03</span>
           <h2>Hållbara <em>naturmaterial</em></h2>
           <p>Bark och täckmaterial för lågt underhåll.</p>
           <a href="#" class="nature-banner__cta">Läs mer <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
@@ -1225,7 +1219,6 @@
           <img src="bergskross.jpg" alt="">
           <div class="banner-grid__fade"></div>
           <div class="banner-grid__content">
-            <span class="block-num">01</span>
             <h3>Singel &amp; <em>Makadam</em></h3>
             <a href="#" class="banner-grid__cta">Se kollektion <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
           </div>
@@ -1234,7 +1227,6 @@
           <img src="natursingel.jpg" alt="">
           <div class="banner-grid__fade"></div>
           <div class="banner-grid__content banner-grid__content--frosted">
-            <span class="block-num">02</span>
             <h3>Natursten &amp; <em>Marksten</em></h3>
             <a href="#" class="banner-grid__cta">Se kollektion <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
           </div>
@@ -1498,7 +1490,7 @@
   <!-- ═══════ FEATURED BANNER ═══════ -->
   <section class="ds-section" id="section-feat-banner">
     <div class="ds-section-head">
-      <h2>New Components</h2>
+      <h2>Sections</h2>
       <h3>Featured Banner</h3>
       <p>.feat-banner: padded full-width bildkort med frostat glaskort nere till vänster. padding: 48px 40px · border-radius: 20px · höjd: 840px. Label med streck (.feat-banner__num), serif-rubrik, brödtext och CTA-knapp.</p>
     </div>
@@ -1531,7 +1523,7 @@
   <!-- ═══════ PULL QUOTE ═══════ -->
   <section class="ds-section" id="section-pull-quote">
     <div class="ds-section-head">
-      <h2>New Components</h2>
+      <h2>Sections</h2>
       <h3>Pull Quote</h3>
       <p>.pull-quote: svart bakgrund med stor serif-citattecken till vänster, vänsterställd citat-text och siffror till höger. grid-template-columns: 1fr auto.</p>
     </div>
@@ -1561,7 +1553,7 @@
   <!-- ═══════ EDITORIAL QUOTE ═══════ -->
   <section class="ds-section" id="section-editorial-quote">
     <div class="ds-section-head">
-      <h2>New Components</h2>
+      <h2>Sections</h2>
       <h3>Editorial Quote</h3>
       <p>.editorial-quote · Tvåkolumns editoriallayout · Stor serif-rubrik vänster, body + textlänk höger (offset nedåt). Två varianter: ljus (default) och mörk (.editorial-quote--dark).</p>
     </div>
@@ -1601,7 +1593,7 @@
   <!-- ═══════ CONTACT SECTION ═══════ -->
   <section class="ds-section" id="section-contact">
     <div class="ds-section-head">
-      <h2>New Components</h2>
+      <h2>Sections</h2>
       <h3>Contact Section</h3>
       <p>.contact-section: tvåkolumnslayout med kontaktinfo till vänster och vitt formulärskort till höger. background: var(--cream).</p>
     </div>
@@ -1649,7 +1641,7 @@
   <!-- ═══════ NAV DRAWER ═══════ -->
   <section class="ds-section" id="section-nav-drawer">
     <div class="ds-section-head">
-      <h2>New Components</h2>
+      <h2>Components</h2>
       <h3>Nav Drawer</h3>
       <p>.nav-drawer: mobilnavigering som glider in från höger. Frostat glas · width: min(340px, 85vw). Triggas av .hamburger-knappen som visas vid ≤1024px. Stängs med kryss, backdrop-klick eller Escape.</p>
     </div>
@@ -1708,7 +1700,7 @@
   <!-- ═══════ ZIP MODAL ═══════ -->
   <section class="ds-section" id="section-zip-modal">
     <div class="ds-section-head">
-      <h2>New Components</h2>
+      <h2>Components</h2>
       <h3>Zip Modal (Postnummer)</h3>
       <p>.zip-modal: dyker upp 0.8s efter sidladdning. Frostad backdrop (.zip-backdrop) + centerat kort med platsikon, rubrik, postnummer-input och knapp. Stängs via kryss, backdrop-klick eller Escape.</p>
     </div>
