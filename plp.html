@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produkter — VillaGrus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <div class="nav-drawer" id="navDrawer" aria-label="Meny">
+    <div class="nav-drawer__top">
+      <span class="nav-drawer__heading">Navigering</span>
+      <button class="nav-drawer__close" id="navClose" aria-label="Stäng meny">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="nav-drawer__body">
+      <nav class="nav-drawer__nav">
+        <a href="index.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9l7-7 7 7v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9z"/><path d="M7 19V12h6v7"/></svg></span>
+          Hem
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="#">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="7" height="7" rx="1"/><rect x="11" y="2" width="7" height="7" rx="1"/><rect x="2" y="11" width="7" height="7" rx="1"/><rect x="11" y="11" width="7" height="7" rx="1"/></svg></span>
+          Produkter
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="inspiration/index.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="16" height="12" rx="1"/><path d="M6 9h8M6 12h5"/></svg></span>
+          Inspiration
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="om-oss.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="7" r="3"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6"/></svg></span>
+          Om oss
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+      </nav>
+    </div>
+    <div class="nav-drawer__bottom">
+      <a href="#" class="nav-drawer__link">
+        <span class="nav-drawer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+        Varukorg
+        <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </a>
+      <div class="nav-drawer__divider"></div>
+      <a href="om-oss.html#kontakt" class="nav-drawer__cta">
+        Kontakta oss
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header id="header">
+    <a href="index.html" class="logo"><img src="logo.png" alt="VillaGrus" class="logo-img"></a>
+    <nav>
+      <a href="index.html">Hem</a>
+      <a href="#" class="active">Produkter</a>
+      <a href="inspiration/index.html">Inspiration</a>
+      <a href="om-oss.html">Om oss</a>    </nav>
+    <div class="header-right">
+      <button class="cart-btn" aria-label="Kundvagn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </button>
+      <a href="om-oss.html#kontakt" class="contact-btn">Kontakta oss</a>
+      <button class="hamburger" id="hamburger" aria-label="Öppna meny">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- STICKY FILTER BAR -->
+  <div class="plp-filters" id="plpFilters">
+    <div class="plp-filters__inner">
+      <div class="plp-pills" role="group" aria-label="Filtrera produkter">
+
+        <button class="plp-pill is-active" data-filter="alla">Alla <span>6</span></button>
+
+        <!-- Bergkross — expanderbar -->
+        <button class="plp-pill plp-pill--expand" data-filter="bergkross" data-panel="panel-bergkross" aria-expanded="false">
+          Stenmjöl &amp; Bergkross <span>3</span>
+          <svg class="plp-pill__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+        </button>
+
+        <button class="plp-pill" data-filter="natursingel">Natursingel <span>1</span></button>
+
+        <button class="plp-pill" data-filter="dekorsten">Dekorsten <span>1</span></button>
+
+        <!-- Jord — expanderbar -->
+        <button class="plp-pill plp-pill--expand" data-filter="jord" data-panel="panel-jord" aria-expanded="false">
+          Jord <span>1</span>
+          <svg class="plp-pill__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+        </button>
+
+      </div>
+      <div class="plp-sort">
+        <select id="plpSort" aria-label="Sortera produkter">
+          <option value="relevans">Relevans</option>
+          <option value="price-asc">Lägst pris</option>
+          <option value="price-desc">Högst pris</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Expanderbara underkategoripaneler -->
+    <div class="plp-panel" id="panel-bergkross" hidden>
+      <div class="plp-panel__inner">
+        <p class="plp-panel__title">Stenmjöl &amp; Bergkross</p>
+        <div class="plp-panel__checks">
+          <label class="plp-check">
+            <input type="checkbox" data-subcat="bergkross-032">
+            <span>Bergkross 0–32 mm</span>
+            <em>1</em>
+          </label>
+          <label class="plp-check">
+            <input type="checkbox" data-subcat="makadam-26">
+            <span>Makadam 2–6 mm</span>
+            <em>1</em>
+          </label>
+          <label class="plp-check">
+            <input type="checkbox" data-subcat="makadam-1632">
+            <span>Makadam 16–32 mm</span>
+            <em>1</em>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="plp-panel" id="panel-jord" hidden>
+      <div class="plp-panel__inner">
+        <p class="plp-panel__title">Jordtyper</p>
+        <div class="plp-panel__checks">
+          <label class="plp-check">
+            <input type="checkbox" data-subcat="tradgardsjord">
+            <span>Trädgårdsjord Premium</span>
+            <em>1</em>
+          </label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <section class="plp-section">
+    <div class="plp-meta-row">
+      <p class="plp-count-text">Visar <span id="plpCount">6</span> produkter</p>
+    </div>
+
+    <div class="plp-grid" id="plpGrid">
+
+      <!-- 1: Bergkross 0–32 mm -->
+      <article class="plp-card reveal" data-category="bergkross" data-subcat="bergkross-032" data-price="395" data-order="1">
+        <a href="pdp.html" class="plp-card__img-wrap">
+          <img src="cat-bergkross.png" alt="Bergkross 0–32 mm">
+          <span class="plp-card__badge">Bergkross</span>
+        </a>
+        <div class="plp-card__body">
+          <h3 class="plp-card__name">Bergkross 0–32 mm</h3>
+          <p class="plp-card__frac">Fraktion 0–32 mm · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Markarbete &amp; dränering</div>
+                    <div class="plp-card__footer">
+            <div class="plp-card__price">
+              från<strong>395 kr</strong>
+            </div>
+            <a href="pdp.html" class="plp-card__cta">
+              Välj produkt
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2: Makadam 2–6 mm -->
+      <article class="plp-card reveal reveal-delay-1" data-category="bergkross" data-subcat="makadam-26" data-price="495" data-order="2">
+        <a href="pdp.html" class="plp-card__img-wrap">
+          <img src="cat-makadam.png" alt="Makadam 2–6 mm">
+          <span class="plp-card__badge">Makadam</span>
+        </a>
+        <div class="plp-card__body">
+          <h3 class="plp-card__name">Makadam 2–6 mm</h3>
+          <p class="plp-card__frac">Fraktion 2–6 mm · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Dränering &amp; stabilisering</div>
+                    <div class="plp-card__footer">
+            <div class="plp-card__price">
+              från<strong>495 kr</strong>
+            </div>
+            <a href="pdp.html" class="plp-card__cta">
+              Välj produkt
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3: Natursingel 4–8 mm -->
+      <article class="plp-card reveal reveal-delay-2" data-category="natursingel" data-price="595" data-order="3">
+        <a href="pdp.html" class="plp-card__img-wrap">
+          <img src="cat-natursingel.png" alt="Natursingel 4–8 mm">
+          <span class="plp-card__badge">Natursingel</span>
+        </a>
+        <div class="plp-card__body">
+          <h3 class="plp-card__name">Natursingel 4–8 mm</h3>
+          <p class="plp-card__frac">Fraktion 4–8 mm · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Uppfart &amp; trädgård</div>
+                    <div class="plp-card__footer">
+            <div class="plp-card__price">
+              från<strong>595 kr</strong>
+            </div>
+            <a href="pdp.html" class="plp-card__cta">
+              Välj produkt
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4: Dekorsten Vit Marmor -->
+      <article class="plp-card reveal" data-category="dekorsten" data-subcat="dekorsten" data-price="895" data-order="4">
+        <a href="pdp.html" class="plp-card__img-wrap plp-card__img-wrap--new">
+          <img src="cat-dekorsten.png" alt="Dekorsten Vit Marmorgrus">
+          <span class="plp-card__badge">Dekorsten</span>
+          <span class="plp-card__new">Nyhet</span>
+        </a>
+        <div class="plp-card__body">
+          <h3 class="plp-card__name">Vit Marmorgrus</h3>
+          <p class="plp-card__frac">Fraktion 8–16 mm · Storsäck</p>
+          <div class="plp-card__cat">Dekor &amp; trädgårdsdesign</div>
+                    <div class="plp-card__footer">
+            <div class="plp-card__price">
+              från<strong>895 kr</strong>
+            </div>
+            <a href="pdp.html" class="plp-card__cta">
+              Välj produkt
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5: Trädgårdsjord -->
+      <article class="plp-card reveal reveal-delay-1" data-category="jord" data-subcat="tradgardsjord" data-price="345" data-order="5">
+        <a href="pdp.html" class="plp-card__img-wrap">
+          <img src="cat-jord.png" alt="Trädgårdsjord Premium">
+          <span class="plp-card__badge">Jord</span>
+        </a>
+        <div class="plp-card__body">
+          <h3 class="plp-card__name">Trädgårdsjord Premium</h3>
+          <p class="plp-card__frac">Lösvikt · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Trädgård &amp; plantering</div>
+                    <div class="plp-card__footer">
+            <div class="plp-card__price">
+              från<strong>345 kr</strong>
+            </div>
+            <a href="pdp.html" class="plp-card__cta">
+              Välj produkt
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6: Makadam 16–32 mm -->
+      <article class="plp-card reveal reveal-delay-2" data-category="bergkross" data-subcat="makadam-1632" data-price="445" data-order="6">
+        <a href="pdp.html" class="plp-card__img-wrap">
+          <img src="cat-makadam.png" alt="Makadam 16–32 mm">
+          <span class="plp-card__badge">Makadam</span>
+        </a>
+        <div class="plp-card__body">
+          <h3 class="plp-card__name">Makadam 16–32 mm</h3>
+          <p class="plp-card__frac">Fraktion 16–32 mm · Tipplass</p>
+          <div class="plp-card__cat">Uppfart &amp; bärlagret</div>
+                    <div class="plp-card__footer">
+            <div class="plp-card__price">
+              från<strong>445 kr</strong>
+            </div>
+            <a href="pdp.html" class="plp-card__cta">
+              Välj produkt
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Empty state -->
+    <div class="plp-empty" id="plpEmpty" hidden>
+      <div class="plp-empty__icon">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+          <circle cx="24" cy="24" r="20"/>
+          <path d="M16 24h16M24 16v16" opacity="0.3"/>
+        </svg>
+      </div>
+      <p>Inga produkter matchar det valda filtret.</p>
+      <button class="plp-empty__reset" id="plpReset">Visa alla produkter</button>
+    </div>
+
+  </section>
+
+  <!-- EDITORIAL BREAK: Leveransinfo -->
+  <section class="plp-delivery-banner">
+    <div class="plp-delivery-banner__inner plp-delivery-banner__inner--padded">
+      <div class="plp-delivery-banner__item reveal">
+        <div class="plp-delivery-banner__icon">
+          <svg viewBox="0 0 40 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 24 L2 14 L8 14 L12 9 L18 9 L18 24 Z"/>
+            <path d="M18 24 L18 12 L38 8 L40 24 Z"/>
+            <line x1="18" y1="24" x2="40" y2="24"/>
+            <circle cx="7" cy="27" r="2.5"/>
+            <circle cx="29" cy="27" r="2.5"/>
+            <circle cx="35" cy="27" r="2.5"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="plp-delivery-banner__title">Kranbil med tipplass</h4>
+          <p class="plp-delivery-banner__text">Löslast tippas direkt på din plats. Bäst för större volymer och öppna ytor.</p>
+        </div>
+      </div>
+      <div class="plp-delivery-banner__divider"></div>
+      <div class="plp-delivery-banner__item reveal reveal-delay-1">
+        <div class="plp-delivery-banner__icon">
+          <svg viewBox="0 0 32 40" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 7 L10 3 Q16 1 22 3 L22 7"/>
+            <path d="M3 9 L29 9 L25 37 L7 37 Z"/>
+            <line x1="16" y1="9" x2="16" y2="37" stroke-dasharray="2 3"/>
+            <line x1="3" y1="20" x2="29" y2="20" stroke-dasharray="2 3"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="plp-delivery-banner__title">Storsäck Big Bag</h4>
+          <p class="plp-delivery-banner__text">Levereras i säck, smidigt för mindre mängder och trånga utrymmen.</p>
+        </div>
+      </div>
+      <div class="plp-delivery-banner__divider"></div>
+      <div class="plp-delivery-banner__item reveal reveal-delay-2">
+        <div class="plp-delivery-banner__icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+            <circle cx="20" cy="20" r="16"/>
+            <path d="M20 10v10l7 4"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="plp-delivery-banner__title">Leverans inom 48h</h4>
+          <p class="plp-delivery-banner__text">Beställ innan kl. 14 — levereras nästa vardag till hela Sverige.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo.png" alt="VillaGrus" style="height:32px;width:auto;object-fit:contain;filter:invert(1) brightness(2);margin-bottom:20px;display:block;">
+        <p>Naturens material direkt hem till dig. Kvalitetsprodukter inom dekorsten, singel, bergskross och jord sedan 2014.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+          <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Produkter</h5><ul><li><a href="#">Dekorsten</a></li><li><a href="#">Natursingel</a></li><li><a href="#">Bergskross</a></li><li><a href="#">Jordtyper</a></li></ul></div>
+      <div class="footer-col"><h5>Information</h5><ul><li><a href="om-oss.html">Om oss</a></li><li><a href="#">Leveransinformation</a></li><li><a href="#">Köpvillkor</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h5>Kontakt</h5><ul><li><a href="#">info@villagrus.se</a></li><li><a href="#">Mån–Fre 08–17</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 VillaGrus AB. Alla rättigheter förbehållna.</p>
+      <div class="payment-icons"><span class="pay-badge klarna">Klarna</span><span class="pay-badge">Visa</span><span class="pay-badge">Mastercard</span><span class="pay-badge">Swish</span></div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

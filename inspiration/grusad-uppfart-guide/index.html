@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anlägga grusad uppfart – komplett guide med kalkylator | VillaGrus</title>
+  <meta name="description" content="Steg-för-steg guide för grusad uppfart med interaktiv kalkylator. Räkna ut exakt hur mycket bergskross och singel du behöver — levererat med kranbil.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    html, body { margin: 0; padding: 0; overflow-x: hidden; }
+
+    /* Breadcrumb — statisk variant av pdp-breadcrumb (ej fixed) */
+    .blog-breadcrumb {
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      height: var(--crumb-h);
+      display: flex;
+      align-items: center;
+    }
+    .blog-breadcrumb .pdp-breadcrumb__inner {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 48px;
+      width: 100%;
+    }
+    @media (max-width: 768px) {
+      .blog-breadcrumb .pdp-breadcrumb__inner { padding: 0 24px; }
+    }
+
+    /* ── Hero ── */
+    .article-hero {
+      position: relative;
+      width: 100%;
+      display: block;
+      height: 620px;
+      overflow: hidden;
+      background: var(--black);
+    }
+    .article-hero__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .6;
+      display: block;
+    }
+    .article-hero__content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 48px 56px;
+    }
+    /* Frosted glass card — designsystem: rgba(255,255,255,0.12) / blur(16px) / border rgba(255,255,255,0.2) / padding 32px 36px */
+    .hero-glass {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius);
+      padding: 32px 36px;
+      width: 100%;
+      max-width: 760px;
+    }
+    .hero-glass__label {
+      font-family: var(--sans);
+      font-size: .7rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 14px;
+    }
+    .hero-glass__title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: #fff;
+      margin: 0 0 16px;
+    }
+    .hero-glass__title em { font-style: italic; color: var(--sand); }
+    .hero-glass__intro {
+      font-family: var(--sans);
+      font-size: .95rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,.72);
+      margin: 0 0 28px;
+    }
+    .hero-glass__actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .hero-btn-ghost {
+      font-family: var(--sans);
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.65);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: var(--radius);
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: color .2s, border-color .2s;
+    }
+    .hero-btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,.45); }
+    .hero-btn-cta {
+      font-family: var(--sans);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--cta);
+      border: none;
+      border-radius: var(--radius);
+      padding: 10px 22px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* ── Article body ── */
+    .article-body {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 96px 48px;
+    }
+    .article-body h2 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--black);
+      margin: 8px 0 20px;
+      line-height: 1.2;
+    }
+    .article-body h2 em { font-style: italic; }
+    .article-body p {
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #333;
+      margin: 0 0 20px;
+    }
+    .article-label {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: .7rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin: 48px 0 0;
+    }
+    .article-label:first-child { margin-top: 0; }
+
+    /* ── Layer diagram ── */
+    .layer-diagram {
+      border: 1px solid #e8e4de;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 32px 0;
+    }
+    .layer-diagram__row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 24px;
+      border-bottom: 1px solid #e8e4de;
+    }
+    .layer-diagram__row:last-child { border-bottom: none; }
+    .layer-diagram__swatch {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 3px;
+    }
+    .layer-diagram__info { flex: 1; }
+    .layer-diagram__name {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: .88rem;
+      color: var(--black);
+      margin-bottom: 3px;
+    }
+    .layer-diagram__desc {
+      font-family: var(--sans);
+      font-size: .82rem;
+      color: var(--mid);
+      line-height: 1.4;
+    }
+    .layer-diagram__depth {
+      font-family: var(--sans);
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--sand);
+      letter-spacing: .04em;
+    }
+
+    /* ── Steps ── */
+    .steps { margin: 32px 0; }
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    .step__num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--black);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: .8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step__content { flex: 1; padding-top: 6px; }
+    .step__title {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: .95rem;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+    .step__text {
+      font-family: var(--sans);
+      font-size: .9rem;
+      line-height: 1.65;
+      color: #555;
+      margin: 0;
+    }
+
+    /* ── Calculator section ── */
+    .calc-section {
+      background: var(--black);
+      padding: 96px 0;
+    }
+    .calc-section__inner { max-width: 760px; margin: 0 auto; padding: 0 48px; }
+    .calc-section__label {
+      font-family: var(--sans);
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 16px;
+    }
+    .calc-section__title {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.15;
+      margin: 0 0 12px;
+    }
+    .calc-section__title em { font-style: italic; }
+    .calc-section__sub {
+      font-family: var(--sans);
+      font-size: .95rem;
+      color: rgba(255,255,255,.55);
+      margin: 0 0 48px;
+    }
+
+    .calc-card {
+      background: #252525;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 6px;
+      padding: 40px;
+    }
+
+    /* Steps in calculator */
+    .calc-steps { display: flex; flex-direction: column; gap: 36px; }
+    .calc-step__label {
+      font-family: var(--sans);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 14px;
+    }
+
+    /* Dimension inputs */
+    .dim-inputs {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .dim-field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dim-field input {
+      width: 80px;
+      padding: 10px 14px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--radius);
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 500;
+      color: #fff;
+      text-align: center;
+      outline: none;
+      transition: border-color .2s;
+      -moz-appearance: textfield;
+    }
+    .dim-field input::-webkit-inner-spin-button,
+    .dim-field input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .dim-field input:focus { border-color: var(--cta); }
+    .dim-field__unit {
+      font-family: var(--sans);
+      font-size: .85rem;
+      color: var(--mid);
+    }
+    .dim-separator {
+      font-family: var(--sans);
+      font-size: 1.2rem;
+      color: rgba(255,255,255,.25);
+    }
+    .dim-result {
+      font-family: var(--sans);
+      font-size: .9rem;
+      color: rgba(255,255,255,.5);
+      margin-left: 4px;
+    }
+    .dim-result span {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Segmented control */
+    .seg-control {
+      display: flex;
+      gap: 2px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: var(--radius);
+      padding: 3px;
+      width: 100%;
+    }
+    .seg-control input { display: none; }
+    .seg-control label {
+      flex: 1;
+      padding: 12px 20px;
+      border-radius: 3px;
+      font-family: var(--sans);
+      font-size: .82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.7);
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+      text-align: center;
+    }
+    .seg-control label span {
+      display: block;
+      font-size: .7rem;
+      font-weight: 400;
+      opacity: .75;
+      margin-top: 2px;
+    }
+    .seg-control input:checked + label {
+      background: var(--cta);
+      color: #fff;
+    }
+    .seg-control input:checked + label span { opacity: .9; }
+
+    /* Select */
+    .calc-select {
+      width: 100%;
+      padding: 12px 16px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--radius);
+      font-family: var(--sans);
+      font-size: .9rem;
+      color: #fff;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .calc-select:focus { border-color: var(--cta); }
+
+    /* Divider */
+    .calc-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,.08);
+      margin: 0;
+    }
+
+    /* Results */
+    .calc-results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      transition: opacity .3s;
+    }
+    .calc-result-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .calc-result-card__label {
+      font-family: var(--sans);
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 8px;
+    }
+    .calc-result-card__ton {
+      font-family: var(--serif);
+      font-size: 2.6rem;
+      font-weight: 600;
+      color: var(--black);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .calc-result-card__product {
+      font-family: var(--sans);
+      font-size: .82rem;
+      color: #555;
+    }
+    .calc-result-card__product strong {
+      display: block;
+      color: var(--black);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .calc-note {
+      font-family: var(--sans);
+      font-size: .78rem;
+      color: rgba(255,255,255,.35);
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    /* ── Product cards ── */
+    /* ── Products section — PLP-bredd, enda sektionen som bryter 760px-kolumnen ── */
+    .products-section {
+      background: var(--cream);
+      padding: 120px 0;
+    }
+    .products-section__inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .products-section .section-title { margin-bottom: 48px; }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .product-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card__img-wrap {
+      background: #fff;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+    .product-card__img {
+      width: 100%;
+      max-height: 160px;
+      object-fit: contain;
+    }
+    .product-card__body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .product-card__tag {
+      font-family: var(--sans);
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 8px;
+    }
+    .product-card__name {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--black);
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+    .product-card__desc {
+      font-family: var(--sans);
+      font-size: .85rem;
+      line-height: 1.6;
+      color: #666;
+      margin: 0 0 20px;
+      flex: 1;
+    }
+    .product-card__cta {
+      display: inline-block;
+      padding: 11px 20px;
+      background: var(--cta);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: var(--radius);
+      text-align: center;
+    }
+
+    /* Products section uses plp-card from styles.css — no local overrides needed */
+
+    /* ── Product teaser (inline CTA after layer diagram) ── */
+    .product-teaser {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 24px;
+      background: var(--cream);
+      border: 1px solid #e0dbd4;
+      border-radius: var(--radius);
+      margin: 8px 0 0;
+    }
+    .product-teaser__text {
+      font-family: var(--sans);
+      font-size: .88rem;
+      color: #555;
+    }
+    .product-teaser__text strong { color: var(--black); font-weight: 600; }
+    .product-teaser__btn {
+      flex-shrink: 0;
+      font-family: var(--sans);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--cta);
+      background: none;
+      border: 1px solid var(--cta);
+      border-radius: var(--radius);
+      padding: 9px 18px;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    .product-teaser__btn:hover { background: var(--cta); color: #fff; }
+
+    /* ── Product modal ── */
+    .product-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .product-modal[hidden] { display: none; }
+    .product-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(4px);
+      cursor: pointer;
+    }
+    .product-modal__panel {
+      position: relative;
+      z-index: 1;
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 48px;
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .product-modal__close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--mid);
+      cursor: pointer;
+      padding: 4px 8px;
+      line-height: 1;
+    }
+    .product-modal__close:hover { color: var(--black); }
+    .product-modal__label {
+      font-family: var(--sans);
+      font-size: .7rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 8px;
+    }
+    .product-modal__title {
+      font-family: var(--serif);
+      font-size: 1.9rem;
+      font-weight: 400;
+      color: var(--black);
+      margin: 0 0 36px;
+      line-height: 1.2;
+    }
+    .product-modal__title em { font-style: italic; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .article-nav { padding: 0 24px; }
+      .breadcrumb { display: none; }
+      .article-hero__content { padding: 0 24px 40px; }
+      .hero-glass { padding: 28px 24px 32px; }
+      .article-body { padding: 64px 24px; }
+      .calc-section { padding: 72px 0; }
+      .calc-section__inner { padding: 0 24px; }
+      .calc-card { padding: 28px 20px; }
+      .calc-results { grid-template-columns: 1fr; }
+      .seg-control { flex-wrap: wrap; width: 100%; }
+      .products-section { padding: 72px 0; }
+      .products-section__inner { padding: 0 24px; }
+      .product-grid { grid-template-columns: 1fr; }
+      .delivery-section { padding: 72px 24px; }
+      .dim-inputs { flex-direction: column; align-items: flex-start; }
+      .product-teaser { flex-direction: column; align-items: flex-start; }
+      .product-modal__panel { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <div class="nav-drawer" id="navDrawer" aria-label="Meny">
+    <div class="nav-drawer__top">
+      <span class="nav-drawer__heading">Navigering</span>
+      <button class="nav-drawer__close" id="navClose" aria-label="Stäng meny">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="nav-drawer__body">
+      <nav class="nav-drawer__nav">
+        <a href="../../index.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9l7-7 7 7v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9z"/><path d="M7 19V12h6v7"/></svg></span>
+          Hem
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="../../plp.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="7" height="7" rx="1"/><rect x="11" y="2" width="7" height="7" rx="1"/><rect x="2" y="11" width="7" height="7" rx="1"/><rect x="11" y="11" width="7" height="7" rx="1"/></svg></span>
+          Produkter
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="../index.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="16" height="12" rx="1"/><path d="M6 9h8M6 12h5"/></svg></span>
+          Inspiration
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="../../om-oss.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="7" r="3"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6"/></svg></span>
+          Om oss
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+      </nav>
+    </div>
+    <div class="nav-drawer__bottom">
+      <a href="#" class="nav-drawer__link">
+        <span class="nav-drawer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+        Varukorg
+        <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </a>
+      <div class="nav-drawer__divider"></div>
+      <a href="../../om-oss.html#kontakt" class="nav-drawer__cta">
+        Kontakta oss
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <header id="header">
+    <a href="../../index.html" class="logo"><img src="../../logo.png" alt="VillaGrus" class="logo-img"></a>
+    <nav>
+      <a href="../../index.html">Hem</a>
+      <a href="../../plp.html">Produkter</a>
+      <a href="../index.html">Inspiration</a>
+      <a href="../../om-oss.html">Om oss</a>    </nav>
+    <div class="header-right">
+      <button class="cart-btn" aria-label="Kundvagn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </button>
+      <a href="../../om-oss.html#kontakt" class="contact-btn">Kontakta oss</a>
+      <button class="hamburger" id="hamburger" aria-label="Öppna meny">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="article-hero">
+    <img src="../../natursingel.jpg" alt="Grusad uppfart med natursingel" class="article-hero__img">
+    <div class="article-hero__content">
+        <div class="hero-glass">
+          <div class="hero-glass__label">Guide · Anläggning</div>
+          <h1 class="hero-glass__title">Anlägga grusad uppfart —<br><em>allt du behöver veta</em></h1>
+          <p class="hero-glass__intro">Det svåraste med en grusad uppfart är inte grävjobbet — det är att beställa rätt mängd material. Den här guiden löser båda.</p>
+          <div class="hero-glass__actions">
+            <a href="../index.html" class="hero-btn-ghost">← Inspiration</a>
+            <a href="#calc" class="hero-btn-cta">Räkna materialmängd</a>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <div class="blog-breadcrumb" aria-label="Brödsmulor">
+    <div class="pdp-breadcrumb__inner">
+      <a href="../../index.html">Hem</a>
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2l4 4-4 4"/></svg>
+      <a href="../index.html">Inspiration</a>
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2l4 4-4 4"/></svg>
+      <span>Anlägga grusad uppfart</span>
+    </div>
+  </div>
+
+  <!-- Article body -->
+  <article>
+    <div class="article-body">
+
+      <span class="article-label reveal">Grunden</span>
+      <h2 class="reveal">Uppfarten byggs i<br><em>två separata lager</em></h2>
+      <p class="reveal">De flesta missar att en grusad uppfart egentligen är ett lagerverk. Skippar du ett lager — eller väljer fel material — sjunker uppfarten, välter sten i dikena och du börjar om från noll om tre år.</p>
+      <p class="reveal">Lagerprincipen är enkel: ett stabilt <strong>bärlager</strong> nere och ett vackert <strong>slitlager</strong> uppe. Däremellan en fiberduk som håller ihop alltihop.</p>
+
+      <!-- Layer diagram -->
+      <div class="layer-diagram reveal">
+        <div class="layer-diagram__row">
+          <div class="layer-diagram__swatch" style="background: linear-gradient(135deg,#c8b89a 0%,#b5a080 100%);"></div>
+          <div class="layer-diagram__info">
+            <div class="layer-diagram__name">Slitlager — Natursingel eller Gårdssingel</div>
+            <div class="layer-diagram__desc">Den yta du ser och kör på. Välj fraktion efter estetik och stabilitet.</div>
+          </div>
+          <div class="layer-diagram__depth">3–7 cm</div>
+        </div>
+        <div class="layer-diagram__row" style="background:#f5f2ee;">
+          <div class="layer-diagram__swatch" style="background: repeating-linear-gradient(45deg,#ddd 0,#ddd 2px,#f0ece6 2px,#f0ece6 8px);"></div>
+          <div class="layer-diagram__info">
+            <div class="layer-diagram__name">Fiberduk</div>
+            <div class="layer-diagram__desc">Skiljer bärlagret från marken. Förhindrar ogräs och inblandning av jord.</div>
+          </div>
+          <div class="layer-diagram__depth">—</div>
+        </div>
+        <div class="layer-diagram__row" style="background:#eae6e0;">
+          <div class="layer-diagram__swatch" style="background: linear-gradient(135deg,#8a7a6a 0%,#6b5c4e 100%);"></div>
+          <div class="layer-diagram__info">
+            <div class="layer-diagram__name">Bärlager — Bergskross 0–32 mm</div>
+            <div class="layer-diagram__desc">Den bärande grunden. Packas med vibrationsstamp för att ta upp belastning från bilar.</div>
+          </div>
+          <div class="layer-diagram__depth">12–20 cm</div>
+        </div>
+        <div class="layer-diagram__row" style="background:#e0dbd4;">
+          <div class="layer-diagram__swatch" style="background: linear-gradient(135deg,#5a4a3a 0%,#3e2e22 100%);"></div>
+          <div class="layer-diagram__info">
+            <div class="layer-diagram__name">Befintlig mark</div>
+            <div class="layer-diagram__desc">Schaktas ner 25–35 cm för att ge plats åt lagerna.</div>
+          </div>
+          <div class="layer-diagram__depth">—</div>
+        </div>
+      </div>
+
+      <!-- Subtle product CTA -->
+      <div class="product-teaser reveal">
+        <p class="product-teaser__text"><strong>Behöver du material till projektet?</strong> Vi levererar bergskross, natursingel och dekorsten direkt till uppfarten.</p>
+        <button class="product-teaser__btn" id="open-product-modal">Se produkterna →</button>
+      </div>
+
+      <span class="article-label reveal">Steg för steg</span>
+      <h2 class="reveal">Så anlägger du<br><em>uppfarten</em></h2>
+
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step__num">1</div>
+          <div class="step__content">
+            <div class="step__title">Planera och mät noggrant</div>
+            <p class="step__text">Markera uppfartens exakta yta med spikar och tråd. Mät bredd och längd — du behöver de siffrorna för kalkylatorn längre ner. Tänk på svängradie och var du behöver vändyta.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step__num">2</div>
+          <div class="step__content">
+            <div class="step__title">Schakta 25–35 cm djupt</div>
+            <p class="step__text">Grävmaskin eller spade — resultatet ska vara ett jämnt plant underlag. Djupet beror på vilken typ av mark du har. Lerjord kräver djupare schakt än grus eller sand.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step__num">3</div>
+          <div class="step__content">
+            <div class="step__title">Lägg ut fiberduk</div>
+            <p class="step__text">Täck hela schaktytan med fiberduk (geotextil). Lägg minst 40 cm överlapp vid skarvar. Duken förhindrar att bärlagret sjunker ner i marken och håller borta ogräs uppifrån.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step__num">4</div>
+          <div class="step__content">
+            <div class="step__title">Fyll på bärlager och packa</div>
+            <p class="step__text">Sprid ut bergskross 0–32 mm i 10 cm tjocka omgångar och packa med vibrationsstamp (padda) efter varje omgång. Vattna lätt innan du kör den sista omgången — det förbättrar packningsresultatet.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step__num">5</div>
+          <div class="step__content">
+            <div class="step__title">Sätt upp kantsten (valfritt)</div>
+            <p class="step__text">Kantsten längs uppfartens sidor håller gruset på plats och ger ett snyggt avslutat intryck. Sätt dem på plats efter bärlagret men före slitlagret.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step__num">6</div>
+          <div class="step__content">
+            <div class="step__title">Lägg slitlagret</div>
+            <p class="step__text">Sprid ut singel eller krossgrus jämnt över bärlagret. Räfsa ut och låt det sätta sig. Vid rundad singel (natursingel, gårdssingel) behöver du inte packa — materialet lägger sig naturligt.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /article-body -->
+
+    <!-- Calculator -->
+    <section class="calc-section" id="calc">
+      <div class="calc-section__inner">
+        <div class="calc-section__label reveal">Kalkylator</div>
+        <h2 class="calc-section__title reveal">Räkna ut din<br><em>materialmängd</em></h2>
+        <p class="calc-section__sub reveal">Fyll i uppfartens mått — kalkylatorn räknar ut exakt hur mycket du behöver beställa.</p>
+
+        <div class="calc-card reveal" id="uppfart-calc">
+          <div class="calc-steps">
+
+            <!-- Step 1: Dimensions -->
+            <div class="calc-step">
+              <div class="calc-step__label">Steg 1 — Uppfartens mått</div>
+              <div class="dim-inputs">
+                <div class="dim-field">
+                  <input type="number" id="calc-bredd" placeholder="5" min="1" max="50" step="0.5">
+                  <span class="dim-field__unit">m bredd</span>
+                </div>
+                <span class="dim-separator">×</span>
+                <div class="dim-field">
+                  <input type="number" id="calc-langd" placeholder="12" min="1" max="200" step="0.5">
+                  <span class="dim-field__unit">m längd</span>
+                </div>
+                <span class="dim-separator">=</span>
+                <div class="dim-result"><span id="calc-yta">— m²</span></div>
+              </div>
+            </div>
+
+            <hr class="calc-divider">
+
+            <!-- Step 2: Soil type -->
+            <div class="calc-step">
+              <div class="calc-step__label">Steg 2 — Marktyp (påverkar bärlagerdjup)</div>
+              <div class="seg-control">
+                <input type="radio" name="barlager" id="bl-sand" value="12">
+                <label for="bl-sand">
+                  Sand/grus
+                  <span>12 cm bärlager</span>
+                </label>
+                <input type="radio" name="barlager" id="bl-normal" value="15" checked>
+                <label for="bl-normal">
+                  Normal mark
+                  <span>15 cm bärlager</span>
+                </label>
+                <input type="radio" name="barlager" id="bl-lera" value="20">
+                <label for="bl-lera">
+                  Lera/torv
+                  <span>20 cm bärlager</span>
+                </label>
+              </div>
+            </div>
+
+            <hr class="calc-divider">
+
+            <!-- Step 3: Surface material -->
+            <div class="calc-step">
+              <div class="calc-step__label">Steg 3 — Välj slitlager</div>
+              <select class="calc-select" id="calc-slitlager">
+                <option value="gardsingel-818">Gårdssingel 8–18 mm — fint och mjukt att gå på</option>
+                <option value="natursingel-1632" selected>Natursingel 16–32 mm — populärast för uppfarter</option>
+                <option value="natursingel-2545">Natursingel 25–45 mm — robust och dekorativ</option>
+                <option value="dekorsten-3264">Dekorsten 32–64 mm — stort format, markant look</option>
+              </select>
+            </div>
+
+            <hr class="calc-divider">
+
+            <!-- Results -->
+            <div>
+              <div class="calc-step__label">Du behöver beställa</div>
+              <div class="calc-results" id="calc-results" style="opacity: .3;">
+                <div class="calc-result-card">
+                  <div class="calc-result-card__label">Bärlager</div>
+                  <div class="calc-result-card__ton" id="result-barlager-ton">—</div>
+                  <div class="calc-result-card__product">
+                    <strong>Bergskross 0–32 mm</strong>
+                    Packas under fiberduk
+                  </div>
+                </div>
+                <div class="calc-result-card">
+                  <div class="calc-result-card__label">Slitlager</div>
+                  <div class="calc-result-card__ton" id="result-slitlager-ton">—</div>
+                  <div class="calc-result-card__product">
+                    <strong id="result-slitlager-label">Natursingel 16–32 mm</strong>
+                    Ytmaterial
+                  </div>
+                </div>
+              </div>
+              <p class="calc-note">Inkl. 10 % övermarginal · Baserat på branschstandarder</p>
+            </div>
+
+          </div><!-- /calc-steps -->
+        </div><!-- /calc-card -->
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products-section">
+      <div class="products-section__inner">
+        <div class="section-label reveal">Produkter</div>
+        <h2 class="section-title reveal">Material för<br><em>hela projektet</em></h2>
+        <div class="product-grid">
+
+          <article class="plp-card reveal">
+            <a href="/produkter/bergskross" class="plp-card__img-wrap">
+              <img src="../../cat-bergkross.png" alt="Bergskross 0–32 mm">
+              <span class="plp-card__badge">Bergskross</span>
+            </a>
+            <div class="plp-card__body">
+              <h3 class="plp-card__name">Bergskross 0–32 mm</h3>
+              <p class="plp-card__frac">Fraktion 0–32 mm · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Markarbete &amp; bärlager</div>
+                        <div class="plp-card__footer">
+                <div class="plp-card__price">från<strong>395 kr</strong></div>
+                <a href="/produkter/bergskross" class="plp-card__cta">Välj produkt <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="plp-card reveal">
+            <a href="/produkter/natursingel" class="plp-card__img-wrap">
+              <img src="../../cat-natursingel.png" alt="Natursingel">
+              <span class="plp-card__badge">Natursingel</span>
+            </a>
+            <div class="plp-card__body">
+              <h3 class="plp-card__name">Natursingel</h3>
+              <p class="plp-card__frac">Fraktion 8–18, 16–32, 25–45 mm · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Trädgård &amp; uppfart</div>
+                        <div class="plp-card__footer">
+                <div class="plp-card__price">från<strong>445 kr</strong></div>
+                <a href="/produkter/natursingel" class="plp-card__cta">Välj produkt <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="plp-card reveal">
+            <a href="/produkter/dekorsten" class="plp-card__img-wrap">
+              <img src="../../cat-dekorsten.png" alt="Dekorsten">
+              <span class="plp-card__badge">Dekorsten</span>
+            </a>
+            <div class="plp-card__body">
+              <h3 class="plp-card__name">Dekorsten</h3>
+              <p class="plp-card__frac">Fraktion 25–45 mm, 32–64 mm · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Dekor &amp; trädgårdsdesign</div>
+                        <div class="plp-card__footer">
+                <div class="plp-card__price">från<strong>595 kr</strong></div>
+                <a href="/produkter/dekorsten" class="plp-card__cta">Välj produkt <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </article>
+
+  <!-- Leveransbanner -->
+  <section class="plp-delivery-banner">
+    <div class="plp-delivery-banner__inner plp-delivery-banner__inner--padded">
+      <div class="plp-delivery-banner__item">
+        <div class="plp-delivery-banner__icon">
+          <svg viewBox="0 0 40 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 24 L2 14 L8 14 L12 9 L18 9 L18 24 Z"/>
+            <path d="M18 24 L18 12 L38 8 L40 24 Z"/>
+            <line x1="18" y1="24" x2="40" y2="24"/>
+            <circle cx="7" cy="27" r="2.5"/>
+            <circle cx="29" cy="27" r="2.5"/>
+            <circle cx="35" cy="27" r="2.5"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="plp-delivery-banner__title">Kranbil med tipplass</h4>
+          <p class="plp-delivery-banner__text">Löslast tippas direkt på din plats. Bäst för större volymer och öppna ytor.</p>
+        </div>
+      </div>
+      <div class="plp-delivery-banner__divider"></div>
+      <div class="plp-delivery-banner__item">
+        <div class="plp-delivery-banner__icon">
+          <svg viewBox="0 0 32 40" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 7 L10 3 Q16 1 22 3 L22 7"/>
+            <path d="M3 9 L29 9 L25 37 L7 37 Z"/>
+            <line x1="16" y1="9" x2="16" y2="37" stroke-dasharray="2 3"/>
+            <line x1="3" y1="20" x2="29" y2="20" stroke-dasharray="2 3"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="plp-delivery-banner__title">Storsäck Big Bag</h4>
+          <p class="plp-delivery-banner__text">Levereras i säck, smidigt för mindre mängder och trånga utrymmen.</p>
+        </div>
+      </div>
+      <div class="plp-delivery-banner__divider"></div>
+      <div class="plp-delivery-banner__item">
+        <div class="plp-delivery-banner__icon">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+            <circle cx="20" cy="20" r="16"/>
+            <path d="M20 10v10l7 4"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="plp-delivery-banner__title">Leverans inom 48h</h4>
+          <p class="plp-delivery-banner__text">Beställ innan kl. 14 — levereras nästa vardag till hela Sverige.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-footer">VillaGrus</span>
+        <p>Natursten och grus levererat direkt till din uppfart. Kranbil eller tipplass — vi fixar det.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Produkter</h5>
+        <ul>
+          <li><a href="#">Natursingel</a></li>
+          <li><a href="#">Bergskross</a></li>
+          <li><a href="#">Makadam</a></li>
+          <li><a href="#">Dekorsten</a></li>
+          <li><a href="#">Jord</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Information</h5>
+        <ul>
+          <li><a href="../../om-oss.html">Om oss</a></li>
+          <li><a href="#">Leverans &amp; Frakt</a></li>
+          <li></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Inspiration</h5>
+        <ul>
+          <li><a href="#">Blogg</a></li>
+          <li><a href="#">Guider</a></li>
+          <li><a href="#">Anlägga uppfart</a></li>
+          <li><a href="#">Välj material</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 VillaGrus AB — Org.nr 556xxx-xxxx</p>
+      <div class="payment-icons">
+        <span class="pay-badge">Visa</span>
+        <span class="pay-badge">Mastercard</span>
+        <span class="pay-badge klarna">Klarna</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Product modal -->
+  <div class="product-modal" id="product-modal" hidden>
+    <div class="product-modal__backdrop" id="modal-backdrop"></div>
+    <div class="product-modal__panel">
+      <button class="product-modal__close" id="modal-close-btn" aria-label="Stäng">✕</button>
+      <div class="product-modal__label">Material för projektet</div>
+      <h3 class="product-modal__title">Allt du behöver —<br><em>levererat till uppfarten</em></h3>
+      <div class="product-grid">
+        <article class="plp-card">
+          <a href="/produkter/bergskross" class="plp-card__img-wrap">
+            <img src="../../cat-bergkross.png" alt="Bergskross 0–32 mm">
+            <span class="plp-card__badge">Bergskross</span>
+          </a>
+          <div class="plp-card__body">
+            <h3 class="plp-card__name">Bergskross 0–32 mm</h3>
+            <p class="plp-card__frac">Fraktion 0–32 mm · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Markarbete &amp; bärlager</div>
+                      <div class="plp-card__footer">
+              <div class="plp-card__price">från<strong>395 kr</strong></div>
+              <a href="/produkter/bergskross" class="plp-card__cta">Välj produkt <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            </div>
+          </div>
+        </article>
+        <article class="plp-card">
+          <a href="/produkter/natursingel" class="plp-card__img-wrap">
+            <img src="../../cat-natursingel.png" alt="Natursingel">
+            <span class="plp-card__badge">Natursingel</span>
+          </a>
+          <div class="plp-card__body">
+            <h3 class="plp-card__name">Natursingel</h3>
+            <p class="plp-card__frac">Fraktion 8–18, 16–32, 25–45 mm · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Trädgård &amp; uppfart</div>
+                      <div class="plp-card__footer">
+              <div class="plp-card__price">från<strong>445 kr</strong></div>
+              <a href="/produkter/natursingel" class="plp-card__cta">Välj produkt <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            </div>
+          </div>
+        </article>
+        <article class="plp-card">
+          <a href="/produkter/dekorsten" class="plp-card__img-wrap">
+            <img src="../../cat-dekorsten.png" alt="Dekorsten">
+            <span class="plp-card__badge">Dekorsten</span>
+          </a>
+          <div class="plp-card__body">
+            <h3 class="plp-card__name">Dekorsten</h3>
+            <p class="plp-card__frac">Fraktion 25–45 mm, 32–64 mm · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Dekor &amp; trädgårdsdesign</div>
+                      <div class="plp-card__footer">
+              <div class="plp-card__price">från<strong>595 kr</strong></div>
+              <a href="/produkter/dekorsten" class="plp-card__cta">Välj produkt <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../main.js"></script>
+  <script>
+  (function () {
+    const calc = document.getElementById('uppfart-calc');
+    if (!calc) return;
+
+    /* Slitlager data — 1 ton täcker X m² (källa: Flisby åtgångstabell) */
+    const FRACTIONS = {
+      'gardsingel-818':   { label: 'Gårdssingel 8–18 mm',  m2PerTon: 23   },
+      'natursingel-1632': { label: 'Natursingel 16–32 mm', m2PerTon: 14.5 },
+      'natursingel-2545': { label: 'Natursingel 25–45 mm', m2PerTon: 11   },
+      'dekorsten-3264':   { label: 'Dekorsten 32–64 mm',   m2PerTon: 9.5  },
+    };
+
+    const BARKROSS_DENSITY = 1.65; /* ton/m³ — bergskross 0-32mm, branschstandard */
+    const MARGIN = 1.10;           /* 10 % övermarginal */
+
+    const elBredd    = document.getElementById('calc-bredd');
+    const elLangd    = document.getElementById('calc-langd');
+    const elYta      = document.getElementById('calc-yta');
+    const elSlitlager = document.getElementById('calc-slitlager');
+    const elResults  = document.getElementById('calc-results');
+    const elBarlager = document.getElementById('result-barlager-ton');
+    const elSlitTon  = document.getElementById('result-slitlager-ton');
+    const elSlitLabel = document.getElementById('result-slitlager-label');
+
+    function roundUp(val) {
+      /* Round up to nearest 0.5 ton */
+      return Math.ceil(val * 2) / 2;
+    }
+
+    function update() {
+      const bredd = parseFloat(elBredd.value) || 0;
+      const langd = parseFloat(elLangd.value) || 0;
+      const djupCm = parseFloat(
+        (calc.querySelector('[name="barlager"]:checked') || {}).value || 15
+      );
+      const frac = FRACTIONS[elSlitlager.value];
+
+      const yta = bredd * langd;
+      elYta.textContent = yta > 0 ? yta.toFixed(0) + ' m²' : '— m²';
+
+      if (yta === 0 || !frac) {
+        elResults.style.opacity = '0.3';
+        elBarlager.textContent  = '—';
+        elSlitTon.textContent   = '—';
+        return;
+      }
+
+      const barlagerTon  = roundUp(yta * (djupCm / 100) * BARKROSS_DENSITY * MARGIN);
+      const slitlagerTon = roundUp((yta / frac.m2PerTon) * MARGIN);
+
+      elBarlager.textContent   = barlagerTon.toFixed(1) + ' ton';
+      elSlitTon.textContent    = slitlagerTon.toFixed(1) + ' ton';
+      elSlitLabel.textContent  = frac.label;
+      elResults.style.opacity  = '1';
+    }
+
+    calc.querySelectorAll('input, select').forEach(function (el) {
+      el.addEventListener('input', update);
+    });
+
+    update();
+  })();
+
+  /* ── Product modal ── */
+  (function () {
+    var modal   = document.getElementById('product-modal');
+    var openBtn = document.getElementById('open-product-modal');
+    var closeBtn = document.getElementById('modal-close-btn');
+    var backdrop = document.getElementById('modal-backdrop');
+    if (!modal || !openBtn) return;
+
+    function open()  { modal.hidden = false; document.body.style.overflow = 'hidden'; }
+    function close() { modal.hidden = true;  document.body.style.overflow = ''; }
+
+    openBtn.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', close);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
+  })();
+  </script>
+</body>
+</html>

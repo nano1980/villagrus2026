@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kassa | VillaGrus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    html, body { margin: 0; padding: 0; }
+    .co-page { overflow-x: clip; }
+
+    .co-page {
+      background: var(--cream);
+      min-height: 100vh;
+      padding-top: var(--header-h);
+    }
+
+    /* ── Main layout ── */
+    .co-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 48px 120px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ── Section cards ── */
+    .co-section {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .co-section__head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 24px 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .co-section__num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--black);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .co-section__title {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+    .co-section__body {
+      padding: 28px;
+    }
+
+    /* ── Form fields ── */
+    .co-row {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .co-row--2 { grid-template-columns: 1fr 1fr; }
+    .co-row--3 { grid-template-columns: 1fr 1fr 1fr; }
+    .co-row--auto { grid-template-columns: 2fr 1fr; }
+    .co-row:last-child { margin-bottom: 0; }
+
+    .co-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .co-field label {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+    .co-field input,
+    .co-field textarea,
+    .co-field select {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--black);
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color .2s;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .co-field input:focus,
+    .co-field textarea:focus,
+    .co-field select:focus { border-color: var(--cta); }
+    .co-field textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
+    .co-field select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    /* ── Delivery method cards ── */
+    .co-delivery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .co-delivery-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--cream);
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      text-align: left;
+    }
+    .co-delivery-card.is-selected {
+      border-color: var(--black);
+      background: #fff;
+    }
+    .co-delivery-card__radio {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .2s;
+    }
+    .co-delivery-card.is-selected .co-delivery-card__radio {
+      border-color: var(--black);
+    }
+    .co-delivery-card.is-selected .co-delivery-card__radio::after {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--black);
+    }
+    .co-delivery-card__info strong {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--black);
+      margin-bottom: 3px;
+    }
+    .co-delivery-card__info span {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--mid);
+      line-height: 1.4;
+    }
+    .co-delivery-card__price {
+      margin-left: auto;
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--black);
+      white-space: nowrap;
+    }
+
+    /* ── Klarna section ── */
+    .co-klarna {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .co-klarna__top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+    }
+    .co-klarna__logo {
+      background: #FFB3C7;
+      border-radius: 3px;
+      padding: 4px 10px;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #17120E;
+    }
+    .co-klarna__tagline {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      color: var(--mid);
+    }
+    .co-klarna__body {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .co-klarna__options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      width: 100%;
+    }
+    .co-klarna__option {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      background: var(--cream);
+    }
+    .co-klarna__option.is-selected {
+      border-color: var(--black);
+      background: #fff;
+    }
+    .co-klarna__option strong {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--black);
+      margin-bottom: 3px;
+    }
+    .co-klarna__option span {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--mid);
+    }
+    .co-klarna__note {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--mid);
+      text-align: center;
+      line-height: 1.5;
+    }
+    .co-klarna__note a { color: var(--black); }
+
+    /* ── Submit button ── */
+    .co-submit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 17px;
+      background: var(--black);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background .2s, gap .2s;
+      margin-top: 8px;
+    }
+    .co-submit:hover { background: #333; gap: 14px; }
+    .co-submit svg { width: 14px; height: 14px; }
+
+    /* ── Sticky summary ── */
+    .co-summary {
+      position: sticky;
+      top: calc(var(--header-h) + 24px);
+    }
+    .co-summary__card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .co-summary__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .co-summary__heading {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+    /* Summary items */
+    .co-summary__items {
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Totals */
+    .co-summary__totals {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .co-sum-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      color: var(--mid);
+    }
+    .co-sum-row--total {
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
+    }
+    .co-sum-row--total span:first-child {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--black);
+    }
+    .co-sum-row--total span:last-child {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--black);
+      letter-spacing: -0.01em;
+    }
+    .co-summary__klarna-note {
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .co-summary__klarna-note .co-klarna__logo { font-size: 0.62rem; padding: 3px 8px; }
+    .co-summary__klarna-note span {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--mid);
+    }
+
+    /* ── Input height normalization ── */
+    .co-field input,
+    .co-field select {
+      height: 46px;
+    }
+    .co-field textarea { height: auto; }
+
+    /* ── Timeline connector ── */
+    .co-timeline-connector {
+      height: 16px;
+      position: relative;
+    }
+    .co-timeline-connector::before {
+      content: '';
+      position: absolute;
+      left: 43px;
+      top: 0;
+      height: 100%;
+      width: 1px;
+      background: var(--border);
+    }
+
+    /* ── Storsäck modal ── */
+    .sack-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(26,26,26,.55);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .sack-backdrop.is-open { display: flex; }
+    .sack-modal {
+      background: #fff;
+      border-radius: calc(var(--radius) * 2);
+      width: 100%;
+      max-width: 440px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,.18);
+    }
+    .sack-modal__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sack-modal__title {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+    .sack-modal__close {
+      width: 28px; height: 28px;
+      border: none; background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--mid);
+      border-radius: 50%;
+      transition: background .15s, color .15s;
+    }
+    .sack-modal__close:hover { background: var(--stone); color: var(--black); }
+    .sack-modal__close svg { width: 14px; height: 14px; stroke: currentColor; }
+    .sack-modal__body { padding: 24px; }
+    .sack-modal__label {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .sack-size-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .sack-size-btn {
+      padding: 12px 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--cream);
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--black);
+      cursor: pointer;
+      text-align: center;
+      transition: border-color .2s, background .2s;
+    }
+    .sack-size-btn.is-selected {
+      border-color: var(--black);
+      background: #fff;
+    }
+    .sack-size-btn small {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: var(--mid);
+      margin-top: 2px;
+    }
+    .sack-modal__footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 0 24px 24px;
+    }
+    .sack-modal__cancel {
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: transparent;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--mid);
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .sack-modal__cancel:hover { border-color: var(--black); color: var(--black); }
+    .sack-modal__confirm {
+      padding: 13px;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--black);
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #fff;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .sack-modal__confirm:hover { background: #333; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .co-layout {
+        grid-template-columns: 1fr;
+        padding: 32px 32px 80px;
+      }
+      .co-summary { position: static; }
+      .co-layout > .co-main { order: 1; }
+      .co-layout > .co-summary { order: 0; }
+    }
+    @media (max-width: 640px) {
+      .co-layout { padding: 20px 20px 60px; gap: 20px; }
+      .co-section__body { padding: 20px; }
+      .co-row--2, .co-row--3 { grid-template-columns: 1fr; }
+      .co-row--auto { grid-template-columns: 1fr; }
+      .co-delivery-grid { grid-template-columns: 1fr; }
+      .co-klarna__options { grid-template-columns: 1fr; }
+      .co-summary__items { padding: 14px 20px; }
+      .co-summary__totals { padding: 16px 20px; }
+      .co-summary__head { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <div class="nav-drawer" id="navDrawer" aria-label="Meny">
+    <div class="nav-drawer__top">
+      <span class="nav-drawer__heading">Navigering</span>
+      <button class="nav-drawer__close" id="navClose" aria-label="Stäng meny">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="nav-drawer__body">
+      <nav class="nav-drawer__nav">
+        <a href="index.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9l7-7 7 7v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9z"/><path d="M7 19V12h6v7"/></svg></span>
+          Hem
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="plp.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="7" height="7" rx="1"/><rect x="11" y="2" width="7" height="7" rx="1"/><rect x="2" y="11" width="7" height="7" rx="1"/><rect x="11" y="11" width="7" height="7" rx="1"/></svg></span>
+          Produkter
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="inspiration/index.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="16" height="12" rx="1"/><path d="M6 9h8M6 12h5"/></svg></span>
+          Inspiration
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="om-oss.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="7" r="3"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6"/></svg></span>
+          Om oss
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+      </nav>
+    </div>
+    <div class="nav-drawer__bottom">
+      <a href="#" class="nav-drawer__link">
+        <span class="nav-drawer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+        Varukorg
+        <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </a>
+      <div class="nav-drawer__divider"></div>
+      <a href="om-oss.html#kontakt" class="nav-drawer__cta">
+        Kontakta oss
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <header id="header">
+    <a href="index.html" class="logo"><img src="logo.png" alt="VillaGrus" class="logo-img"></a>
+    <nav>
+      <a href="index.html">Hem</a>
+      <a href="plp.html">Produkter</a>
+      <a href="inspiration/index.html">Inspiration</a>
+      <a href="om-oss.html">Om oss</a>
+    </nav>
+    <div class="header-right">
+      <button class="cart-btn" aria-label="Kundvagn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </button>
+      <a href="om-oss.html#kontakt" class="contact-btn">Kontakta oss</a>
+      <button class="hamburger" id="hamburger" aria-label="Öppna meny">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="co-page">
+
+    <div class="co-layout">
+
+      <!-- ── LEFT: Form ── -->
+      <main class="co-main">
+
+        <!-- 1. Personliga uppgifter -->
+        <div class="co-section">
+          <div class="co-section__head">
+            <div class="co-section__num">1</div>
+            <div class="co-section__title">Personliga uppgifter</div>
+          </div>
+          <div class="co-section__body">
+            <div class="co-row co-row--2">
+              <div class="co-field">
+                <label>Förnamn</label>
+                <input type="text" placeholder="Anna" autocomplete="given-name">
+              </div>
+              <div class="co-field">
+                <label>Efternamn</label>
+                <input type="text" placeholder="Lindqvist" autocomplete="family-name">
+              </div>
+            </div>
+            <div class="co-row co-row--2">
+              <div class="co-field">
+                <label>E-postadress</label>
+                <input type="email" placeholder="anna@exempel.se" autocomplete="email">
+              </div>
+              <div class="co-field">
+                <label>Telefonnummer</label>
+                <input type="tel" placeholder="070 123 45 67" autocomplete="tel">
+              </div>
+            </div>
+            <div class="co-row">
+              <div class="co-field">
+                <label>Gatuadress</label>
+                <input type="text" placeholder="Storgatan 12" autocomplete="street-address">
+              </div>
+            </div>
+            <div class="co-row co-row--auto">
+              <div class="co-field">
+                <label>Ort</label>
+                <input type="text" placeholder="Stockholm" autocomplete="address-level2">
+              </div>
+              <div class="co-field">
+                <label>Postnummer</label>
+                <input type="text" placeholder="123 45" autocomplete="postal-code" maxlength="6">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="co-timeline-connector"></div>
+
+        <!-- 2. Leverans -->
+        <div class="co-section">
+          <div class="co-section__head">
+            <div class="co-section__num">2</div>
+            <div class="co-section__title">Leverans</div>
+          </div>
+          <div class="co-section__body">
+            <div class="co-delivery-grid">
+              <button class="co-delivery-card is-selected" id="dlTipplass">
+                <div class="co-delivery-card__radio"></div>
+                <div class="co-delivery-card__info">
+                  <strong>Tipplass</strong>
+                  <span>Löslastat material tippas direkt på din tomt. Passar större volymer.</span>
+                </div>
+                <div class="co-delivery-card__price">från<br>495 kr</div>
+              </button>
+              <button class="co-delivery-card" id="dlStorsack">
+                <div class="co-delivery-card__radio"></div>
+                <div class="co-delivery-card__info">
+                  <strong>Storsäck</strong>
+                  <span>Levereras i säck, smidigt för mindre mängder och trånga utrymmen.</span>
+                </div>
+                <div class="co-delivery-card__price">från<br>295 kr</div>
+              </button>
+            </div>
+            <div class="co-row co-row--2">
+              <div class="co-field">
+                <label>Önskat leveransdatum</label>
+                <input type="date" id="deliveryDate">
+              </div>
+              <div class="co-field">
+                <label>Tidspreferens</label>
+                <select>
+                  <option>Förmiddag (07–12)</option>
+                  <option>Eftermiddag (12–17)</option>
+                  <option>Hela dagen</option>
+                </select>
+              </div>
+            </div>
+            <div class="co-row">
+              <div class="co-field">
+                <label>Leveransadress (om annan än ovan)</label>
+                <input type="text" placeholder="Lämna tom om samma som fakturaadress">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="co-timeline-connector"></div>
+
+        <!-- 3. Anteckningar -->
+        <div class="co-section">
+          <div class="co-section__head">
+            <div class="co-section__num">3</div>
+            <div class="co-section__title">Anteckningar</div>
+          </div>
+          <div class="co-section__body">
+            <div class="co-field">
+              <label>Meddelande till chauffören eller oss</label>
+              <textarea placeholder="T.ex. kör in på gårdsplanen, grind öppen, ring på dörren vid leverans…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="co-timeline-connector"></div>
+
+        <!-- 4. Betalning -->
+        <div class="co-section">
+          <div class="co-section__head">
+            <div class="co-section__num">4</div>
+            <div class="co-section__title">Betalning</div>
+          </div>
+          <div class="co-section__body">
+            <div class="co-klarna">
+              <div class="co-klarna__top">
+                <span class="co-klarna__logo">klarna</span>
+                <span class="co-klarna__tagline">Betala nu, senare eller dela upp — du väljer.</span>
+              </div>
+              <div class="co-klarna__body">
+                <div class="co-klarna__options">
+                  <div class="co-klarna__option is-selected" id="kPayNow">
+                    <strong>Betala nu</strong>
+                    <span>Direktbetalning via kort eller bank</span>
+                  </div>
+                  <div class="co-klarna__option" id="kPayLater">
+                    <strong>Betala om 30 dagar</strong>
+                    <span>Räntefritt — faktura via Klarna</span>
+                  </div>
+                  <div class="co-klarna__option" id="kPayParts">
+                    <strong>3 delbetalningar</strong>
+                    <span id="kInstalment">Ca 1 958 kr/mån</span>
+                  </div>
+                </div>
+                <p class="co-klarna__note">
+                  Klarna hanterar betalningen säkert och krypterat.
+                  <a href="#">Läs mer om Klarnas villkor.</a>
+                </p>
+              </div>
+            </div>
+            <button class="co-submit" id="coSubmit">
+              Bekräfta beställning
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- ── RIGHT: Summary ── -->
+      <aside class="co-summary">
+        <div class="co-summary__card">
+          <div class="co-summary__head">
+            <span class="co-summary__heading">Din beställning</span>
+          </div>
+
+          <div class="co-summary__items" id="coSummaryItems">
+            <div class="cart-item" data-price="2895">
+              <div class="cart-item__img">
+                <img src="cat-makadam.png" alt="Makadam">
+              </div>
+              <div class="cart-item__body">
+                <div class="cart-item__cat">Bergskross</div>
+                <div class="cart-item__name">Makadam 2–6 mm</div>
+                <div class="cart-item__delivery">Tipplass · 5 ton</div>
+                <div class="cart-item__footer">
+                  <div class="cart-item__price">2 895 kr</div>
+                  <div class="cart-item__qty">
+                    <button aria-label="Minska">−</button>
+                    <span>1</span>
+                    <button aria-label="Öka">+</button>
+                  </div>
+                </div>
+              </div>
+              <button class="cart-item__remove" aria-label="Ta bort">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l10 10M11 1L1 11"/></svg>
+              </button>
+            </div>
+            <div class="cart-item" data-price="1490">
+              <div class="cart-item__img">
+                <img src="cat-natursingel.png" alt="Natursingel">
+              </div>
+              <div class="cart-item__body">
+                <div class="cart-item__cat">Natursingel</div>
+                <div class="cart-item__name">Natursingel Grå 4–8 mm</div>
+                <div class="cart-item__delivery">Storsäck · 1 000 kg</div>
+                <div class="cart-item__footer">
+                  <div class="cart-item__price">2 980 kr</div>
+                  <div class="cart-item__qty">
+                    <button aria-label="Minska">−</button>
+                    <span>2</span>
+                    <button aria-label="Öka">+</button>
+                  </div>
+                </div>
+              </div>
+              <button class="cart-item__remove" aria-label="Ta bort">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l10 10M11 1L1 11"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="co-summary__totals">
+            <div class="co-sum-row">
+              <span>Delsumma</span>
+              <span>5 875 kr</span>
+            </div>
+            <div class="co-sum-row">
+              <span>Leverans</span>
+              <span id="coDeliveryCost">Beräknas nedan</span>
+            </div>
+            <div class="co-sum-row co-sum-row--total">
+              <span>Totalt inkl. moms</span>
+              <span id="coTotal">5 875 kr</span>
+            </div>
+          </div>
+
+          <div class="co-summary__klarna-note">
+            <span class="co-klarna__logo">klarna</span>
+            <span>3 räntefria delbetalningar på ca 1 958 kr/mån</span>
+          </div>
+        </div>
+      </aside>
+
+    </div><!-- /.co-layout -->
+  </div><!-- /.co-page -->
+
+  <!-- Tipplass modal -->
+  <div class="sack-backdrop" id="tipplassBackdrop">
+    <div class="sack-modal" role="dialog" aria-modal="true" aria-labelledby="tipplassTitle">
+      <div class="sack-modal__head">
+        <span class="sack-modal__title" id="tipplassTitle">Välj tipplass</span>
+        <button class="sack-modal__close" id="tipplassClose" aria-label="Stäng">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="sack-modal__body">
+        <span class="sack-modal__label">Leveransmängd</span>
+        <div class="sack-size-grid" style="grid-template-columns: repeat(2,1fr);">
+          <button class="sack-size-btn" data-tipp="1-2">1–2 ton<small>Liten yta</small></button>
+          <button class="sack-size-btn is-selected" data-tipp="3-5">3–5 ton<small>Mest populär</small></button>
+          <button class="sack-size-btn" data-tipp="6-10">6–10 ton<small>Större projekt</small></button>
+          <button class="sack-size-btn" data-tipp="11+">11+ ton<small>Kontakta oss</small></button>
+        </div>
+        <span class="sack-modal__label">Körväg för kranbil (valfritt)</span>
+        <textarea placeholder="T.ex. kan köra in på gatan, max 3,5 m bredd, grind öppen…" style="font-family:var(--sans);font-size:0.9rem;color:var(--black);background:var(--cream);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;outline:none;width:100%;box-sizing:border-box;resize:vertical;min-height:72px;line-height:1.6;" id="tipplassNote"></textarea>
+      </div>
+      <div class="sack-modal__footer">
+        <button class="sack-modal__cancel" id="tipplassCancel">Avbryt</button>
+        <button class="sack-modal__confirm" id="tipplassConfirm">Bekräfta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Storsäck modal -->
+  <div class="sack-backdrop" id="sackBackdrop">
+    <div class="sack-modal" role="dialog" aria-modal="true" aria-labelledby="sackTitle">
+      <div class="sack-modal__head">
+        <span class="sack-modal__title" id="sackTitle">Välj storsäck</span>
+        <button class="sack-modal__close" id="sackClose" aria-label="Stäng">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="sack-modal__body">
+        <span class="sack-modal__label">Välj säckstorlek</span>
+        <div class="sack-size-grid">
+          <button class="sack-size-btn" data-sack="500">500 kg<small>Liten tomt</small></button>
+          <button class="sack-size-btn is-selected" data-sack="750">750 kg<small>Mest populär</small></button>
+          <button class="sack-size-btn" data-sack="1000">1 000 kg<small>Stor yta</small></button>
+        </div>
+        <span class="sack-modal__label">Antal säckar</span>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+          <button class="sack-size-btn" id="sackQtyMinus" style="width:40px;height:40px;padding:0;font-size:1.2rem;">−</button>
+          <span id="sackQtyVal" style="font-family:var(--sans);font-size:1rem;font-weight:500;min-width:24px;text-align:center;">1</span>
+          <button class="sack-size-btn" id="sackQtyPlus" style="width:40px;height:40px;padding:0;font-size:1.2rem;">+</button>
+        </div>
+        <span class="sack-modal__label">Placeringsanmärkning (valfritt)</span>
+        <textarea class="co-field" placeholder="T.ex. bredvid grinden, längs staketet…" style="font-family:var(--sans);font-size:0.9rem;color:var(--black);background:var(--cream);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;outline:none;width:100%;box-sizing:border-box;resize:vertical;min-height:72px;line-height:1.6;" id="sackNote"></textarea>
+      </div>
+      <div class="sack-modal__footer">
+        <button class="sack-modal__cancel" id="sackCancel">Avbryt</button>
+        <button class="sack-modal__confirm" id="sackConfirm">Bekräfta</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    (function () {
+      /* Delivery card toggle + modals */
+      var dlCards = document.querySelectorAll('.co-delivery-card');
+      var sackBackdrop = document.getElementById('sackBackdrop');
+      var tipplassBackdrop = document.getElementById('tipplassBackdrop');
+      var prevSelected = document.getElementById('dlTipplass');
+
+      function openModal(backdrop) {
+        backdrop.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal(backdrop, confirm, targetCard) {
+        backdrop.classList.remove('is-open');
+        document.body.style.overflow = '';
+        if (!confirm) {
+          dlCards.forEach(function (c) { c.classList.remove('is-selected'); });
+          prevSelected.classList.add('is-selected');
+        } else {
+          prevSelected = targetCard;
+        }
+      }
+
+      dlCards.forEach(function (card) {
+        card.addEventListener('click', function () {
+          var wasStorsack = prevSelected && prevSelected.id === 'dlStorsack';
+          if (card.id === 'dlStorsack') {
+            dlCards.forEach(function (c) { c.classList.remove('is-selected'); });
+            card.classList.add('is-selected');
+            openModal(sackBackdrop);
+          } else if (card.id === 'dlTipplass' && wasStorsack) {
+            dlCards.forEach(function (c) { c.classList.remove('is-selected'); });
+            card.classList.add('is-selected');
+            openModal(tipplassBackdrop);
+          } else {
+            prevSelected = card;
+            dlCards.forEach(function (c) { c.classList.remove('is-selected'); });
+            card.classList.add('is-selected');
+          }
+        });
+      });
+
+      /* Storsäck modal */
+      document.getElementById('sackClose').addEventListener('click', function () { closeModal(sackBackdrop, false, null); });
+      document.getElementById('sackCancel').addEventListener('click', function () { closeModal(sackBackdrop, false, null); });
+      document.getElementById('sackConfirm').addEventListener('click', function () { closeModal(sackBackdrop, true, document.getElementById('dlStorsack')); });
+      sackBackdrop.addEventListener('click', function (e) { if (e.target === sackBackdrop) closeModal(sackBackdrop, false, null); });
+
+      /* Tipplass modal */
+      document.getElementById('tipplassClose').addEventListener('click', function () { closeModal(tipplassBackdrop, false, null); });
+      document.getElementById('tipplassCancel').addEventListener('click', function () { closeModal(tipplassBackdrop, false, null); });
+      document.getElementById('tipplassConfirm').addEventListener('click', function () { closeModal(tipplassBackdrop, true, document.getElementById('dlTipplass')); });
+      tipplassBackdrop.addEventListener('click', function (e) { if (e.target === tipplassBackdrop) closeModal(tipplassBackdrop, false, null); });
+
+      /* Tipplass size selection */
+      document.querySelectorAll('.sack-size-btn[data-tipp]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.sack-size-btn[data-tipp]').forEach(function (b) { b.classList.remove('is-selected'); });
+          btn.classList.add('is-selected');
+        });
+      });
+
+      /* Storsäck size selection */
+      document.querySelectorAll('.sack-size-btn[data-sack]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.sack-size-btn[data-sack]').forEach(function (b) { b.classList.remove('is-selected'); });
+          btn.classList.add('is-selected');
+        });
+      });
+
+      /* Storsäck qty +/- */
+      var sackQty = 1;
+      document.getElementById('sackQtyMinus').addEventListener('click', function () {
+        if (sackQty > 1) { sackQty--; document.getElementById('sackQtyVal').textContent = sackQty; }
+      });
+      document.getElementById('sackQtyPlus').addEventListener('click', function () {
+        sackQty++;
+        document.getElementById('sackQtyVal').textContent = sackQty;
+      });
+
+      /* Klarna option toggle */
+      var kOptions = document.querySelectorAll('.co-klarna__option');
+      kOptions.forEach(function (opt) {
+        opt.addEventListener('click', function () {
+          kOptions.forEach(function (o) { o.classList.remove('is-selected'); });
+          opt.classList.add('is-selected');
+        });
+      });
+
+      /* Default delivery date = +3 days */
+      var dateInput = document.getElementById('deliveryDate');
+      if (dateInput) {
+        var d = new Date();
+        d.setDate(d.getDate() + 3);
+        dateInput.value = d.toISOString().split('T')[0];
+        dateInput.min   = d.toISOString().split('T')[0];
+      }
+    })();
+  </script>
+</body>
+</html>

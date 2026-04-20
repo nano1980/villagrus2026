@@ -15,13 +15,12 @@
   <!-- Tyngdpunkt: Inspirationsdriven. Väck lust och känsla tidigt, sedan sortiment och konvertering. -->
 
   <header id="header">
-    <a href="#" class="logo"><img src="logo.png" alt="VillaGrus" class="logo-img"></a>
+    <a href="startsida-1.html" class="logo"><img src="logo.png" alt="VillaGrus" class="logo-img"></a>
     <nav>
-      <a href="#">Hem</a><a href="#">Produkter</a><a href="#">Om oss</a><a href="#">Kontakt</a>
-    </nav>
+      <a href="startsida-1.html">Hem</a><a href="plp.html">Produkter</a><a href="om-oss.html">Om oss</a>    </nav>
     <div class="header-right">
       <button class="cart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
-      <a href="#" class="contact-btn">Kontakta oss</a>
+      <a href="om-oss.html#kontakt" class="contact-btn">Kontakta oss</a>
     </div>
   </header>
 
@@ -228,11 +227,69 @@
       </div>
       <a href="#" class="see-all reveal">Se alla <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
     </div>
-    <div class="products-grid">
-      <div class="product-card reveal"><img src="cat-dekorsten.png" alt="Dekorsten"><span class="product-tag">Nyhet</span><div class="product-info"><div class="product-cat">Dekorsten</div><h4>Vit Marmorgrus</h4><div class="product-size">Fraktion 8–16 mm</div></div><div class="product-footer"><button class="add-btn">Lägg i korg</button><span class="product-price">189 kr</span></div></div>
-      <div class="product-card reveal reveal-delay-1"><img src="cat-natursingel.png" alt="Natursingel"><div class="product-info"><div class="product-cat">Natursingel</div><h4>Natursingel Grå</h4><div class="product-size">Fraktion 4–8 mm</div></div><div class="product-footer"><button class="add-btn">Lägg i korg</button><span class="product-price">149 kr</span></div></div>
-      <div class="product-card reveal reveal-delay-2"><img src="cat-makadam.png" alt="Makadam"><span class="product-tag" style="background:var(--cta)">Rea</span><div class="product-info"><div class="product-cat">Bergskross</div><h4>Makadam</h4><div class="product-size">Fraktion 16–32 mm</div></div><div class="product-footer"><button class="add-btn">Lägg i korg</button><span class="product-price">249 kr</span></div></div>
-      <div class="product-card reveal reveal-delay-3"><img src="cat-jord.png" alt="Jord"><div class="product-info"><div class="product-cat">Jordtyper</div><h4>Trädgårdsjord Premium</h4><div class="product-size">40 liter säck</div></div><div class="product-footer"><button class="add-btn">Lägg i korg</button><span class="product-price">99 kr</span></div></div>
+    <div class="plp-grid">
+      <article class="plp-card reveal">
+        <a href="plp.html" class="plp-card__img-wrap">
+          <img src="cat-dekorsten.png" alt="Dekorsten">
+          <span class="plp-card__badge">Dekorsten</span>
+          <span class="plp-card__new">Nyhet</span>
+        </a>
+        <div class="plp-card__body">
+          <h3 class="plp-card__name">Vit Marmorgrus</h3>
+          <p class="plp-card__frac">Fraktion 8–16 mm · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Dekorsten</div>
+                    <div class="plp-card__footer">
+            <div class="plp-card__price">från<strong>189 kr</strong></div>
+            <a href="plp.html" class="plp-card__cta">Välj produkt <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+      </article>
+      <article class="plp-card reveal reveal-delay-1">
+        <a href="plp.html" class="plp-card__img-wrap">
+          <img src="cat-natursingel.png" alt="Natursingel">
+          <span class="plp-card__badge">Natursingel</span>
+        </a>
+        <div class="plp-card__body">
+          <h3 class="plp-card__name">Natursingel Grå</h3>
+          <p class="plp-card__frac">Fraktion 4–8 mm · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Natursingel</div>
+                    <div class="plp-card__footer">
+            <div class="plp-card__price">från<strong>149 kr</strong></div>
+            <a href="plp.html" class="plp-card__cta">Välj produkt <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+      </article>
+      <article class="plp-card reveal reveal-delay-2">
+        <a href="plp.html" class="plp-card__img-wrap">
+          <img src="cat-makadam.png" alt="Makadam">
+          <span class="plp-card__badge">Bergskross</span>
+          <span class="plp-card__new" style="background:var(--cta)">Rea</span>
+        </a>
+        <div class="plp-card__body">
+          <h3 class="plp-card__name">Makadam</h3>
+          <p class="plp-card__frac">Fraktion 16–32 mm · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Bergskross</div>
+                    <div class="plp-card__footer">
+            <div class="plp-card__price">från<strong>249 kr</strong></div>
+            <a href="plp.html" class="plp-card__cta">Välj produkt <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+      </article>
+      <article class="plp-card reveal reveal-delay-3">
+        <a href="plp.html" class="plp-card__img-wrap">
+          <img src="cat-jord.png" alt="Jordtyper">
+          <span class="plp-card__badge">Jordtyper</span>
+        </a>
+        <div class="plp-card__body">
+          <h3 class="plp-card__name">Trädgårdsjord Premium</h3>
+          <p class="plp-card__frac">40 liter säck · Tipplass &amp; Storsäck</p>
+          <div class="plp-card__cat">Jordtyper</div>
+                    <div class="plp-card__footer">
+            <div class="plp-card__price">från<strong>99 kr</strong></div>
+            <a href="plp.html" class="plp-card__cta">Välj produkt <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -265,8 +322,8 @@
         </div>
       </div>
       <div class="footer-col"><h5>Produkter</h5><ul><li><a href="#">Dekorsten</a></li><li><a href="#">Natursingel</a></li><li><a href="#">Bergskross</a></li><li><a href="#">Jordtyper</a></li></ul></div>
-      <div class="footer-col"><h5>Information</h5><ul><li><a href="#">Om oss</a></li><li><a href="#">Leveransinformation</a></li><li><a href="#">Köpvillkor</a></li><li><a href="#">FAQ</a></li></ul></div>
-      <div class="footer-col"><h5>Kontakt</h5><ul><li><a href="#">info@villagrus.se</a></li><li><a href="#">010-123 45 67</a></li><li><a href="#">Mån–Fre 08–17</a></li></ul></div>
+      <div class="footer-col"><h5>Information</h5><ul><li><a href="om-oss.html">Om oss</a></li><li><a href="#">Leveransinformation</a></li><li><a href="#">Köpvillkor</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h5>Kontakt</h5><ul><li><a href="#">info@villagrus.se</a></li><li><a href="#">Mån–Fre 08–17</a></li></ul></div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 VillaGrus AB. Alla rättigheter förbehållna.</p>

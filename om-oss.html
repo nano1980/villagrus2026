@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Om oss & Kontakt | VillaGrus</title>
+  <meta name="description" content="VillaGrus levererar natursten och grus direkt till villaägare i hela Sverige. Kranbil, tipplass och storsäck — på dina villkor.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    html, body { margin: 0; padding: 0; overflow-x: hidden; }
+
+    /* ── Page hero ── */
+    .about-hero {
+      position: relative;
+      background: var(--black);
+      padding: calc(var(--header-h) + 100px) 48px 100px;
+      overflow: hidden;
+    }
+    .about-hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .18;
+      display: block;
+    }
+    .about-hero__inner {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .about-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.05;
+      margin: 0 0 28px;
+    }
+    .about-hero__title em { font-style: italic; color: var(--sand); }
+    .about-hero__sub {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,.6);
+      max-width: 540px;
+      margin: 0 0 40px;
+    }
+    .about-hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--sans);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--cta);
+      border-radius: var(--radius);
+      padding: 14px 28px;
+      text-decoration: none;
+    }
+
+    /* ── Story section ── */
+    .about-story {
+      background: var(--cream);
+      padding: 120px 48px;
+    }
+    .about-story__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-story__text { }
+    .about-story__text p {
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #444;
+      margin: 0 0 20px;
+    }
+    .about-story__text p:last-child { margin-bottom: 0; }
+    .about-story__img-wrap {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .about-story__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .about-story__img-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(26,26,26,.7));
+      padding: 40px 28px 24px;
+      font-family: var(--sans);
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.7);
+    }
+
+    /* ── Values ── */
+    .about-values {
+      background: var(--stone);
+      padding: 120px 48px;
+    }
+    .about-values__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .about-values__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 64px;
+      background: rgba(0,0,0,.06);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .about-value {
+      background: var(--stone);
+      padding: 48px 40px;
+    }
+    .about-value__icon {
+      width: 44px;
+      height: 44px;
+      color: var(--sand);
+      margin-bottom: 28px;
+    }
+    .about-value__icon svg { width: 100%; height: 100%; }
+    .about-value__title {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 1.2;
+      margin: 0 0 14px;
+    }
+    .about-value__title em { font-style: italic; }
+    .about-value__text {
+      font-family: var(--sans);
+      font-size: .9rem;
+      line-height: 1.7;
+      color: #555;
+      margin: 0;
+    }
+
+    /* ── How it works ── */
+    .about-process {
+      background: var(--black);
+      padding: 120px 48px;
+    }
+    .about-process__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .about-process__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 64px;
+    }
+    .about-step {
+      padding: 0 40px 0 0;
+      position: relative;
+    }
+    .about-step:last-child { padding-right: 0; }
+    .about-step::after {
+      content: '';
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,.12);
+    }
+    .about-step:last-child::after { display: none; }
+    .about-step__num {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      font-weight: 400;
+      color: var(--sand);
+      opacity: .35;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .about-step__title {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .about-step__title em { font-style: italic; }
+    .about-step__text {
+      font-family: var(--sans);
+      font-size: .88rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,.45);
+      margin: 0;
+    }
+
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .about-story__inner { gap: 48px; }
+      .about-values__grid { grid-template-columns: 1fr 1fr; }
+      .about-process__grid { grid-template-columns: 1fr 1fr; gap: 48px 0; }
+      .about-step::after { display: none; }
+      .about-contact__inner { gap: 56px; }
+    }
+    @media (max-width: 768px) {
+      .about-hero { padding: calc(var(--header-h) + 64px) 24px 64px; }
+      .about-story { padding: 72px 24px; }
+      .about-story__inner { grid-template-columns: 1fr; gap: 40px; }
+      .about-values { padding: 72px 24px; }
+      .about-values__grid { grid-template-columns: 1fr; }
+      .about-process { padding: 72px 24px; }
+      .about-process__grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <div class="nav-drawer" id="navDrawer" aria-label="Meny">
+    <div class="nav-drawer__top">
+      <span class="nav-drawer__heading">Navigering</span>
+      <button class="nav-drawer__close" id="navClose" aria-label="Stäng meny">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="nav-drawer__body">
+      <nav class="nav-drawer__nav">
+        <a href="index.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9l7-7 7 7v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9z"/><path d="M7 19V12h6v7"/></svg></span>
+          Hem
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="plp.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="7" height="7" rx="1"/><rect x="11" y="2" width="7" height="7" rx="1"/><rect x="2" y="11" width="7" height="7" rx="1"/><rect x="11" y="11" width="7" height="7" rx="1"/></svg></span>
+          Produkter
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="inspiration/index.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="16" height="12" rx="1"/><path d="M6 9h8M6 12h5"/></svg></span>
+          Inspiration
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="om-oss.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="7" r="3"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6"/></svg></span>
+          Om oss
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+      </nav>
+    </div>
+    <div class="nav-drawer__bottom">
+      <a href="#" class="nav-drawer__link">
+        <span class="nav-drawer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+        Varukorg
+        <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </a>
+      <div class="nav-drawer__divider"></div>
+      <a href="om-oss.html#kontakt" class="nav-drawer__cta">
+        Kontakta oss
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <header id="header">
+    <a href="index.html" class="logo"><img src="logo.png" alt="VillaGrus" class="logo-img"></a>
+    <nav>
+      <a href="index.html">Hem</a>
+      <a href="plp.html">Produkter</a>
+      <a href="inspiration/index.html">Inspiration</a>
+      <a href="om-oss.html">Om oss</a>    </nav>
+    <div class="header-right">
+      <button class="cart-btn" aria-label="Kundvagn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </button>
+      <a href="om-oss.html#kontakt" class="contact-btn">Kontakta oss</a>
+      <button class="hamburger" id="hamburger" aria-label="Öppna meny">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="about-hero">
+    <img src="bergskross.jpg" alt="" class="about-hero__bg" aria-hidden="true">
+    <div class="about-hero__inner">
+      <div class="section-label reveal section-label--center">VillaGrus</div>
+      <h1 class="about-hero__title reveal">Natursten levererat<br>med <em>omsorg</em></h1>
+      <p class="about-hero__sub reveal">Vi startade VillaGrus för att göra det enkelt att beställa rätt material — utan mellanhänder, utan gissningar. Rätt ton, rätt fraktion, direkt till din uppfart.</p>
+      <a href="#kontakt" class="about-hero__cta reveal">
+        Kontakta oss
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="about-story">
+    <div class="about-story__inner">
+      <div class="about-story__text">
+        <div class="section-label reveal">Vår historia</div>
+        <h2 class="section-title reveal">Från frustration<br><em>till lösning</em></h2>
+        <p class="reveal" style="margin-top: 32px;">Det hela började med en dålig upplevelse. En av grundarna skulle lägga om uppfarten hemma och insåg att det var omöjligt att beställa grus på ett vettigt sätt — inga priser online, oklara minimimängder och leveranser som inte passade en vanlig villa.</p>
+        <p class="reveal">VillaGrus grundades 2023 med ett enkelt löfte: det ska vara lika enkelt att beställa natursten som att handla online. Fast med den kvalitet och service som bara ett specialiserat företag kan ge.</p>
+        <p class="reveal">Idag levererar vi bergskross, natursingel, makadam och jord till villaägare i hela Sverige — med kranbil för exakt placering eller tipplass för större volymer.</p>
+      </div>
+      <div class="about-story__img-wrap reveal">
+        <img src="natursingel.jpg" alt="Natursingel levererat till en villa" class="about-story__img">
+        <div class="about-story__img-caption">Leverans med kranbil — precis dit du vill ha det</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="about-values">
+    <div class="about-values__inner">
+      <div class="section-label reveal">Så arbetar vi</div>
+      <h2 class="section-title reveal">Tre saker vi<br><em>aldrig kompromissar på</em></h2>
+      <div class="about-values__grid">
+        <div class="about-value reveal">
+          <div class="about-value__icon">
+            <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+              <circle cx="20" cy="20" r="15"/>
+              <path d="M13 20l5 5 10-10"/>
+            </svg>
+          </div>
+          <h3 class="about-value__title">Rätt material —<br><em>rätt från start</em></h3>
+          <p class="about-value__text">Vi hjälper dig välja fraktion, beräkna mängd och planera leverans innan du lägger din order. Inga överraskningar på fakturan.</p>
+        </div>
+        <div class="about-value reveal">
+          <div class="about-value__icon">
+            <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+              <path d="M8 20 L8 10 L14 10 L17 6 L23 6 L23 20 Z"/>
+              <path d="M23 20 L23 13 L36 10 L38 20 Z"/>
+              <circle cx="12" cy="23" r="2.5"/>
+              <circle cx="28" cy="23" r="2.5"/>
+              <circle cx="33" cy="23" r="2.5"/>
+            </svg>
+          </div>
+          <h3 class="about-value__title">Leverans som<br><em>faktiskt funkar</em></h3>
+          <p class="about-value__text">Kranbil med exakt placering eller tipplass för effektiv lossning. Du väljer metod — vi anpassar oss efter din tomt och ditt projekt.</p>
+        </div>
+        <div class="about-value reveal">
+          <div class="about-value__icon">
+            <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+              <path d="M20 4 L24 14 L36 14 L26 21 L30 32 L20 25 L10 32 L14 21 L4 14 L16 14 Z"/>
+            </svg>
+          </div>
+          <h3 class="about-value__title">Kvalitet utan<br><em>kompromiss</em></h3>
+          <p class="about-value__text">Allt material kommer från certifierade svenska täkter. Vi kontrollerar fraktion och renhet innan det lämnar vår terminal — varje gång.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="about-process">
+    <div class="about-process__inner">
+      <div class="section-label reveal" style="color: var(--sand);">Så går det till</div>
+      <h2 class="section-title reveal" style="color: #fff; margin-bottom: 0;">Från beställning<br><em>till uppfart</em></h2>
+      <div class="about-process__grid">
+        <div class="about-step reveal">
+          <div class="about-step__num">01</div>
+          <h3 class="about-step__title">Välj material<br><em>&amp; mängd</em></h3>
+          <p class="about-step__text">Använd vår guide och kalkylator för att hitta rätt fraktion och räkna ut exakt hur mycket du behöver.</p>
+        </div>
+        <div class="about-step reveal">
+          <div class="about-step__num">02</div>
+          <h3 class="about-step__title">Lägg din<br><em>order online</em></h3>
+          <p class="about-step__text">Beställ direkt i vår webbutik. Välj leveransmetod, datum och ange adressen. Klart på fem minuter.</p>
+        </div>
+        <div class="about-step reveal">
+          <div class="about-step__num">03</div>
+          <h3 class="about-step__title">Vi bekräftar<br><em>&amp; planerar</em></h3>
+          <p class="about-step__text">Du får orderbekräftelse med exakt leveranstid. Vi kontaktar dig vid behov om tomtens förutsättningar.</p>
+        </div>
+        <div class="about-step reveal">
+          <div class="about-step__num">04</div>
+          <h3 class="about-step__title">Leverans direkt<br><em>till uppfarten</em></h3>
+          <p class="about-step__text">Kranbil eller tipplass — materialet hamnar precis där du vill ha det. Klart för att börja anlägga.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact — samma komponent som startsida-1 -->
+  <section class="contact-section" id="kontakt">
+    <div class="contact-inner">
+      <div class="contact-left reveal">
+        <div class="section-label">Kontakt</div>
+        <h2 class="section-title">Har du en fråga?<br><em>Vi hjälper dig.</em></h2>
+        <p>Oavsett om det gäller produktval, leverans eller mängdberäkning — hör av dig så hjälper vi dig hitta rätt.</p>
+        <ul class="contact-details">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@villagrus.se</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Mån–Fre 08:00–17:00</span>
+          </li>
+        </ul>
+      </div>
+      <form class="contact-form reveal reveal-delay-1" onsubmit="return false">
+        <div class="contact-form__group">
+          <label>Namn</label>
+          <input type="text" placeholder="Ditt namn">
+        </div>
+        <div class="contact-form__group">
+          <label>E-post</label>
+          <input type="email" placeholder="din@email.se">
+        </div>
+        <div class="contact-form__group">
+          <label>Meddelande</label>
+          <textarea rows="5" placeholder="Hur kan vi hjälpa dig?"></textarea>
+        </div>
+        <button type="submit" class="contact-form__btn">
+          Skicka meddelande
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-footer">VillaGrus</span>
+        <p>Natursten och grus levererat direkt till din uppfart. Kranbil eller tipplass — vi fixar det.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Produkter</h5>
+        <ul>
+          <li><a href="plp.html">Natursingel</a></li>
+          <li><a href="plp.html">Bergskross</a></li>
+          <li><a href="plp.html">Makadam</a></li>
+          <li><a href="plp.html">Dekorsten</a></li>
+          <li><a href="plp.html">Jord</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Information</h5>
+        <ul>
+          <li><a href="om-oss.html">Om oss</a></li>
+          <li><a href="#">Leverans &amp; Frakt</a></li>
+          <li></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Inspiration</h5>
+        <ul>
+          <li><a href="inspiration/index.html">Alla guider</a></li>
+          <li><a href="inspiration/grusad-uppfart-guide/">Anlägga uppfart</a></li>
+          <li><a href="inspiration/natursingel-guide/">Välja natursingel</a></li>
+          <li><a href="inspiration/makadam-dranering/">Dränering</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 VillaGrus AB — Org.nr 556xxx-xxxx</p>
+      <div class="payment-icons">
+        <span class="pay-badge">Visa</span>
+        <span class="pay-badge">Mastercard</span>
+        <span class="pay-badge klarna">Klarna</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

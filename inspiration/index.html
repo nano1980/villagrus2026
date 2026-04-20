@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspiration &amp; guider | VillaGrus</title>
+  <meta name="description" content="Guider om natursten, grus och trädgårdsanläggning. Från grusad uppfart till dränering — allt du behöver veta innan du beställer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    html, body { margin: 0; padding: 0; overflow-x: hidden; }
+
+    /* ── Page hero (section, not header, to avoid position:fixed) ── */
+    .inspo-page-hero {
+      background: var(--black);
+      padding: calc(var(--header-h) + 72px) 48px 72px;
+      text-align: center;
+    }
+    .inspo-page-hero .section-label {
+      color: var(--sand);
+      margin-bottom: 20px;
+    }
+    .inspo-page-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.05;
+      margin: 0 auto 20px;
+      max-width: 720px;
+    }
+    .inspo-page-hero__title em { font-style: italic; color: var(--sand); }
+    .inspo-page-hero__sub {
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,.55);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── Featured post ── */
+    .inspo-featured {
+      background: var(--cream);
+      padding: 80px 48px 0;
+    }
+    .inspo-featured__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .inspo-featured .section-label { margin-bottom: 24px; }
+
+    .inspo-featured__card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: var(--black);
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .3s;
+    }
+    .inspo-featured__card:hover { transform: translateY(-3px); }
+    .inspo-featured__img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .inspo-featured__img {
+      width: 100%;
+      height: 100%;
+      min-height: 460px;
+      object-fit: cover;
+      opacity: .85;
+      display: block;
+      transition: transform .6s;
+    }
+    .inspo-featured__card:hover .inspo-featured__img { transform: scale(1.04); }
+
+    .inspo-featured__body {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 52px 56px;
+      background: var(--black);
+    }
+    .inspo-featured__cat {
+      font-family: var(--sans);
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 20px;
+    }
+    .inspo-featured__title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 2.8vw, 3rem);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.1;
+      margin: 0 0 20px;
+    }
+    .inspo-featured__title em { font-style: italic; }
+    .inspo-featured__excerpt {
+      font-family: var(--sans);
+      font-size: .95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,.6);
+      margin: 0 0 36px;
+    }
+    .inspo-featured__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--sans);
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.25);
+      padding-bottom: 4px;
+      transition: border-color .2s, color .2s;
+      align-self: flex-start;
+    }
+    .inspo-featured__cta svg { transition: transform .2s; }
+    .inspo-featured__card:hover .inspo-featured__cta { border-color: var(--sand); color: var(--sand); }
+    .inspo-featured__card:hover .inspo-featured__cta svg { transform: translateX(4px); }
+
+    /* ── Post grid ── */
+    .inspo-grid-section {
+      background: var(--cream);
+      padding: 72px 48px 120px;
+    }
+    .inspo-grid-section__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .inspo-grid-section__inner > .section-label { margin-bottom: 40px; }
+
+    .inspo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    /* Post card — same proportions as plp-card */
+    .inspo-card {
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .inspo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.10);
+    }
+    .inspo-card__img-wrap {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--stone);
+    }
+    .inspo-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s;
+    }
+    .inspo-card:hover .inspo-card__img { transform: scale(1.06); }
+    .inspo-card__badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      font-family: var(--sans);
+      font-size: .65rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #fff;
+      background: rgba(26,26,26,.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 2px;
+      padding: 5px 10px;
+    }
+
+    .inspo-card__body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 24px 24px 28px;
+    }
+    .inspo-card__cat {
+      font-family: var(--sans);
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .inspo-card__cat::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--sand);
+    }
+    .inspo-card__title {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--black);
+      margin: 0 0 10px;
+    }
+    .inspo-card__title em { font-style: italic; }
+    .inspo-card__excerpt {
+      font-family: var(--sans);
+      font-size: .88rem;
+      line-height: 1.65;
+      color: var(--mid);
+      margin: 0 0 auto;
+      padding-bottom: 20px;
+    }
+    .inspo-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border, #e5e1db);
+    }
+    .inspo-card__read {
+      font-family: var(--sans);
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color .2s;
+    }
+    .inspo-card:hover .inspo-card__read { color: var(--cta); }
+    .inspo-card__read svg { transition: transform .2s; }
+    .inspo-card:hover .inspo-card__read svg { transform: translateX(3px); }
+    .inspo-card__meta {
+      font-family: var(--sans);
+      font-size: .72rem;
+      color: var(--mid);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .inspo-featured__card { grid-template-columns: 1fr; }
+      .inspo-featured__img { min-height: 340px; }
+      .inspo-featured__body { padding: 40px 40px 48px; }
+      .inspo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .inspo-page-hero { padding: calc(var(--header-h) + 48px) 24px 48px; }
+      .inspo-featured { padding: 56px 24px 0; }
+      .inspo-grid-section { padding: 48px 24px 80px; }
+      .inspo-featured__body { padding: 32px 28px 40px; }
+      .inspo-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <div class="nav-drawer" id="navDrawer" aria-label="Meny">
+    <div class="nav-drawer__top">
+      <span class="nav-drawer__heading">Navigering</span>
+      <button class="nav-drawer__close" id="navClose" aria-label="Stäng meny">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="nav-drawer__body">
+      <nav class="nav-drawer__nav">
+        <a href="../index.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9l7-7 7 7v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9z"/><path d="M7 19V12h6v7"/></svg></span>
+          Hem
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="../plp.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="7" height="7" rx="1"/><rect x="11" y="2" width="7" height="7" rx="1"/><rect x="2" y="11" width="7" height="7" rx="1"/><rect x="11" y="11" width="7" height="7" rx="1"/></svg></span>
+          Produkter
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="index.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="16" height="12" rx="1"/><path d="M6 9h8M6 12h5"/></svg></span>
+          Inspiration
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a href="../om-oss.html">
+          <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="7" r="3"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6"/></svg></span>
+          Om oss
+          <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+      </nav>
+    </div>
+    <div class="nav-drawer__bottom">
+      <a href="#" class="nav-drawer__link">
+        <span class="nav-drawer__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+        Varukorg
+        <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </a>
+      <div class="nav-drawer__divider"></div>
+      <a href="../om-oss.html#kontakt" class="nav-drawer__cta">
+        Kontakta oss
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <header id="header">
+    <a href="../index.html" class="logo"><img src="../logo.png" alt="VillaGrus" class="logo-img"></a>
+    <nav>
+      <a href="../index.html">Hem</a>
+      <a href="../plp.html">Produkter</a>
+      <a href="index.html">Inspiration</a>
+      <a href="../om-oss.html">Om oss</a>    </nav>
+    <div class="header-right">
+      <button class="cart-btn" aria-label="Kundvagn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </button>
+      <a href="../om-oss.html#kontakt" class="contact-btn">Kontakta oss</a>
+      <button class="hamburger" id="hamburger" aria-label="Öppna meny">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Page heading -->
+  <section class="inspo-page-hero">
+    <div class="section-label reveal section-label--center">VillaGrus</div>
+    <h1 class="inspo-page-hero__title reveal">Inspiration &amp;<br><em>guider</em></h1>
+    <p class="inspo-page-hero__sub reveal">Allt du behöver veta om natursten, grus och trädgårdsanläggning — skrivet för villaägare, inte ingenjörer.</p>
+  </section>
+
+  <!-- Featured post (latest) -->
+  <section class="inspo-featured">
+    <div class="inspo-featured__inner">
+      <div class="section-label reveal">Senaste guiden</div>
+      <a href="grusad-uppfart-guide/index.html" class="inspo-featured__card reveal">
+        <div class="inspo-featured__img-wrap">
+          <img src="../natursingel.jpg" alt="Anlägga grusad uppfart" class="inspo-featured__img">
+        </div>
+        <div class="inspo-featured__body">
+          <div class="inspo-featured__cat">Guide · Anläggning</div>
+          <h2 class="inspo-featured__title">Anlägga grusad uppfart —<br><em>allt du behöver veta</em></h2>
+          <p class="inspo-featured__excerpt">Det svåraste med en grusad uppfart är inte grävjobbet — det är att beställa rätt mängd material. Den här guiden löser båda. Interaktiv kalkylator inkluderad.</p>
+          <span class="inspo-featured__cta">
+            Läs guiden
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Older posts grid -->
+  <section class="inspo-grid-section">
+    <div class="inspo-grid-section__inner">
+      <div class="section-label reveal">Fler guider</div>
+      <div class="inspo-grid">
+
+        <a href="natursingel-guide/index.html" class="inspo-card reveal">
+          <div class="inspo-card__img-wrap">
+            <img src="../natursingel.jpg" alt="Välja natursingel" class="inspo-card__img">
+            <span class="inspo-card__badge">Material</span>
+          </div>
+          <div class="inspo-card__body">
+            <div class="inspo-card__cat">Guide · Material</div>
+            <h3 class="inspo-card__title">Välja natursingel —<br><em>rätt fraktion första gången</em></h3>
+            <p class="inspo-card__excerpt">8–18, 16–32 eller 25–45 mm? Fraktionen avgör allt — hur det ser ut, hur det körs på och hur länge det håller.</p>
+            <div class="inspo-card__footer">
+              <span class="inspo-card__read">
+                Läs guiden
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </span>
+              <span class="inspo-card__meta">5 min läsning</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="makadam-dranering/index.html" class="inspo-card reveal">
+          <div class="inspo-card__img-wrap">
+            <img src="../makadam.jpg" alt="Makadam för dränering" class="inspo-card__img">
+            <span class="inspo-card__badge">Dränering</span>
+          </div>
+          <div class="inspo-card__body">
+            <div class="inspo-card__cat">Guide · Dränering</div>
+            <h3 class="inspo-card__title">Makadam för dränering —<br><em>hur djupt, hur mycket</em></h3>
+            <p class="inspo-card__excerpt">Vattensamlingar under uppfarten eller i trädgården löses nästan alltid med rätt makadamlager. Men de flesta gräver för grunt.</p>
+            <div class="inspo-card__footer">
+              <span class="inspo-card__read">
+                Läs guiden
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </span>
+              <span class="inspo-card__meta">4 min läsning</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="inspo-card reveal" style="pointer-events:none; opacity:.45;">
+          <div class="inspo-card__img-wrap">
+            <img src="../dekorsten.jpg" alt="Dekorsten i trädgården" class="inspo-card__img">
+            <span class="inspo-card__badge">Trädgård</span>
+          </div>
+          <div class="inspo-card__body">
+            <div class="inspo-card__cat">Guide · Trädgård</div>
+            <h3 class="inspo-card__title">Dekorsten i trädgården —<br><em>fyra sätt att använda den</em></h3>
+            <p class="inspo-card__excerpt">Dekorsten är inte bara för uppfarter. Rabatter, stigar, fontäner och stödmurar — här är fyra projekt du kan göra själv.</p>
+            <div class="inspo-card__footer">
+              <span class="inspo-card__read">
+                Kommer snart
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </span>
+              <span class="inspo-card__meta">6 min läsning</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-footer">VillaGrus</span>
+        <p>Natursten och grus levererat direkt till din uppfart. Kranbil eller tipplass — vi fixar det.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Produkter</h5>
+        <ul>
+          <li><a href="#">Natursingel</a></li>
+          <li><a href="#">Bergskross</a></li>
+          <li><a href="#">Makadam</a></li>
+          <li><a href="#">Dekorsten</a></li>
+          <li><a href="#">Jord</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Information</h5>
+        <ul>
+          <li><a href="../om-oss.html">Om oss</a></li>
+          <li><a href="#">Leverans &amp; Frakt</a></li>
+          <li></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Inspiration</h5>
+        <ul>
+          <li><a href="index.html">Alla guider</a></li>
+          <li><a href="grusad-uppfart-guide/">Anlägga uppfart</a></li>
+          <li><a href="natursingel-guide/">Välja natursingel</a></li>
+          <li><a href="makadam-dranering/">Makadam &amp; dränering</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 VillaGrus AB — Org.nr 556xxx-xxxx</p>
+      <div class="payment-icons">
+        <span class="pay-badge">Visa</span>
+        <span class="pay-badge">Mastercard</span>
+        <span class="pay-badge klarna">Klarna</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../main.js"></script>
+</body>
+</html>

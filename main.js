@@ -952,3 +952,379 @@ window.addEventListener('scroll', () => {
   populateTippCount();
   render();
 })();
+
+/* ── PLP: Filter + Sort ─────────────────────────────────────── */
+(function () {
+  const pills    = document.querySelectorAll('.plp-pill');
+  const expPills = document.querySelectorAll('.plp-pill--expand');
+  const cards    = document.querySelectorAll('.plp-card[data-category]');
+  const countEl  = document.getElementById('plpCount');
+  const sortSel  = document.getElementById('plpSort');
+  const grid     = document.getElementById('plpGrid');
+  const emptyEl  = document.getElementById('plpEmpty');
+  const resetBtn = document.getElementById('plpReset');
+  const filters  = document.getElementById('plpFilters');
+
+  if (!pills.length || !cards.length) return;
+
+  function getCheckedSubcats() {
+    return [...document.querySelectorAll('.plp-panel input:checked')].map(cb => cb.dataset.subcat);
+  }
+
+  function closeAllPanels() {
+    document.querySelectorAll('.plp-panel').forEach(p => { p.hidden = true; });
+    expPills.forEach(p => { p.classList.remove('is-open'); p.setAttribute('aria-expanded', 'false'); });
+  }
+
+  function applyFilter() {
+    const subcats = getCheckedSubcats();
+    const activePill = document.querySelector('.plp-pill.is-active');
+    const cat = activePill ? activePill.dataset.filter : 'alla';
+    let visible = 0;
+    cards.forEach(card => {
+      let show;
+      if (subcats.length > 0) {
+        show = subcats.includes(card.dataset.subcat);
+      } else if (cat && cat !== 'alla') {
+        show = card.dataset.category === cat;
+      } else {
+        show = true;
+      }
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (countEl) countEl.textContent = visible;
+    if (emptyEl) emptyEl.hidden = visible > 0;
+  }
+
+  function clearAll() {
+    document.querySelectorAll('.plp-panel input').forEach(cb => { cb.checked = false; });
+    closeAllPanels();
+    pills.forEach(p => p.classList.remove('is-active'));
+  }
+
+  document.querySelectorAll('.plp-pill:not(.plp-pill--expand)').forEach(pill => {
+    pill.addEventListener('click', () => {
+      clearAll();
+      pill.classList.add('is-active');
+      applyFilter();
+    });
+  });
+
+  expPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const panelId = pill.dataset.panel;
+      const panel = document.getElementById(panelId);
+      if (!panel) return;
+      const isOpen = !panel.hidden;
+      closeAllPanels();
+      if (!isOpen) {
+        panel.hidden = false;
+        pill.classList.add('is-open');
+        pill.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  document.querySelectorAll('.plp-panel input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      pills.forEach(p => p.classList.remove('is-active'));
+      if (getCheckedSubcats().length > 0) {
+        const panel = cb.closest('.plp-panel');
+        if (panel) {
+          const parentPill = document.querySelector(`.plp-pill[data-panel="${panel.id}"]`);
+          if (parentPill) parentPill.classList.add('is-active');
+        }
+      } else {
+        const allPill = document.querySelector('.plp-pill[data-filter="alla"]');
+        if (allPill) allPill.classList.add('is-active');
+      }
+      applyFilter();
+    });
+  });
+
+  if (sortSel && grid) {
+    sortSel.addEventListener('change', () => {
+      const val = sortSel.value;
+      const sorted = [...cards].sort((a, b) => {
+        const pa = parseInt(a.dataset.price) || 0;
+        const pb = parseInt(b.dataset.price) || 0;
+        if (val === 'price-asc')  return pa - pb;
+        if (val === 'price-desc') return pb - pa;
+        return (parseInt(a.dataset.order) || 0) - (parseInt(b.dataset.order) || 0);
+      });
+      sorted.forEach(card => grid.appendChild(card));
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      clearAll();
+      const allPill = document.querySelector('.plp-pill[data-filter="alla"]');
+      if (allPill) allPill.classList.add('is-active');
+      applyFilter();
+    });
+  }
+
+  document.addEventListener('click', e => {
+    if (filters && !filters.contains(e.target)) closeAllPanels();
+  });
+})();
+
+/* ── Contact Modal ──────────────────────────────────────────────────────── */
+(function () {
+  const MODAL_HTML = `
+<div class="contact-modal-backdrop" id="contactModalBackdrop" role="dialog" aria-modal="true" aria-label="Kontakta oss">
+  <div class="contact-modal-panel">
+    <button class="contact-modal-close" id="contactModalClose" aria-label="Stäng">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="contact-inner">
+      <div class="contact-left">
+        <div class="section-label">Kontakt</div>
+        <h2 class="section-title">Har du en fråga?<br><em>Vi hjälper dig.</em></h2>
+        <p>Oavsett om det gäller produktval, leverans eller mängdberäkning — hör av dig så hjälper vi dig hitta rätt.</p>
+        <ul class="contact-details">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@villagrus.se</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Mån–Fre 08:00–17:00</span>
+          </li>
+        </ul>
+      </div>
+      <form class="contact-form" onsubmit="return false">
+        <div class="contact-form__group">
+          <label>Namn</label>
+          <input type="text" placeholder="Ditt namn">
+        </div>
+        <div class="contact-form__group">
+          <label>E-post</label>
+          <input type="email" placeholder="din@email.se">
+        </div>
+        <div class="contact-form__group">
+          <label>Meddelande</label>
+          <textarea rows="5" placeholder="Hur kan vi hjälpa dig?"></textarea>
+        </div>
+        <button type="submit" class="contact-form__btn">
+          Skicka meddelande
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>`;
+
+  document.body.insertAdjacentHTML('beforeend', MODAL_HTML);
+
+  const backdrop = document.getElementById('contactModalBackdrop');
+  const closeBtn = document.getElementById('contactModalClose');
+
+  function openModal()  {
+    backdrop.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    backdrop.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  /* Trigger: all .contact-btn links and .nav-drawer__cta */
+  document.addEventListener('click', function (e) {
+    const trigger = e.target.closest('.contact-btn, .nav-drawer__cta');
+    if (trigger) {
+      e.preventDefault();
+      closeModal.call(null); /* close drawer if open */
+      /* Close nav drawer if open */
+      const drawer = document.getElementById('navDrawer');
+      const nb     = document.getElementById('navBackdrop');
+      if (drawer)  drawer.classList.remove('is-open');
+      if (nb)      nb.classList.remove('is-visible');
+      document.body.style.overflow = '';
+      openModal();
+    }
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', function (e) {
+    if (e.target === backdrop) closeModal();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeModal();
+  });
+})();
+
+/* ── Cart Drawer ─────────────────────────────────────────── */
+(function () {
+  /* Resolve base path from the stylesheet link so file:// and subdirs work */
+  const cssHref = (document.querySelector('link[href*="styles.css"]') || {}).getAttribute
+    ? document.querySelector('link[href*="styles.css"]').getAttribute('href')
+    : '';
+  const base = cssHref.replace('styles.css', '');
+
+  const CART_HTML = `
+<div class="cart-backdrop" id="cartBackdrop"></div>
+<div class="cart-drawer" id="cartDrawer" aria-label="Varukorg">
+  <div class="cart-drawer__top">
+    <span class="cart-drawer__heading">Varukorg</span>
+    <button class="cart-drawer__close" id="cartClose" aria-label="Stäng varukorg">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="cart-drawer__body">
+
+    <div class="cart-item" data-price="2895">
+      <div class="cart-item__img">
+        <img src="${base}cat-makadam.png" alt="Makadam 2–6 mm">
+      </div>
+      <div class="cart-item__body">
+        <div class="cart-item__cat">Bergskross</div>
+        <div class="cart-item__name">Makadam 2–6 mm</div>
+        <div class="cart-item__delivery">Tipplass · 5 ton</div>
+        <div class="cart-item__footer">
+          <div class="cart-item__price">2 895 kr</div>
+          <div class="cart-item__qty">
+            <button aria-label="Minska">−</button>
+            <span>1</span>
+            <button aria-label="Öka">+</button>
+          </div>
+        </div>
+      </div>
+      <button class="cart-item__remove" aria-label="Ta bort">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="cart-item" data-price="1490">
+      <div class="cart-item__img">
+        <img src="${base}cat-natursingel.png" alt="Natursingel Grå">
+      </div>
+      <div class="cart-item__body">
+        <div class="cart-item__cat">Natursingel</div>
+        <div class="cart-item__name">Natursingel Grå 4–8 mm</div>
+        <div class="cart-item__delivery">Storsäck · 1 000 kg</div>
+        <div class="cart-item__footer">
+          <div class="cart-item__price">1 490 kr</div>
+          <div class="cart-item__qty">
+            <button aria-label="Minska">−</button>
+            <span>2</span>
+            <button aria-label="Öka">+</button>
+          </div>
+        </div>
+      </div>
+      <button class="cart-item__remove" aria-label="Ta bort">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="cart-drawer__footer">
+    <div class="cart-summary">
+      <div class="cart-summary__row" id="cartSubtotalRow">
+        <span id="cartSubtotalLabel">Delsumma (3 enheter)</span>
+        <span id="cartSubtotalVal">5 875 kr</span>
+      </div>
+      <div class="cart-summary__row">
+        <span>Leverans</span>
+        <span>Beräknas i kassan</span>
+      </div>
+      <div class="cart-summary__row cart-summary__row--total">
+        <span>Totalt</span>
+        <span id="cartTotalVal">5 875 kr</span>
+      </div>
+    </div>
+    <a href="${base}checkout.html" class="cart-checkout-btn">
+      Gå till kassan
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </div>
+</div>`;
+
+  document.body.insertAdjacentHTML('beforeend', CART_HTML);
+
+  const backdrop = document.getElementById('cartBackdrop');
+  const drawer   = document.getElementById('cartDrawer');
+  const closeBtn = document.getElementById('cartClose');
+
+  /* Wrap all .cart-btn elements with badge container */
+  document.querySelectorAll('.cart-btn').forEach(function (btn) {
+    const wrap = document.createElement('div');
+    wrap.className = 'cart-btn-wrap';
+    btn.parentNode.insertBefore(wrap, btn);
+    wrap.appendChild(btn);
+    const badge = document.createElement('span');
+    badge.className = 'cart-badge';
+    badge.id = 'cartBadge';
+    badge.textContent = '2';
+    wrap.appendChild(badge);
+  });
+
+  function fmtPrice(n) {
+    return n.toLocaleString('sv-SE') + ' kr';
+  }
+
+  function recalc() {
+    let total = 0;
+    let units = 0;
+    drawer.querySelectorAll('.cart-item').forEach(function (item) {
+      const price = parseInt(item.dataset.price, 10);
+      const qty   = parseInt(item.querySelector('.cart-item__qty span').textContent, 10);
+      total += price * qty;
+      units += qty;
+      item.querySelector('.cart-item__price').textContent = fmtPrice(price * qty);
+    });
+    document.getElementById('cartSubtotalLabel').textContent = 'Delsumma (' + units + ' enheter)';
+    document.getElementById('cartSubtotalVal').textContent   = fmtPrice(total);
+    document.getElementById('cartTotalVal').textContent      = fmtPrice(total);
+    const badge = document.getElementById('cartBadge');
+    if (badge) badge.textContent = units;
+  }
+
+  function openCart() {
+    backdrop.classList.add('is-open');
+    drawer.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCart() {
+    backdrop.classList.remove('is-open');
+    drawer.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.cart-btn')) {
+      e.preventDefault();
+      openCart();
+    }
+  });
+
+  closeBtn.addEventListener('click', closeCart);
+  backdrop.addEventListener('click', closeCart);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeCart();
+  });
+
+  /* Qty buttons */
+  drawer.addEventListener('click', function (e) {
+    const btn = e.target.closest('.cart-item__qty button');
+    if (!btn) return;
+    const span = btn.parentElement.querySelector('span');
+    let qty = parseInt(span.textContent);
+    if (btn.textContent.trim() === '+') qty = Math.min(qty + 1, 99);
+    if (btn.textContent.trim() === '−') qty = Math.max(qty - 1, 1);
+    span.textContent = qty;
+    recalc();
+  });
+
+  /* Remove buttons */
+  drawer.addEventListener('click', function (e) {
+    const btn = e.target.closest('.cart-item__remove');
+    if (!btn) return;
+    btn.closest('.cart-item').remove();
+    recalc();
+  });
+})();
