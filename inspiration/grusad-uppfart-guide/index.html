@@ -377,25 +377,66 @@
     }
     .seg-control input:checked + label span { opacity: .9; }
 
-    /* Select */
-    .calc-select {
-      width: 100%;
-      padding: 12px 16px;
+    /* Slitlager cards */
+    .slitlager-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .slitlager-card { cursor: pointer; display: block; }
+    .slitlager-card input[type="radio"] { display: none; }
+    .slitlager-card__inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
       background: #1a1a1a;
       border: 1px solid rgba(255,255,255,.15);
       border-radius: var(--radius);
-      font-family: var(--sans);
-      font-size: .9rem;
-      color: #fff;
-      outline: none;
-      cursor: pointer;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
+      transition: border-color .15s, background .15s;
     }
-    .calc-select:focus { border-color: var(--cta); }
+    .slitlager-card:hover .slitlager-card__inner { border-color: rgba(255,255,255,.35); }
+    .slitlager-card input:checked ~ .slitlager-card__inner {
+      border-color: var(--cta);
+      background: rgba(212,113,74,.08);
+    }
+    .slitlager-card__img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .slitlager-card__text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+    .slitlager-card__name { font-size: .82rem; color: #fff; font-weight: 500; line-height: 1.3; }
+    .slitlager-card__desc { font-size: .72rem; color: rgba(255,255,255,.4); line-height: 1.3; }
+    .slitlager-card__check {
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .15s, background .15s;
+    }
+    .slitlager-card input:checked ~ .slitlager-card__inner .slitlager-card__check {
+      background: var(--cta);
+      border-color: var(--cta);
+    }
+    .slitlager-card__check-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0;
+      transition: opacity .15s;
+    }
+    .slitlager-card input:checked ~ .slitlager-card__inner .slitlager-card__check-dot { opacity: 1; }
+    @media (max-width: 520px) {
+      .slitlager-grid { grid-template-columns: 1fr; }
+    }
 
     /* Divider */
     .calc-divider {
@@ -450,6 +491,27 @@
       margin-top: 16px;
       text-align: center;
     }
+
+    .calc-order-btn {
+      margin-top: 16px;
+      width: 100%;
+      padding: 10px;
+      background: var(--cta);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .calc-order-btn:hover { background: #c55d38; }
+    /* Hide beställ-btn until results visible */
+    #calc-results[style*="opacity: .3"] .calc-order-btn,
+    #calc-results[style*="opacity:.3"] .calc-order-btn { opacity: 0; pointer-events: none; }
 
     /* ── Product cards ── */
     /* ── Products section — PLP-bredd, enda sektionen som bryter 760px-kolumnen ── */
@@ -904,12 +966,52 @@
             <!-- Step 3: Surface material -->
             <div class="calc-step">
               <div class="calc-step__label">Steg 3 — Välj slitlager</div>
-              <select class="calc-select" id="calc-slitlager">
-                <option value="gardsingel-818">Gårdssingel 8–18 mm — fint och mjukt att gå på</option>
-                <option value="natursingel-1632" selected>Natursingel 16–32 mm — populärast för uppfarter</option>
-                <option value="natursingel-2545">Natursingel 25–45 mm — robust och dekorativ</option>
-                <option value="dekorsten-3264">Dekorsten 32–64 mm — stort format, markant look</option>
-              </select>
+              <div class="slitlager-grid">
+                <label class="slitlager-card">
+                  <input type="radio" name="slitlager" value="gardsingel-818">
+                  <div class="slitlager-card__inner">
+                    <img class="slitlager-card__img" src="../../natursingel.jpg" alt="Gårdssingel">
+                    <div class="slitlager-card__text">
+                      <span class="slitlager-card__name">Gårdssingel 8–18 mm</span>
+                      <span class="slitlager-card__desc">Fint och mjukt att gå på</span>
+                    </div>
+                    <div class="slitlager-card__check"><div class="slitlager-card__check-dot"></div></div>
+                  </div>
+                </label>
+                <label class="slitlager-card">
+                  <input type="radio" name="slitlager" value="natursingel-1632" checked>
+                  <div class="slitlager-card__inner">
+                    <img class="slitlager-card__img" src="../../cat-natursingel.png" alt="Natursingel 16–32">
+                    <div class="slitlager-card__text">
+                      <span class="slitlager-card__name">Natursingel 16–32 mm</span>
+                      <span class="slitlager-card__desc">Populärast för uppfarter</span>
+                    </div>
+                    <div class="slitlager-card__check"><div class="slitlager-card__check-dot"></div></div>
+                  </div>
+                </label>
+                <label class="slitlager-card">
+                  <input type="radio" name="slitlager" value="natursingel-2545">
+                  <div class="slitlager-card__inner">
+                    <img class="slitlager-card__img" src="../../natursingel.jpg" alt="Natursingel 25–45">
+                    <div class="slitlager-card__text">
+                      <span class="slitlager-card__name">Natursingel 25–45 mm</span>
+                      <span class="slitlager-card__desc">Robust och dekorativ</span>
+                    </div>
+                    <div class="slitlager-card__check"><div class="slitlager-card__check-dot"></div></div>
+                  </div>
+                </label>
+                <label class="slitlager-card">
+                  <input type="radio" name="slitlager" value="dekorsten-3264">
+                  <div class="slitlager-card__inner">
+                    <img class="slitlager-card__img" src="../../cat-dekorsten.png" alt="Dekorsten 32–64">
+                    <div class="slitlager-card__text">
+                      <span class="slitlager-card__name">Dekorsten 32–64 mm</span>
+                      <span class="slitlager-card__desc">Stort format, markant look</span>
+                    </div>
+                    <div class="slitlager-card__check"><div class="slitlager-card__check-dot"></div></div>
+                  </div>
+                </label>
+              </div>
             </div>
 
             <hr class="calc-divider">
@@ -925,6 +1027,7 @@
                     <strong>Bergskross 0–32 mm</strong>
                     Packas under fiberduk
                   </div>
+                  <button class="calc-order-btn" id="orderBarlager">Beställ →</button>
                 </div>
                 <div class="calc-result-card">
                   <div class="calc-result-card__label">Slitlager</div>
@@ -933,6 +1036,7 @@
                     <strong id="result-slitlager-label">Natursingel 16–32 mm</strong>
                     Ytmaterial
                   </div>
+                  <button class="calc-order-btn" id="orderSlitlager">Beställ →</button>
                 </div>
               </div>
               <p class="calc-note">Inkl. 10 % övermarginal · Baserat på branschstandarder</p>
@@ -1164,6 +1268,72 @@
     </div>
   </div>
 
+  <!-- Quickshop modal -->
+  <div class="qs-backdrop" id="qsBackdrop">
+    <div class="qs-modal">
+      <div class="qs-head">
+        <div class="qs-head__img"><img id="qsImg" src="" alt=""></div>
+        <div class="qs-head__info">
+          <div class="qs-head__cat" id="qsCat"></div>
+          <div class="qs-head__name" id="qsName"></div>
+          <div class="qs-head__frac" id="qsFrac"></div>
+        </div>
+        <button class="qs-close" id="qsClose" aria-label="Stäng">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="qs-body">
+        <span class="qs-label">Leveranssätt</span>
+        <div class="qs-delivery-toggle">
+          <button class="qs-delivery-btn is-active" id="qsBtnTipplass">
+            <strong>Tipplass</strong>
+            <span>Löslastat, tippas på tomt</span>
+          </button>
+          <button class="qs-delivery-btn" id="qsBtnStorsack">
+            <strong>Storsäck</strong>
+            <span>500 kg eller 1 000 kg</span>
+          </button>
+        </div>
+        <div class="qs-section is-visible" id="qsTipplassSection">
+          <span class="qs-label">Antal ton</span>
+          <div class="qs-ton-grid">
+            <button class="qs-ton-btn is-active" data-ton="1">1 ton</button>
+            <button class="qs-ton-btn" data-ton="2">2 ton</button>
+            <button class="qs-ton-btn" data-ton="3">3 ton</button>
+            <button class="qs-ton-btn" data-ton="5">5 ton</button>
+            <button class="qs-ton-btn" data-ton="10">10 ton</button>
+          </div>
+        </div>
+        <div class="qs-section" id="qsStorsackSection">
+          <span class="qs-label">Säckstorlek</span>
+          <div class="qs-sack-grid">
+            <button class="qs-sack-btn is-active" data-size="500"><strong>500 kg</strong><span>½ storsäck</span></button>
+            <button class="qs-sack-btn" data-size="1000"><strong>1 000 kg</strong><span>1 storsäck</span></button>
+          </div>
+          <span class="qs-label">Antal säckar</span>
+          <div class="qs-qty-row">
+            <div class="qs-qty">
+              <button id="qsSackMinus" aria-label="Minska">−</button>
+              <span id="qsSackQty">1</span>
+              <button id="qsSackPlus" aria-label="Öka">+</button>
+            </div>
+            <span class="qs-qty-label">säckar</span>
+          </div>
+        </div>
+      </div>
+      <div class="qs-footer">
+        <button class="qs-add-btn" id="qsAddBtn">
+          Lägg i varukorg
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </button>
+        <a href="../../plp.html" class="qs-pdp-link">
+          Se hela sortimentet
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <script src="../../main.js"></script>
   <script>
   (function () {
@@ -1184,7 +1354,7 @@
     const elBredd    = document.getElementById('calc-bredd');
     const elLangd    = document.getElementById('calc-langd');
     const elYta      = document.getElementById('calc-yta');
-    const elSlitlager = document.getElementById('calc-slitlager');
+    const elSlitlager = { get value() { return (calc.querySelector('[name="slitlager"]:checked') || {}).value || 'natursingel-1632'; } };
     const elResults  = document.getElementById('calc-results');
     const elBarlager = document.getElementById('result-barlager-ton');
     const elSlitTon  = document.getElementById('result-slitlager-ton');
@@ -1244,6 +1414,120 @@
     closeBtn.addEventListener('click', close);
     backdrop.addEventListener('click', close);
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
+  })();
+
+  /* ── Calculator Quickshop ── */
+  (function () {
+    var QS_MAP = {
+      barlager:           { name: 'Bergskross',  frac: '0–32 mm',  cat: 'Bergkross & Stenmjöl',    img: '../../cat-bergkross.png' },
+      'gardsingel-818':   { name: 'Gårdssingel', frac: '8–18 mm',  cat: 'Natursingel & Natursten', img: '../../cat-natursingel.png' },
+      'natursingel-1632': { name: 'Natursingel', frac: '16–32 mm', cat: 'Natursingel & Natursten', img: '../../cat-natursingel.png' },
+      'natursingel-2545': { name: 'Natursingel', frac: '25–45 mm', cat: 'Natursingel & Natursten', img: '../../cat-natursingel.png' },
+      'dekorsten-3264':   { name: 'Dekorsten',   frac: '32–64 mm', cat: 'Citykross',               img: '../../cat-dekorsten.png' },
+    };
+
+    var TON_OPTIONS = [1, 2, 3, 5, 10];
+
+    function pickTon(needed) {
+      for (var i = 0; i < TON_OPTIONS.length; i++) {
+        if (TON_OPTIONS[i] >= needed) return TON_OPTIONS[i];
+      }
+      return TON_OPTIONS[TON_OPTIONS.length - 1];
+    }
+
+    function parseTon(str) {
+      var n = parseFloat(str);
+      return isNaN(n) ? 0 : n;
+    }
+
+    var backdrop = document.getElementById('qsBackdrop');
+    if (!backdrop) return;
+    var sackQty = 1;
+
+    function fillModal(product, tonVal) {
+      document.getElementById('qsImg').src = product.img;
+      document.getElementById('qsImg').alt = product.name;
+      document.getElementById('qsCat').textContent = product.cat;
+      document.getElementById('qsName').textContent = product.name;
+      document.getElementById('qsFrac').textContent = product.frac;
+      setDelivery('tipplass');
+      var ton = pickTon(tonVal);
+      selectTon(ton);
+      selectSackSize(500);
+      sackQty = 1;
+      document.getElementById('qsSackQty').textContent = '1';
+      backdrop.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeQS() {
+      backdrop.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('qsClose').addEventListener('click', closeQS);
+    backdrop.addEventListener('click', function(e) { if (e.target === backdrop) closeQS(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeQS(); });
+
+    function setDelivery(type) {
+      var isTipp = type === 'tipplass';
+      document.getElementById('qsBtnTipplass').classList.toggle('is-active', isTipp);
+      document.getElementById('qsBtnStorsack').classList.toggle('is-active', !isTipp);
+      document.getElementById('qsTipplassSection').classList.toggle('is-visible', isTipp);
+      document.getElementById('qsStorsackSection').classList.toggle('is-visible', !isTipp);
+    }
+    document.getElementById('qsBtnTipplass').addEventListener('click', function() { setDelivery('tipplass'); });
+    document.getElementById('qsBtnStorsack').addEventListener('click', function() { setDelivery('storsack'); });
+
+    function selectTon(val) {
+      document.querySelectorAll('.qs-ton-btn').forEach(function(b) {
+        b.classList.toggle('is-active', parseInt(b.dataset.ton) === val);
+      });
+    }
+    document.querySelectorAll('.qs-ton-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() { selectTon(parseInt(btn.dataset.ton)); });
+    });
+
+    function selectSackSize(size) {
+      document.querySelectorAll('.qs-sack-btn').forEach(function(b) {
+        b.classList.toggle('is-active', parseInt(b.dataset.size) === size);
+      });
+    }
+    document.querySelectorAll('.qs-sack-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() { selectSackSize(parseInt(btn.dataset.size)); });
+    });
+
+    document.getElementById('qsSackMinus').addEventListener('click', function() {
+      if (sackQty > 1) { sackQty--; document.getElementById('qsSackQty').textContent = sackQty; }
+    });
+    document.getElementById('qsSackPlus').addEventListener('click', function() {
+      sackQty++; document.getElementById('qsSackQty').textContent = sackQty;
+    });
+
+    document.getElementById('qsAddBtn').addEventListener('click', function() {
+      closeQS();
+      var cartBtn = document.querySelector('.cart-btn');
+      if (cartBtn) cartBtn.click();
+    });
+
+    /* Wire up calc beställ-buttons */
+    var orderBarlager = document.getElementById('orderBarlager');
+    var orderSlitlager = document.getElementById('orderSlitlager');
+
+    if (orderBarlager) {
+      orderBarlager.addEventListener('click', function() {
+        var ton = parseTon(document.getElementById('result-barlager-ton').textContent);
+        fillModal(QS_MAP.barlager, ton);
+      });
+    }
+
+    if (orderSlitlager) {
+      orderSlitlager.addEventListener('click', function() {
+        var fracKey = (document.querySelector('[name="slitlager"]:checked') || {}).value || 'natursingel-1632';
+        var ton = parseTon(document.getElementById('result-slitlager-ton').textContent);
+        fillModal(QS_MAP[fracKey] || QS_MAP['natursingel-1632'], ton);
+      });
+    }
   })();
   </script>
 </body>

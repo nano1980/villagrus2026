@@ -8,6 +8,319 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .plp-page {
+      background: var(--cream);
+      min-height: 100vh;
+      padding-top: var(--header-h);
+    }
+
+    /* ── Filter bar ── */
+    .plp-filter-wrap {
+      position: sticky;
+      top: var(--header-h);
+      z-index: 90;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+    }
+    .plp-filter-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .plp-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Standalone pill (Alla) */
+    .plp-pill {
+      flex-shrink: 0;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--mid);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 7px 14px;
+      cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
+      white-space: nowrap;
+    }
+    .plp-pill:hover { border-color: var(--black); color: var(--black); background: rgba(0,0,0,0.04); }
+    .plp-pill.is-active {
+      background: var(--black);
+      border-color: var(--black);
+      color: #fff;
+    }
+    .plp-pill.is-active:hover { background: var(--black); }
+    /* Inside a pill-group the group provides the border — pill gets none */
+    .plp-pill-group .plp-pill {
+      border: none;
+      border-radius: 0;
+    }
+    .plp-pill-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 700;
+      line-height: 1;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: 100px;
+      background: var(--black);
+      color: #fff;
+      margin-left: 5px;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .plp-pill-group.is-active .plp-pill-count {
+      background: #fff;
+      color: var(--black);
+    }
+    .plp-pill-group.is-partial .plp-pill-count {
+      background: var(--black);
+      color: #fff;
+    }
+
+    /* Category pill group (pill + chevron) */
+    .plp-pill-group {
+      display: flex;
+      align-items: stretch;
+      flex-shrink: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      overflow: hidden;
+      transition: border-color .15s;
+    }
+    .plp-pill-group:hover { border-color: var(--black); }
+    .plp-pill-group .plp-pill {
+      border: none;
+      border-radius: 0;
+      border-right: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .plp-pill-group .plp-pill:hover { background: transparent; color: var(--black); }
+    .plp-pill-group.is-active { border-color: var(--black); }
+    .plp-pill-group.is-active .plp-pill {
+      background: var(--black);
+      color: #fff;
+      border-right-color: rgba(255,255,255,.2);
+    }
+    .plp-pill__chevron {
+      width: 30px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 0;
+      transition: background .15s, color .15s;
+      flex-shrink: 0;
+    }
+    .plp-pill__chevron svg { width: 11px; height: 7px; display: block; flex-shrink: 0; transition: transform .2s; }
+    .plp-pill__chevron:hover { color: var(--black); }
+    .plp-pill__chevron:focus { outline: none; }
+    .plp-pill-group.is-active .plp-pill__chevron {
+      background: var(--black);
+      color: rgba(255,255,255,.8);
+    }
+    /* Partial selection: black outline */
+    .plp-pill-group.is-partial {
+      border-color: var(--black);
+    }
+    .plp-pill-group.is-partial .plp-pill {
+      color: var(--black);
+      font-weight: 600;
+    }
+    .plp-pill-group.is-partial .plp-pill__chevron {
+      color: var(--black);
+    }
+    .plp-pill-group.is-open .plp-pill__chevron svg { transform: rotate(180deg); }
+
+    /* Subcategory dropdown — in flow so grid shifts down */
+    .plp-subcats {
+      display: none;
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+      border-bottom: 2px solid var(--border);
+      padding: 14px 0 18px;
+    }
+    .plp-subcats.is-open { display: block; }
+    .plp-subcats__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .plp-subcats__all {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: var(--mid);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: color .15s, border-color .15s;
+      white-space: nowrap;
+    }
+    .plp-subcats__all:hover { color: var(--black); border-color: var(--black); }
+    .plp-subcat-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--black);
+      cursor: pointer;
+      padding: 5px 14px 5px 10px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: #fff;
+      transition: border-color .15s;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .plp-subcat-item:hover { border-color: var(--black); }
+    .plp-subcat-item input[type=checkbox] {
+      width: 13px;
+      height: 13px;
+      cursor: pointer;
+      accent-color: var(--black);
+      margin: 0;
+      flex-shrink: 0;
+    }
+
+    /* ── Count + Sort row ── */
+    .plp-meta {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 48px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .plp-count {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--mid);
+    }
+    .plp-sort { flex-shrink: 0; }
+    .plp-sort select {
+      height: 30px;
+      padding: 0 28px 0 12px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: transparent url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5l4 4 4-4' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 10px center;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--black);
+      cursor: pointer;
+      appearance: none;
+      white-space: nowrap;
+      transition: border-color .15s;
+    }
+    .plp-sort select:hover { border-color: var(--black); }
+
+    /* Override designsystem card name size — shorter names on grid */
+    .plp-card__name { font-size: 1.05rem; }
+
+    /* ── Grid ── */
+    .plp-body {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 48px 120px;
+    }
+    .plp-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    /* ── Pagination ── */
+    .plp-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 48px 0 0;
+    }
+    .plp-pagination button {
+      padding: 9px 22px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: transparent;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      color: var(--black);
+      cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+      white-space: nowrap;
+    }
+    .plp-pagination button:hover:not([disabled]) {
+      border-color: var(--black);
+      background: var(--black);
+      color: #fff;
+    }
+    .plp-pagination button[disabled] {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .plp-pagination__info {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      color: var(--mid);
+      min-width: 90px;
+      text-align: center;
+    }
+
+    /* ── Empty state ── */
+    .plp-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 0;
+      color: var(--mid);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .plp-grid { grid-template-columns: repeat(3, 1fr); }
+      .plp-body { padding-left: 32px; padding-right: 32px; }
+      .plp-meta { padding-left: 32px; padding-right: 32px; }
+      .plp-filter-inner { padding-left: 32px; padding-right: 32px; }
+      .plp-subcats__inner { padding-left: 32px; padding-right: 32px; }
+    }
+    @media (max-width: 680px) {
+      .plp-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .plp-body { padding-left: 20px; padding-right: 20px; }
+      .plp-meta { padding-left: 20px; padding-right: 20px; }
+      .plp-filter-inner { padding-left: 20px; padding-right: 20px; }
+      .plp-subcats__inner { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -27,7 +340,7 @@
           Hem
           <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
         </a>
-        <a href="#">
+        <a href="plp.html">
           <span class="nav-drawer__icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="7" height="7" rx="1"/><rect x="11" y="2" width="7" height="7" rx="1"/><rect x="2" y="11" width="7" height="7" rx="1"/><rect x="11" y="11" width="7" height="7" rx="1"/></svg></span>
           Produkter
           <span class="nav-drawer__arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
@@ -63,9 +376,10 @@
     <a href="index.html" class="logo"><img src="logo.png" alt="VillaGrus" class="logo-img"></a>
     <nav>
       <a href="index.html">Hem</a>
-      <a href="#" class="active">Produkter</a>
+      <a href="plp.html" class="active">Produkter</a>
       <a href="inspiration/index.html">Inspiration</a>
-      <a href="om-oss.html">Om oss</a>    </nav>
+      <a href="om-oss.html">Om oss</a>
+    </nav>
     <div class="header-right">
       <button class="cart-btn" aria-label="Kundvagn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -81,306 +395,619 @@
     </div>
   </header>
 
-  <!-- STICKY FILTER BAR -->
-  <div class="plp-filters" id="plpFilters">
-    <div class="plp-filters__inner">
-      <div class="plp-pills" role="group" aria-label="Filtrera produkter">
+  <div class="plp-page">
 
-        <button class="plp-pill is-active" data-filter="alla">Alla <span>6</span></button>
-
-        <!-- Bergkross — expanderbar -->
-        <button class="plp-pill plp-pill--expand" data-filter="bergkross" data-panel="panel-bergkross" aria-expanded="false">
-          Stenmjöl &amp; Bergkross <span>3</span>
-          <svg class="plp-pill__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
-        </button>
-
-        <button class="plp-pill" data-filter="natursingel">Natursingel <span>1</span></button>
-
-        <button class="plp-pill" data-filter="dekorsten">Dekorsten <span>1</span></button>
-
-        <!-- Jord — expanderbar -->
-        <button class="plp-pill plp-pill--expand" data-filter="jord" data-panel="panel-jord" aria-expanded="false">
-          Jord <span>1</span>
-          <svg class="plp-pill__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
-        </button>
-
+    <!-- Filter bar -->
+    <div class="plp-filter-wrap">
+      <div class="plp-filter-inner">
+        <div class="plp-pills" id="filterPills"></div>
       </div>
+      <div class="plp-subcats" id="plpSubcats"></div>
+    </div>
+
+    <!-- Count + Sort -->
+    <div class="plp-meta">
+      <div class="plp-count" id="plpCount"></div>
       <div class="plp-sort">
-        <select id="plpSort" aria-label="Sortera produkter">
-          <option value="relevans">Relevans</option>
-          <option value="price-asc">Lägst pris</option>
-          <option value="price-desc">Högst pris</option>
+        <select id="plpSort">
+          <option value="default">Sortera</option>
+          <option value="az">Namn A–Ö</option>
+          <option value="za">Namn Ö–A</option>
+          <option value="cat">Kategori</option>
         </select>
       </div>
     </div>
 
-    <!-- Expanderbara underkategoripaneler -->
-    <div class="plp-panel" id="panel-bergkross" hidden>
-      <div class="plp-panel__inner">
-        <p class="plp-panel__title">Stenmjöl &amp; Bergkross</p>
-        <div class="plp-panel__checks">
-          <label class="plp-check">
-            <input type="checkbox" data-subcat="bergkross-032">
-            <span>Bergkross 0–32 mm</span>
-            <em>1</em>
-          </label>
-          <label class="plp-check">
-            <input type="checkbox" data-subcat="makadam-26">
-            <span>Makadam 2–6 mm</span>
-            <em>1</em>
-          </label>
-          <label class="plp-check">
-            <input type="checkbox" data-subcat="makadam-1632">
-            <span>Makadam 16–32 mm</span>
-            <em>1</em>
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="plp-panel" id="panel-jord" hidden>
-      <div class="plp-panel__inner">
-        <p class="plp-panel__title">Jordtyper</p>
-        <div class="plp-panel__checks">
-          <label class="plp-check">
-            <input type="checkbox" data-subcat="tradgardsjord">
-            <span>Trädgårdsjord Premium</span>
-            <em>1</em>
-          </label>
-        </div>
+    <!-- Grid -->
+    <div class="plp-body">
+      <div class="plp-grid" id="plpGrid"></div>
+      <div class="plp-pagination" id="plpPagination" style="display:none">
+        <button id="plpPrev">← Föregående</button>
+        <span class="plp-pagination__info" id="plpPageInfo">Sida 1 av 1</span>
+        <button id="plpNext">Nästa →</button>
       </div>
     </div>
 
   </div>
 
-  <!-- PRODUCT GRID -->
-  <section class="plp-section">
-    <div class="plp-meta-row">
-      <p class="plp-count-text">Visar <span id="plpCount">6</span> produkter</p>
-    </div>
-
-    <div class="plp-grid" id="plpGrid">
-
-      <!-- 1: Bergkross 0–32 mm -->
-      <article class="plp-card reveal" data-category="bergkross" data-subcat="bergkross-032" data-price="395" data-order="1">
-        <a href="pdp.html" class="plp-card__img-wrap">
-          <img src="cat-bergkross.png" alt="Bergkross 0–32 mm">
-          <span class="plp-card__badge">Bergkross</span>
-        </a>
-        <div class="plp-card__body">
-          <h3 class="plp-card__name">Bergkross 0–32 mm</h3>
-          <p class="plp-card__frac">Fraktion 0–32 mm · Tipplass &amp; Storsäck</p>
-          <div class="plp-card__cat">Markarbete &amp; dränering</div>
-                    <div class="plp-card__footer">
-            <div class="plp-card__price">
-              från<strong>395 kr</strong>
-            </div>
-            <a href="pdp.html" class="plp-card__cta">
-              Välj produkt
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </a>
-          </div>
+  <!-- Quickshop modal -->
+  <div class="qs-backdrop" id="qsBackdrop">
+    <div class="qs-modal">
+      <div class="qs-head">
+        <div class="qs-head__img">
+          <img id="qsImg" src="" alt="">
         </div>
-      </article>
-
-      <!-- 2: Makadam 2–6 mm -->
-      <article class="plp-card reveal reveal-delay-1" data-category="bergkross" data-subcat="makadam-26" data-price="495" data-order="2">
-        <a href="pdp.html" class="plp-card__img-wrap">
-          <img src="cat-makadam.png" alt="Makadam 2–6 mm">
-          <span class="plp-card__badge">Makadam</span>
-        </a>
-        <div class="plp-card__body">
-          <h3 class="plp-card__name">Makadam 2–6 mm</h3>
-          <p class="plp-card__frac">Fraktion 2–6 mm · Tipplass &amp; Storsäck</p>
-          <div class="plp-card__cat">Dränering &amp; stabilisering</div>
-                    <div class="plp-card__footer">
-            <div class="plp-card__price">
-              från<strong>495 kr</strong>
-            </div>
-            <a href="pdp.html" class="plp-card__cta">
-              Välj produkt
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </a>
-          </div>
+        <div class="qs-head__info">
+          <div class="qs-head__cat" id="qsCat"></div>
+          <div class="qs-head__name" id="qsName"></div>
+          <div class="qs-head__frac" id="qsFrac"></div>
         </div>
-      </article>
-
-      <!-- 3: Natursingel 4–8 mm -->
-      <article class="plp-card reveal reveal-delay-2" data-category="natursingel" data-price="595" data-order="3">
-        <a href="pdp.html" class="plp-card__img-wrap">
-          <img src="cat-natursingel.png" alt="Natursingel 4–8 mm">
-          <span class="plp-card__badge">Natursingel</span>
-        </a>
-        <div class="plp-card__body">
-          <h3 class="plp-card__name">Natursingel 4–8 mm</h3>
-          <p class="plp-card__frac">Fraktion 4–8 mm · Tipplass &amp; Storsäck</p>
-          <div class="plp-card__cat">Uppfart &amp; trädgård</div>
-                    <div class="plp-card__footer">
-            <div class="plp-card__price">
-              från<strong>595 kr</strong>
-            </div>
-            <a href="pdp.html" class="plp-card__cta">
-              Välj produkt
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- 4: Dekorsten Vit Marmor -->
-      <article class="plp-card reveal" data-category="dekorsten" data-subcat="dekorsten" data-price="895" data-order="4">
-        <a href="pdp.html" class="plp-card__img-wrap plp-card__img-wrap--new">
-          <img src="cat-dekorsten.png" alt="Dekorsten Vit Marmorgrus">
-          <span class="plp-card__badge">Dekorsten</span>
-          <span class="plp-card__new">Nyhet</span>
-        </a>
-        <div class="plp-card__body">
-          <h3 class="plp-card__name">Vit Marmorgrus</h3>
-          <p class="plp-card__frac">Fraktion 8–16 mm · Storsäck</p>
-          <div class="plp-card__cat">Dekor &amp; trädgårdsdesign</div>
-                    <div class="plp-card__footer">
-            <div class="plp-card__price">
-              från<strong>895 kr</strong>
-            </div>
-            <a href="pdp.html" class="plp-card__cta">
-              Välj produkt
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- 5: Trädgårdsjord -->
-      <article class="plp-card reveal reveal-delay-1" data-category="jord" data-subcat="tradgardsjord" data-price="345" data-order="5">
-        <a href="pdp.html" class="plp-card__img-wrap">
-          <img src="cat-jord.png" alt="Trädgårdsjord Premium">
-          <span class="plp-card__badge">Jord</span>
-        </a>
-        <div class="plp-card__body">
-          <h3 class="plp-card__name">Trädgårdsjord Premium</h3>
-          <p class="plp-card__frac">Lösvikt · Tipplass &amp; Storsäck</p>
-          <div class="plp-card__cat">Trädgård &amp; plantering</div>
-                    <div class="plp-card__footer">
-            <div class="plp-card__price">
-              från<strong>345 kr</strong>
-            </div>
-            <a href="pdp.html" class="plp-card__cta">
-              Välj produkt
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- 6: Makadam 16–32 mm -->
-      <article class="plp-card reveal reveal-delay-2" data-category="bergkross" data-subcat="makadam-1632" data-price="445" data-order="6">
-        <a href="pdp.html" class="plp-card__img-wrap">
-          <img src="cat-makadam.png" alt="Makadam 16–32 mm">
-          <span class="plp-card__badge">Makadam</span>
-        </a>
-        <div class="plp-card__body">
-          <h3 class="plp-card__name">Makadam 16–32 mm</h3>
-          <p class="plp-card__frac">Fraktion 16–32 mm · Tipplass</p>
-          <div class="plp-card__cat">Uppfart &amp; bärlagret</div>
-                    <div class="plp-card__footer">
-            <div class="plp-card__price">
-              från<strong>445 kr</strong>
-            </div>
-            <a href="pdp.html" class="plp-card__cta">
-              Välj produkt
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </a>
-          </div>
-        </div>
-      </article>
-
-    </div>
-
-    <!-- Empty state -->
-    <div class="plp-empty" id="plpEmpty" hidden>
-      <div class="plp-empty__icon">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
-          <circle cx="24" cy="24" r="20"/>
-          <path d="M16 24h16M24 16v16" opacity="0.3"/>
-        </svg>
+        <button class="qs-close" id="qsClose" aria-label="Stäng">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
       </div>
-      <p>Inga produkter matchar det valda filtret.</p>
-      <button class="plp-empty__reset" id="plpReset">Visa alla produkter</button>
-    </div>
 
-  </section>
-
-  <!-- EDITORIAL BREAK: Leveransinfo -->
-  <section class="plp-delivery-banner">
-    <div class="plp-delivery-banner__inner plp-delivery-banner__inner--padded">
-      <div class="plp-delivery-banner__item reveal">
-        <div class="plp-delivery-banner__icon">
-          <svg viewBox="0 0 40 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 24 L2 14 L8 14 L12 9 L18 9 L18 24 Z"/>
-            <path d="M18 24 L18 12 L38 8 L40 24 Z"/>
-            <line x1="18" y1="24" x2="40" y2="24"/>
-            <circle cx="7" cy="27" r="2.5"/>
-            <circle cx="29" cy="27" r="2.5"/>
-            <circle cx="35" cy="27" r="2.5"/>
-          </svg>
+      <div class="qs-body">
+        <span class="qs-label">Leveranssätt</span>
+        <div class="qs-delivery-toggle">
+          <button class="qs-delivery-btn is-active" id="qsBtnTipplass">
+            <strong>Tipplass</strong>
+            <span>Löslastat på tomt</span>
+          </button>
+          <button class="qs-delivery-btn" id="qsBtnStorsack">
+            <strong>Storsäck</strong>
+            <span>500 kg eller 1 000 kg</span>
+          </button>
         </div>
-        <div>
-          <h4 class="plp-delivery-banner__title">Kranbil med tipplass</h4>
-          <p class="plp-delivery-banner__text">Löslast tippas direkt på din plats. Bäst för större volymer och öppna ytor.</p>
+
+        <div class="qs-section is-visible" id="qsTipplassSection">
+          <span class="qs-label">Antal ton</span>
+          <div class="qs-ton-grid" id="qsTonGridTipp">
+            <button class="qs-ton-btn is-active" data-ton="1">1 ton</button>
+            <button class="qs-ton-btn" data-ton="2">2 ton</button>
+            <button class="qs-ton-btn" data-ton="3">3 ton</button>
+            <button class="qs-ton-btn" data-ton="5">5 ton</button>
+            <button class="qs-ton-btn" data-ton="10">10 ton</button>
+          </div>
+        </div>
+
+        <div class="qs-section" id="qsStorsackSection">
+          <span class="qs-label">Säckstorlek</span>
+          <div class="qs-sack-grid">
+            <button class="qs-sack-btn is-active" data-size="500">
+              <strong>500 kg</strong>
+              <span>½ storsäck</span>
+            </button>
+            <button class="qs-sack-btn" data-size="1000">
+              <strong>1 000 kg</strong>
+              <span>1 storsäck</span>
+            </button>
+          </div>
+          <span class="qs-label">Antal säckar</span>
+          <div class="qs-qty-row">
+            <div class="qs-qty">
+              <button id="qsSackMinus" aria-label="Minska">−</button>
+              <span id="qsSackQty">1</span>
+              <button id="qsSackPlus" aria-label="Öka">+</button>
+            </div>
+            <span class="qs-qty-label">säckar</span>
+          </div>
+          <span class="qs-label">Storlek på kran</span>
+          <div class="qs-sack-grid">
+            <button class="qs-crane-btn is-active" id="qsCraneStd" data-crane="standard">
+              <strong>Standard</strong>
+              <span>3–5 m från väg</span>
+            </button>
+            <button class="qs-crane-btn" id="qsCraneBig" data-crane="big">
+              <strong>Stor kranbil</strong>
+              <span>Upp till 14 m (+150 kr/säck)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="qs-price-row" id="qsPriceRow">
+          <span class="qs-price-label">Totalt</span>
+          <span class="qs-price-total" id="qsPriceTotal">—</span>
         </div>
       </div>
-      <div class="plp-delivery-banner__divider"></div>
-      <div class="plp-delivery-banner__item reveal reveal-delay-1">
-        <div class="plp-delivery-banner__icon">
-          <svg viewBox="0 0 32 40" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10 7 L10 3 Q16 1 22 3 L22 7"/>
-            <path d="M3 9 L29 9 L25 37 L7 37 Z"/>
-            <line x1="16" y1="9" x2="16" y2="37" stroke-dasharray="2 3"/>
-            <line x1="3" y1="20" x2="29" y2="20" stroke-dasharray="2 3"/>
-          </svg>
-        </div>
-        <div>
-          <h4 class="plp-delivery-banner__title">Storsäck Big Bag</h4>
-          <p class="plp-delivery-banner__text">Levereras i säck, smidigt för mindre mängder och trånga utrymmen.</p>
-        </div>
-      </div>
-      <div class="plp-delivery-banner__divider"></div>
-      <div class="plp-delivery-banner__item reveal reveal-delay-2">
-        <div class="plp-delivery-banner__icon">
-          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
-            <circle cx="20" cy="20" r="16"/>
-            <path d="M20 10v10l7 4"/>
-          </svg>
-        </div>
-        <div>
-          <h4 class="plp-delivery-banner__title">Leverans inom 48h</h4>
-          <p class="plp-delivery-banner__text">Beställ innan kl. 14 — levereras nästa vardag till hela Sverige.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-top">
-      <div class="footer-brand">
-        <img src="logo.png" alt="VillaGrus" style="height:32px;width:auto;object-fit:contain;filter:invert(1) brightness(2);margin-bottom:20px;display:block;">
-        <p>Naturens material direkt hem till dig. Kvalitetsprodukter inom dekorsten, singel, bergskross och jord sedan 2014.</p>
-        <div class="footer-social">
-          <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
-          <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-        </div>
+      <div class="qs-footer">
+        <button class="qs-add-btn" id="qsAddBtn">
+          Lägg i varukorg
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </button>
+        <a href="pdp.html" class="qs-pdp-link" id="qsPdpLink">
+          Gå till produktsidan
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </a>
       </div>
-      <div class="footer-col"><h5>Produkter</h5><ul><li><a href="#">Dekorsten</a></li><li><a href="#">Natursingel</a></li><li><a href="#">Bergskross</a></li><li><a href="#">Jordtyper</a></li></ul></div>
-      <div class="footer-col"><h5>Information</h5><ul><li><a href="om-oss.html">Om oss</a></li><li><a href="#">Leveransinformation</a></li><li><a href="#">Köpvillkor</a></li><li><a href="#">FAQ</a></li></ul></div>
-      <div class="footer-col"><h5>Kontakt</h5><ul><li><a href="#">info@villagrus.se</a></li><li><a href="#">Mån–Fre 08–17</a></li></ul></div>
     </div>
-    <div class="footer-bottom">
-      <p>© 2026 VillaGrus AB. Alla rättigheter förbehållna.</p>
-      <div class="payment-icons"><span class="pay-badge klarna">Klarna</span><span class="pay-badge">Visa</span><span class="pay-badge">Mastercard</span><span class="pay-badge">Swish</span></div>
-    </div>
-  </footer>
+  </div>
 
   <script src="main.js"></script>
+  <script>
+  (function () {
+
+    /* ── Product data ── */
+    var CATS = [
+      { slug: 'bergkross', label: 'Bergkross & Stenmjöl' },
+      { slug: 'makadam',   label: 'Makadam' },
+      { slug: 'singel',    label: 'Natursingel & Natursten' },
+      { slug: 'sand',      label: 'Sand' },
+      { slug: 'jord',      label: 'Jord' },
+      { slug: 'citykross', label: 'Citykross' },
+      { slug: 'bark',      label: 'Bark & Täck' },
+      { slug: 'special',   label: 'Specialprodukter' },
+    ];
+
+    var PRODUCTS = [
+      /* Bergkross & Stenmjöl */
+      { id:1,  name:'Stenmjöl',    frac:'0–2 mm',   cat:'bergkross', img:'cat-bergkross.png' },
+      { id:2,  name:'Stenmjöl',    frac:'0–4 mm',   cat:'bergkross', img:'cat-bergkross.png' },
+      { id:3,  name:'Stenmjöl',    frac:'0–8 mm',   cat:'bergkross', img:'cat-bergkross.png' },
+      { id:4,  name:'Bergkross',   frac:'0–16 mm',  cat:'bergkross', img:'cat-bergkross.png' },
+      { id:5,  name:'Bergkross',   frac:'0–32 mm',  cat:'bergkross', img:'cat-bergkross.png' },
+      { id:6,  name:'Bergkross',   frac:'0–63 mm',  cat:'bergkross', img:'cat-bergkross.png' },
+      { id:7,  name:'Bergkross',   frac:'0–90 mm',  cat:'bergkross', img:'cat-bergkross.png' },
+      /* Makadam */
+      { id:8,  name:'Makadam',     frac:'2–6 mm',   cat:'makadam',   img:'cat-makadam.png' },
+      { id:9,  name:'Makadam',     frac:'4–8 mm',   cat:'makadam',   img:'cat-makadam.png' },
+      { id:10, name:'Makadam',     frac:'8–16 mm',  cat:'makadam',   img:'cat-makadam.png' },
+      { id:11, name:'Makadam',     frac:'16–32 mm', cat:'makadam',   img:'cat-makadam.png' },
+      { id:12, name:'Makadam',     frac:'32–63 mm', cat:'makadam',   img:'cat-makadam.png' },
+      { id:13, name:'Makadam',     frac:'32–90 mm', cat:'makadam',   img:'cat-makadam.png' },
+      { id:14, name:'Makadam',     frac:'63–90 mm', cat:'makadam',   img:'cat-makadam.png' },
+      /* Natursingel & Natursten */
+      { id:15, name:'Natursingel', frac:'5–16 mm',  cat:'singel',    img:'cat-natursingel.png' },
+      { id:16, name:'Natursingel', frac:'16–32 mm', cat:'singel',    img:'cat-natursingel.png' },
+      { id:17, name:'Natursten',   frac:'32–63 mm', cat:'singel',    img:'cat-natursingel.png' },
+      { id:18, name:'Natursten',   frac:'63–90 mm', cat:'singel',    img:'cat-natursingel.png' },
+      /* Sand */
+      { id:19, name:'Kabelsand',   frac:'0–4 mm',   cat:'sand',      img:'cat-bergkross.png' },
+      { id:20, name:'Rörgrav',     frac:'0–8 mm',   cat:'sand',      img:'cat-bergkross.png' },
+      /* Jord */
+      { id:21, name:'Sållad jord',              frac:'0–15 mm',    cat:'jord', img:'cat-jord.png' },
+      { id:22, name:'Gräs- & anläggningsjord',  frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:23, name:'Gräsmattejord',            frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:24, name:'Ängsgrus',                 frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:25, name:'Ängsjord',                 frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:26, name:'K-DRESS',                  frac:'Grässkötsel',cat:'jord', img:'cat-jord.png' },
+      { id:27, name:'Naturgödslad jord',        frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:28, name:'Rabattjord',               frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:29, name:'Rhododendronjord',         frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:30, name:'Frilandsjord',             frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:31, name:'Trädgårdsjord E ZERO',     frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:32, name:'Växtjord Typ A',           frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:33, name:'Växtjord Typ B',           frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:34, name:'Växtjord Typ C',           frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:35, name:'Växtjord Typ D',           frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:36, name:'Mineraljord Typ A',        frac:'',           cat:'jord', img:'cat-jord.png' },
+      { id:37, name:'Mineraljord Typ B',        frac:'',           cat:'jord', img:'cat-jord.png' },
+      /* Citykross */
+      { id:38, name:'Citykross',   frac:'2–6 mm',   cat:'citykross', img:'cat-dekorsten.png' },
+      { id:39, name:'Citykross',   frac:'4–8 mm',   cat:'citykross', img:'cat-dekorsten.png' },
+      { id:40, name:'Citykross',   frac:'8–16 mm',  cat:'citykross', img:'cat-dekorsten.png' },
+      { id:41, name:'Citykross',   frac:'32–90 mm', cat:'citykross', img:'cat-dekorsten.png' },
+      /* Bark & Täck */
+      { id:42, name:'Barkmull',    frac:'0–10 mm',  cat:'bark',      img:'cat-jord.png' },
+      { id:43, name:'Träflis',     frac:'20–80 mm', cat:'bark',      img:'cat-jord.png' },
+      { id:44, name:'Täckbark',    frac:'10–40 mm', cat:'bark',      img:'cat-jord.png' },
+      /* Specialprodukter */
+      { id:45, name:'Biokol EBC',       frac:'',         cat:'special', img:'cat-bergkross.png' },
+      { id:46, name:'Biokolboost',      frac:'',         cat:'special', img:'cat-bergkross.png' },
+      { id:47, name:'Fallskyddsflis',   frac:'5–30 mm',  cat:'special', img:'cat-bergkross.png' },
+      { id:48, name:'Pimpsten',         frac:'2–8 mm',   cat:'special', img:'cat-bergkross.png' },
+    ];
+
+    /* Build lookup maps */
+    var catLabels = {};
+    var catProducts = {};
+    var CAT_PRICES = {
+      bergkross: 249, makadam: 369, singel: 449,
+      sand: 299, jord: 329, citykross: 389, bark: 549, special: 799,
+    };
+    CATS.forEach(function(c) {
+      catLabels[c.slug] = c.label;
+      catProducts[c.slug] = PRODUCTS.filter(function(p) { return p.cat === c.slug; });
+    });
+
+    /* ── State ── */
+    var PRODUCTS_PER_PAGE = 12;
+    /* selectedIds: null = all products; Set = specific IDs (may span multiple categories) */
+    var selectedIds = null;
+    var openDropdownCat = null;
+    var sortOrder = 'default';
+    var currentPage = 1;
+
+    /* ── Filter & sort ── */
+    function getFiltered() {
+      var list = selectedIds === null
+        ? PRODUCTS.slice()
+        : PRODUCTS.filter(function(p) { return selectedIds.has(p.id); });
+      if (sortOrder === 'az') list = list.slice().sort(function(a,b){ return a.name.localeCompare(b.name, 'sv'); });
+      if (sortOrder === 'za') list = list.slice().sort(function(a,b){ return b.name.localeCompare(a.name, 'sv'); });
+      if (sortOrder === 'cat') list = list.slice().sort(function(a,b){
+        var c = a.cat.localeCompare(b.cat, 'sv');
+        return c !== 0 ? c : a.name.localeCompare(b.name, 'sv');
+      });
+      return list;
+    }
+
+    /* ── Card HTML v2 ── */
+    function cardHTML(p) {
+      var catLabel = catLabels[p.cat] || '';
+      var fracText = p.frac ? p.frac + ' · Tipplass &amp; Storsäck' : 'Tipplass &amp; Storsäck';
+      return '<article class="plp-card" data-id="' + p.id + '">' +
+        '<a href="pdp.html" class="plp-card__img-wrap" tabindex="-1">' +
+          '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy">' +
+          '<span class="plp-card__badge">' + catLabel + '</span>' +
+        '</a>' +
+        '<div class="plp-card__body">' +
+          '<h3 class="plp-card__name">' + p.name + '</h3>' +
+          '<p class="plp-card__frac">' + fracText + '</p>' +
+          '<div class="plp-card__footer">' +
+            '<button class="plp-card__cta">' +
+              'Välj produkt' +
+              '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>' +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</article>';
+    }
+
+    /* ── Pill state helper ── */
+    function isCatFullySelected(slug) {
+      if (selectedIds === null) return false;
+      var ids = (catProducts[slug] || []).map(function(p) { return p.id; });
+      return ids.length > 0 && ids.every(function(id) { return selectedIds.has(id); });
+    }
+    function getCatSelectedCount(slug) {
+      if (selectedIds === null) return 0;
+      return (catProducts[slug] || []).filter(function(p) { return selectedIds.has(p.id); }).length;
+    }
+
+    /* ── Render ── */
+    function renderAll() {
+      var filtered = getFiltered();
+      var totalPages = Math.max(1, Math.ceil(filtered.length / PRODUCTS_PER_PAGE));
+      if (currentPage > totalPages) currentPage = totalPages;
+      var page = filtered.slice((currentPage - 1) * PRODUCTS_PER_PAGE, currentPage * PRODUCTS_PER_PAGE);
+
+      document.getElementById('plpCount').textContent = filtered.length + ' produkter';
+
+      var grid = document.getElementById('plpGrid');
+      grid.innerHTML = page.length === 0
+        ? '<div class="plp-empty">Inga produkter hittades.</div>'
+        : page.map(cardHTML).join('');
+
+      var pagEl = document.getElementById('plpPagination');
+      pagEl.style.display = totalPages > 1 ? 'flex' : 'none';
+      document.getElementById('plpPrev').disabled = currentPage === 1;
+      document.getElementById('plpNext').disabled = currentPage === totalPages;
+      document.getElementById('plpPageInfo').textContent = 'Sida ' + currentPage + ' av ' + totalPages;
+
+      /* Pill active states */
+      var allaBtn = document.getElementById('pillAlla');
+      if (allaBtn) allaBtn.classList.toggle('is-active', selectedIds === null);
+      document.querySelectorAll('.plp-pill-group').forEach(function(group) {
+        var slug = group.dataset.cat;
+        var total = (catProducts[slug] || []).length;
+        var selCount = getCatSelectedCount(slug);
+        var isFull = isCatFullySelected(slug);
+        var isPartial = selectedIds !== null && selCount > 0 && !isFull;
+        group.classList.toggle('is-active', isFull);
+        group.classList.toggle('is-partial', isPartial);
+        group.classList.toggle('is-open', openDropdownCat === slug);
+        /* Update pill label */
+        var pillBtn = group.querySelector('.plp-pill');
+        var cat = CATS.find(function(c) { return c.slug === slug; });
+        if (pillBtn && cat) {
+          var countLabel = isPartial ? selCount + '/' + total : total;
+          pillBtn.innerHTML = cat.label + ' <span class="plp-pill-count">' + countLabel + '</span>';
+        }
+      });
+
+      /* Refresh open dropdown */
+      if (openDropdownCat) renderDropdown(openDropdownCat);
+    }
+
+    /* ── Subcategory dropdown ── */
+    var subcatsEl = document.getElementById('plpSubcats');
+
+    function renderDropdown(cat) {
+      var products = catProducts[cat] || [];
+      var catIds = products.map(function(p) { return p.id; });
+      var allInCatChecked = selectedIds !== null && catIds.length > 0 && catIds.every(function(id) {
+        return selectedIds.has(id);
+      });
+      var btnLabel = allInCatChecked ? 'Rensa markering' : 'Markera alla';
+
+      subcatsEl.innerHTML = '<div class="plp-subcats__inner">' +
+        '<button class="plp-subcats__all" id="subcatAll">' + btnLabel + '</button>' +
+        products.map(function(p) {
+          var isChecked = selectedIds !== null && selectedIds.has(p.id);
+          var label = p.name + (p.frac ? ' ' + p.frac : '');
+          return '<label class="plp-subcat-item">' +
+            '<input type="checkbox" data-id="' + p.id + '"' + (isChecked ? ' checked' : '') + '>' +
+            '<span>' + label + '</span>' +
+          '</label>';
+        }).join('') +
+      '</div>';
+
+      subcatsEl.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
+        cb.addEventListener('change', function(e) {
+          e.stopPropagation();
+          var id = parseInt(cb.dataset.id);
+          if (cb.checked) {
+            if (selectedIds === null) {
+              selectedIds = new Set([id]);
+            } else {
+              selectedIds.add(id);
+              if (selectedIds.size === PRODUCTS.length) selectedIds = null;
+            }
+          } else {
+            if (selectedIds !== null) {
+              selectedIds.delete(id);
+              if (selectedIds.size === 0) selectedIds = new Set();
+            }
+          }
+          currentPage = 1;
+          renderAll();
+        });
+      });
+
+      var subcatAllBtn = document.getElementById('subcatAll');
+      if (subcatAllBtn) {
+        subcatAllBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var catIds = (catProducts[cat] || []).map(function(p) { return p.id; });
+          var nowAllChecked = selectedIds !== null && catIds.length > 0 && catIds.every(function(id) {
+            return selectedIds.has(id);
+          });
+          if (nowAllChecked) {
+            catIds.forEach(function(id) { selectedIds.delete(id); });
+            if (selectedIds.size === 0) selectedIds = new Set();
+          } else {
+            if (selectedIds === null) {
+              selectedIds = new Set(catIds);
+            } else {
+              catIds.forEach(function(id) { selectedIds.add(id); });
+              if (selectedIds.size === PRODUCTS.length) selectedIds = null;
+            }
+          }
+          currentPage = 1;
+          renderAll();
+        });
+      }
+    }
+
+    function openDropdown(cat) {
+      openDropdownCat = cat;
+      subcatsEl.classList.add('is-open');
+      renderDropdown(cat);
+    }
+
+    function closeDropdown() {
+      openDropdownCat = null;
+      subcatsEl.classList.remove('is-open');
+      document.querySelectorAll('.plp-pill-group').forEach(function(g) { g.classList.remove('is-open'); });
+    }
+
+    /* ── Build filter pills ── */
+    var pillsEl = document.getElementById('filterPills');
+
+    var allaBtn = document.createElement('button');
+    allaBtn.className = 'plp-pill is-active';
+    allaBtn.id = 'pillAlla';
+    allaBtn.textContent = 'Alla produkter';
+    allaBtn.addEventListener('click', function() {
+      selectedIds = null;
+      currentPage = 1;
+      closeDropdown();
+      renderAll();
+    });
+    pillsEl.appendChild(allaBtn);
+
+    CATS.forEach(function(c) {
+      var group = document.createElement('div');
+      group.className = 'plp-pill-group';
+      group.dataset.cat = c.slug;
+
+      var count = catProducts[c.slug] ? catProducts[c.slug].length : 0;
+
+      var pillBtn = document.createElement('button');
+      pillBtn.className = 'plp-pill';
+      pillBtn.innerHTML = c.label + ' <span class="plp-pill-count">' + count + '</span>';
+      pillBtn.addEventListener('click', function() {
+        var catIds = (catProducts[c.slug] || []).map(function(p) { return p.id; });
+        if (selectedIds === null) {
+          /* Narrow to only this category */
+          selectedIds = new Set(catIds);
+        } else {
+          var allSelected = catIds.every(function(id) { return selectedIds.has(id); });
+          if (allSelected) {
+            /* Deselect this category */
+            catIds.forEach(function(id) { selectedIds.delete(id); });
+            if (selectedIds.size === 0) selectedIds = new Set();
+          } else {
+            /* Add this category */
+            catIds.forEach(function(id) { selectedIds.add(id); });
+            if (selectedIds.size === PRODUCTS.length) selectedIds = null;
+          }
+        }
+        currentPage = 1;
+        closeDropdown();
+        renderAll();
+      });
+
+      var chevBtn = document.createElement('button');
+      chevBtn.className = 'plp-pill__chevron';
+      chevBtn.setAttribute('aria-label', 'Visa underkategorier för ' + c.label);
+      chevBtn.innerHTML = '<svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 1.5l5 5 5-5" stroke-linecap="round"/></svg>';
+      chevBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (openDropdownCat === c.slug) {
+          closeDropdown();
+          renderAll();
+        } else {
+          openDropdown(c.slug);
+          renderAll();
+        }
+      });
+
+      group.appendChild(pillBtn);
+      group.appendChild(chevBtn);
+      pillsEl.appendChild(group);
+    });
+
+    document.addEventListener('click', function(e) {
+      if (openDropdownCat && !e.target.closest('.plp-filter-wrap')) {
+        closeDropdown();
+        renderAll();
+      }
+    });
+
+    document.getElementById('plpSort').addEventListener('change', function() {
+      sortOrder = this.value;
+      currentPage = 1;
+      renderAll();
+    });
+
+    document.getElementById('plpPrev').addEventListener('click', function() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderAll();
+        document.querySelector('.plp-filter-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+    document.getElementById('plpNext').addEventListener('click', function() {
+      var totalPages = Math.ceil(getFiltered().length / PRODUCTS_PER_PAGE);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderAll();
+        document.querySelector('.plp-filter-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    document.getElementById('plpGrid').addEventListener('click', function(e) {
+      e.preventDefault();
+      var card = e.target.closest('.plp-card');
+      if (!card) return;
+      openQuickshop(parseInt(card.dataset.id));
+    });
+
+    renderAll();
+
+    /* ── Quickshop ── */
+    var qsBackdrop = document.getElementById('qsBackdrop');
+    var sackQty = 1;
+    var currentDelivery = 'tipplass';
+    var currentCrane = 'standard';
+    var currentProductCat = 'bergkross';
+
+    function fmtPrice(n) {
+      return n.toLocaleString('sv-SE') + ' kr';
+    }
+
+    function updatePrice() {
+      var price = CAT_PRICES[currentProductCat] || 299;
+      var total = 0;
+      if (currentDelivery === 'tipplass') {
+        var activeTonBtn = document.querySelector('#qsTonGridTipp .qs-ton-btn.is-active');
+        var tons = activeTonBtn ? parseInt(activeTonBtn.dataset.ton) : 1;
+        total = Math.round(tons * price);
+      } else {
+        var activeSackBtn = document.querySelector('.qs-sack-btn.is-active');
+        var sackKg = activeSackBtn ? parseInt(activeSackBtn.dataset.size) : 500;
+        var craneExtra = currentCrane === 'big' ? 150 : 0;
+        total = Math.round((sackKg / 1000) * sackQty * price * 1.15) + craneExtra * sackQty;
+      }
+      document.getElementById('qsPriceTotal').textContent = fmtPrice(total);
+    }
+
+    function openQuickshop(id) {
+      var p = PRODUCTS.find(function(x) { return x.id === id; });
+      if (!p) return;
+      currentProductCat = p.cat;
+      document.getElementById('qsImg').src = p.img;
+      document.getElementById('qsImg').alt = p.name;
+      document.getElementById('qsCat').textContent = catLabels[p.cat] || '';
+      document.getElementById('qsName').textContent = p.name;
+      document.getElementById('qsFrac').textContent = p.frac || '';
+      setDelivery('tipplass');
+      selectTon(1);
+      selectSackSize(500);
+      selectCrane('standard');
+      sackQty = 1;
+      document.getElementById('qsSackQty').textContent = '1';
+      updatePrice();
+      qsBackdrop.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeQuickshop() {
+      qsBackdrop.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('qsClose').addEventListener('click', closeQuickshop);
+    qsBackdrop.addEventListener('click', function(e) { if (e.target === qsBackdrop) closeQuickshop(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeQuickshop(); });
+
+    function setDelivery(type) {
+      currentDelivery = type;
+      document.getElementById('qsBtnTipplass').classList.toggle('is-active', type === 'tipplass');
+      document.getElementById('qsBtnStorsack').classList.toggle('is-active', type === 'storsack');
+      document.getElementById('qsTipplassSection').classList.toggle('is-visible', type === 'tipplass');
+      document.getElementById('qsStorsackSection').classList.toggle('is-visible', type === 'storsack');
+      updatePrice();
+    }
+    document.getElementById('qsBtnTipplass').addEventListener('click', function() { setDelivery('tipplass'); });
+    document.getElementById('qsBtnStorsack').addEventListener('click', function() { setDelivery('storsack'); });
+
+    function selectTon(val) {
+      document.querySelectorAll('#qsTonGridTipp .qs-ton-btn').forEach(function(b) {
+        b.classList.toggle('is-active', parseInt(b.dataset.ton) === val);
+      });
+    }
+    document.querySelectorAll('#qsTonGridTipp .qs-ton-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() { selectTon(parseInt(btn.dataset.ton)); updatePrice(); });
+    });
+
+    function selectSackSize(size) {
+      document.querySelectorAll('.qs-sack-btn').forEach(function(b) {
+        b.classList.toggle('is-active', parseInt(b.dataset.size) === size);
+      });
+    }
+    document.querySelectorAll('.qs-sack-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() { selectSackSize(parseInt(btn.dataset.size)); updatePrice(); });
+    });
+
+    function selectCrane(type) {
+      currentCrane = type;
+      document.querySelectorAll('.qs-crane-btn').forEach(function(b) {
+        b.classList.toggle('is-active', b.dataset.crane === type);
+      });
+      updatePrice();
+    }
+    document.querySelectorAll('.qs-crane-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() { selectCrane(btn.dataset.crane); });
+    });
+
+    document.getElementById('qsSackMinus').addEventListener('click', function() {
+      if (sackQty > 1) { sackQty--; document.getElementById('qsSackQty').textContent = sackQty; updatePrice(); }
+    });
+    document.getElementById('qsSackPlus').addEventListener('click', function() {
+      sackQty++; document.getElementById('qsSackQty').textContent = sackQty; updatePrice();
+    });
+
+    document.getElementById('qsAddBtn').addEventListener('click', function() {
+      closeQuickshop();
+      var cartBtn = document.querySelector('.cart-btn');
+      if (cartBtn) cartBtn.click();
+    });
+
+  })();
+  </script>
 </body>
 </html>
