@@ -1077,6 +1077,7 @@ window.addEventListener('scroll', () => {
 <div class="contact-modal-backdrop" id="contactModalBackdrop" role="dialog" aria-modal="true" aria-label="Kontakta oss">
   <div class="contact-modal-panel">
     <button class="contact-modal-close" id="contactModalClose" aria-label="Stäng">
+      Stäng
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
     <div class="contact-inner">
@@ -1114,6 +1115,29 @@ window.addEventListener('scroll', () => {
         </button>
       </form>
     </div>
+    <section class="contact-faq">
+      <h3 class="contact-faq__title">Vanliga frågor</h3>
+      <details class="contact-faq__item">
+        <summary>Hur lång är leveranstiden?</summary>
+        <p>Vi levererar normalt inom 2–5 arbetsdagar beroende på din ort och produkt. Vid beställning av tipplass eller kranbilsleverans bokar vi in en tid som passar dig — du väljer dag i kassan eller via telefon efter beställning.</p>
+      </details>
+      <details class="contact-faq__item">
+        <summary>Vad kostar leveransen?</summary>
+        <p>Leveranskostnaden beror på leveranssätt och avstånd. Storsäckar levereras med lyftkran och prissätts per order. Tipplass ingår i produktpriset inom vårt leveransområde. Exakt pris visas alltid i kassan innan du slutför köpet.</p>
+      </details>
+      <details class="contact-faq__item">
+        <summary>Hur räknar jag ut hur mycket material jag behöver?</summary>
+        <p>Använd vår kalkylator på produktsidan eller i uppfarts-guiden — ange yta i kvadratmeter och välj materialtyp så räknar den ut antal ton åt dig, inklusive 10 % övermarginal. Som tumregel: 1 ton natursingel 16–32 mm täcker ca 14 m² i 5 cm djup.</p>
+      </details>
+      <details class="contact-faq__item">
+        <summary>Kan jag beställa flera produkter i samma leverans?</summary>
+        <p>Ja, vi kan samordna leverans av bärlager och slitlager i samma körning om du beställer båda. Kontakta oss efter beställning så bokar vi det tillsammans. Tänk på att bärlagret alltid läggs ut och kompakteras innan slitlagret levereras.</p>
+      </details>
+      <details class="contact-faq__item">
+        <summary>Vad är skillnaden mellan tipplass och storsäck?</summary>
+        <p>Tipplass levereras direkt från lastbil och lämpar sig för större volymer — minst 5–6 ton. Storsäck (ca 1 ton) levereras med lyftkran och kan placeras exakt där du vill, vilket passar trånga uppfarter eller etappvisa projekt. Båda alternativen finns för de flesta produkter.</p>
+      </details>
+    </section>
   </div>
 </div>`;
 
