@@ -226,31 +226,31 @@ if (altGrid && altPrev && altNext) {
       category: 'Tips & råd',
       title: 'Rätt jord för\nvarje trädgård',
       intro: 'Från gräsmattejord till planteringsjord — vi hjälper dig välja rätt för ditt projekt och din mark.',
-      img: 'jord.jpg'
+      img: 'assets/images/jord.jpg'
     },
     {
       category: 'Inspiration',
       title: 'Uppfart i makadam —\nhållbart & snyggt',
       intro: 'Makadam är ett av de mest populära valen för uppfarter. Här är allt du behöver veta för ett lyckat resultat.',
-      img: 'makadam.jpg'
+      img: 'assets/images/makadam.jpg'
     },
     {
       category: 'Guide',
       title: 'Natursingel i\nmodern trädgård',
       intro: 'Natursingel passar i allt från minimalistiska till naturlika trädgårdar och kräver minimal skötsel.',
-      img: 'natursingel.jpg'
+      img: 'assets/images/natursingel.jpg'
     },
     {
       category: 'Inspiration',
       title: 'Dekorsten —\nskönhet utan skötsel',
       intro: 'Vit marmor, färgad singel och natursten ger trädgården ett tidlöst och elegant uttryck.',
-      img: 'dekorsten.jpg'
+      img: 'assets/images/dekorsten.jpg'
     },
     {
       category: 'Guide',
       title: 'Stenmjöl som\nmarkbeläggning',
       intro: 'Kostnadseffektivt, naturligt och enkelt att lägga — perfekt för stigar, terrasser och parkeringsytor.',
-      img: 'bergskross.jpg'
+      img: 'assets/images/bergskross.jpg'
     }
   ];
 
@@ -1202,7 +1202,7 @@ window.addEventListener('scroll', () => {
 
     <div class="cart-item" data-price="2895">
       <div class="cart-item__img">
-        <img src="${base}cat-makadam.png" alt="Makadam 2–6 mm">
+        <img src="${base}assets/images/cat-makadam.png" alt="Makadam 2–6 mm">
       </div>
       <div class="cart-item__body">
         <div class="cart-item__cat">Bergskross</div>
@@ -1224,7 +1224,7 @@ window.addEventListener('scroll', () => {
 
     <div class="cart-item" data-price="1490">
       <div class="cart-item__img">
-        <img src="${base}cat-natursingel.png" alt="Natursingel Grå">
+        <img src="${base}assets/images/cat-natursingel.png" alt="Natursingel Grå">
       </div>
       <div class="cart-item__body">
         <div class="cart-item__cat">Natursingel</div>
