@@ -24,4 +24,4 @@ jobs:
             --exclude='.DS_Store' \
             --exclude='*.map' \
             wp-theme/villagrus/ \
-            "hernangil.com@ssh.hernangil.com:${{ secrets.WP_THEME_PATH }}"
+            "hernangil.com@ssh.hernangil.com:/customers/d/6/9/hernangil.com/httpd.www/vg2026/wp-content/themes/villagrus/"
