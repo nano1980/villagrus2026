@@ -1,0 +1,27 @@
+name: Deploy WP Theme to one.com
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'wp-theme/villagrus/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Deploy theme via rsync
+        env:
+          SSHPASS: ${{ secrets.SFTP_PASSWORD }}
+        run: |
+          sshpass -e rsync -avz --delete \
+            -e "ssh -p 22 -o StrictHostKeyChecking=no" \
+            --exclude='.DS_Store' \
+            --exclude='*.map' \
+            wp-theme/villagrus/ \
+            "hernangil.com@ssh.hernangil.com:${{ secrets.WP_THEME_PATH }}"
