@@ -424,6 +424,45 @@
   header.scrolled .cart-btn { color: var(--black); }
   .cart-btn svg { width: 22px; height: 22px; }
 
+  /* ── Zip-knapp i header ─────────────────────────────────── */
+  .nav-zip-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 100px;
+    color: #fff;
+    padding: 6px 12px 6px 10px;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: .72rem;
+    letter-spacing: .02em;
+    transition: border-color .2s, color .2s, background .2s;
+    white-space: nowrap;
+  }
+  .nav-zip-btn:hover {
+    border-color: rgba(255,255,255,.7);
+    background: rgba(255,255,255,.08);
+  }
+  header.scrolled .nav-zip-btn {
+    color: var(--black);
+    border-color: var(--border);
+  }
+  header.scrolled .nav-zip-btn:hover {
+    border-color: var(--black);
+    background: var(--stone);
+  }
+  .nav-zip-btn__label {
+    font-weight: 500;
+    letter-spacing: .04em;
+  }
+  /* Dölj label-text på liten skärm, behåll ikon */
+  @media (max-width: 768px) {
+    .nav-zip-btn { padding: 6px 10px; border: none; }
+    .nav-zip-btn__label { display: none; }
+  }
+
   .contact-btn {
     font-size: 0.75rem;
     font-weight: 500;

@@ -97,6 +97,13 @@
     <a href="<?php echo esc_url(home_url('/om-oss/')); ?>">Om oss</a>
   </nav>
   <div class="header-right">
+    <button class="nav-zip-btn" id="navZipBtn" aria-label="Ange leveranspostnummer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+        <circle cx="12" cy="9" r="2.5"/>
+      </svg>
+      <span class="nav-zip-btn__label" id="navZipLabel"></span>
+    </button>
     <?php villagrus_cart_icon(); ?>
     <a href="#" class="contact-btn">Kontakta oss</a>
     <button class="hamburger" id="hamburger" aria-label="Öppna meny">

@@ -45,6 +45,21 @@
     document.body.style.overflow = '';
   }
 
+  // Zip-ikonen i header öppnar modalen
+  const zipHeaderBtn = document.getElementById('navZipBtn');
+  const zipLabel     = document.getElementById('navZipLabel');
+
+  function updateZipHeader() {
+    const zip = localStorage.getItem('vg_zip');
+    if (zip && zipLabel) {
+      zipLabel.textContent = zip.slice(0,3) + ' ' + zip.slice(3);
+    } else if (zipLabel) {
+      zipLabel.textContent = '';
+    }
+  }
+  updateZipHeader();
+  zipHeaderBtn && zipHeaderBtn.addEventListener('click', openModal);
+
   // Visa inte igen om postnummer redan är sparat
   const saved = localStorage.getItem('vg_zip');
   if (!saved) {
@@ -114,6 +129,7 @@
         localStorage.setItem('vg_zone', data.data.zone);
         localStorage.setItem('vg_surcharge', surcharge);
 
+        updateZipHeader();
         applyZoneSurcharge(surcharge);
       } else {
         feedback.classList.add('zip-feedback--err');
