@@ -1,13 +1,21 @@
 name: Deploy to one.com
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Bekräfta deploy till live (skriv "ja")'
+        required: true
+        default: ''
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Kräver manuellt godkännande
+        if: ${{ github.event.inputs.confirm != 'ja' }}
+        run: echo "Deploy avbruten — skriv 'ja' i bekräftelse-fältet." && exit 1
+
       - uses: actions/checkout@v4
 
       - name: Install sshpass
