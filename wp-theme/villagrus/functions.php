@@ -122,3 +122,58 @@ function villagrus_cart_icon() {
 function villagrus_format_price($price) {
     return number_format((float)$price, 0, ',', ' ') . ' kr';
 }
+
+/* ── Zone AJAX ───────────────────────────────────────────────── */
+add_action('wp_ajax_villagrus_check_zip',        'villagrus_check_zip');
+add_action('wp_ajax_nopriv_villagrus_check_zip', 'villagrus_check_zip');
+
+function villagrus_check_zip() {
+    $zip = preg_replace('/\s/', '', sanitize_text_field($_POST['zip'] ?? ''));
+
+    if (!preg_match('/^\d{5}$/', $zip)) {
+        wp_send_json_error(['message' => 'Ogiltigt postnummer.']);
+    }
+
+    global $wpdb;
+
+    // Look up which shipping zone this zip belongs to
+    $row = $wpdb->get_row($wpdb->prepare(
+        "SELECT z.zone_id, z.zone_name
+         FROM {$wpdb->prefix}woocommerce_shipping_zone_locations l
+         JOIN {$wpdb->prefix}woocommerce_shipping_zones z ON z.zone_id = l.zone_id
+         WHERE l.location_code = %s AND l.location_type = 'postcode'
+         ORDER BY z.zone_order ASC
+         LIMIT 1",
+        $zip
+    ));
+
+    if (!$row) {
+        wp_send_json_success([
+            'zone'       => 0,
+            'surcharge'  => 0,
+            'deliverable'=> false,
+            'message'    => 'Vi levererar tyvärr inte till det postnumret just nu.',
+        ]);
+    }
+
+    // Map surcharge by zone name (robust mot ID-ordning)
+    $name      = strtolower($row->zone_name);
+    $surcharge = 0;
+    if (str_contains($name, 'zon 3') || str_contains($name, 'åkersberga') || str_contains($name, 'vallentuna')) {
+        $surcharge = 600;
+    } elseif (str_contains($name, 'zon 2') || str_contains($name, 'nacka') || str_contains($name, 'lidingö') || str_contains($name, 'täby')) {
+        $surcharge = 300;
+    }
+
+    $msg = $surcharge === 0
+        ? 'Fri leverans till ditt område!'
+        : 'Vi levererar till dig! Leveranstillägg: +' . number_format($surcharge, 0, ',', ' ') . ' kr';
+
+    wp_send_json_success([
+        'zone'        => (int) $row->zone_id,
+        'surcharge'   => $surcharge,
+        'deliverable' => true,
+        'message'     => $msg,
+        'zone_name'   => $row->zone_name,
+    ]);
+}

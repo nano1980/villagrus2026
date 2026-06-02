@@ -8,6 +8,27 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<!-- POSTNUMMER MODAL -->
+<div class="zip-backdrop" id="zipBackdrop"></div>
+<div class="zip-modal" id="zipModal" role="dialog" aria-modal="true" aria-label="Kontrollera leverans">
+  <button class="zip-modal__close" id="zipClose" aria-label="Stäng">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <div class="zip-modal__icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+  </div>
+  <h2 class="zip-modal__title">Levererar vi till dig?</h2>
+  <p class="zip-modal__sub">Ange ditt postnummer för att se om vi levererar till din adress.</p>
+  <form class="zip-modal__form" id="zipForm" onsubmit="return false">
+    <input class="zip-modal__input" id="zipInput" type="text" inputmode="numeric" maxlength="6" placeholder="123 45" autocomplete="postal-code">
+    <button class="zip-modal__btn" type="submit" id="zipSubmit">
+      Kontrollera
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </button>
+  </form>
+  <p class="zip-modal__note">Vi levererar till hela Sverige inom 48h.</p>
+</div>
+
 <!-- MOBILE NAV DRAWER -->
 <div class="nav-backdrop" id="navBackdrop"></div>
 <div class="nav-drawer" id="navDrawer" aria-label="Meny">

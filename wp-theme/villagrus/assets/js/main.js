@@ -24,7 +24,7 @@
   drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 })();
 
-// ─── ZIP MODAL ──────────────────────────────────────────────────
+// ─── ZIP MODAL + ZONSÖKNING ─────────────────────────────────────
 (function() {
   const backdrop = document.getElementById('zipBackdrop');
   const modal    = document.getElementById('zipModal');
@@ -45,25 +45,122 @@
     document.body.style.overflow = '';
   }
 
-  // Show after short delay on page load
-  setTimeout(openModal, 800);
+  // Visa inte igen om postnummer redan är sparat
+  const saved = localStorage.getItem('vg_zip');
+  if (!saved) {
+    setTimeout(openModal, 800);
+  } else {
+    applyZoneSurcharge(
+      parseInt(localStorage.getItem('vg_surcharge') || '0')
+    );
+  }
 
   closeBtn && closeBtn.addEventListener('click', closeModal);
   backdrop.addEventListener('click', closeModal);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-  form && form.addEventListener('submit', () => {
-    const val = input.value.replace(/\s/g, '');
-    if (val.length >= 5) closeModal();
-  });
-
   // Format input as "123 45"
   input && input.addEventListener('input', () => {
     let v = input.value.replace(/\D/g, '').slice(0, 5);
-    if (v.length > 3) v = v.slice(0,3) + ' ' + v.slice(3);
+    if (v.length > 3) v = v.slice(0, 3) + ' ' + v.slice(3);
     input.value = v;
   });
+
+  form && form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const zip = input.value.replace(/\s/g, '');
+    if (zip.length < 5) return;
+
+    const btn = form.querySelector('.zip-modal__btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = 'Kontrollerar…';
+    btn.disabled = true;
+
+    // Remove old feedback
+    const oldFeedback = modal.querySelector('.zip-feedback');
+    if (oldFeedback) oldFeedback.remove();
+
+    // Check if villagrusData (WP AJAX) is available
+    const ajaxUrl = (typeof villagrusData !== 'undefined')
+      ? villagrusData.ajaxUrl
+      : '/wp-admin/admin-ajax.php';
+
+    fetch(ajaxUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        action: 'villagrus_check_zip',
+        zip: zip,
+        nonce: (typeof villagrusData !== 'undefined') ? villagrusData.nonce : '',
+      })
+    })
+    .then(r => r.json())
+    .then(function(data) {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+
+      const feedback = document.createElement('div');
+      feedback.className = 'zip-feedback';
+
+      if (data.success && data.data.deliverable) {
+        const surcharge = data.data.surcharge;
+        feedback.classList.add('zip-feedback--ok');
+        feedback.innerHTML = surcharge === 0
+          ? '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" width="16"><path d="M4 10l4 4 8-8"/></svg> Fri leverans till ditt område!'
+          : '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" width="16"><path d="M4 10l4 4 8-8"/></svg> Vi levererar! Leveranstillägg: <strong>+' + surcharge.toLocaleString('sv-SE') + ' kr</strong>';
+
+        // Spara i localStorage
+        localStorage.setItem('vg_zip', zip);
+        localStorage.setItem('vg_zone', data.data.zone);
+        localStorage.setItem('vg_surcharge', surcharge);
+
+        applyZoneSurcharge(surcharge);
+
+        setTimeout(closeModal, 1800);
+      } else {
+        feedback.classList.add('zip-feedback--err');
+        feedback.innerHTML = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" width="16"><path d="M15 5L5 15M5 5l10 10"/></svg> '
+          + (data.data?.message || 'Vi levererar tyvärr inte till det postnumret.');
+        localStorage.removeItem('vg_zip');
+        localStorage.removeItem('vg_zone');
+        localStorage.removeItem('vg_surcharge');
+      }
+
+      form.insertAdjacentElement('afterend', feedback);
+    })
+    .catch(function() {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
+  });
 })();
+
+// ─── PRISTILLÄGG BASERAT PÅ ZON ─────────────────────────────────
+function applyZoneSurcharge(surcharge) {
+  if (!surcharge || surcharge === 0) return;
+
+  // Lägg till leveransindikator under priser på produkt- och listningssidor
+  document.querySelectorAll('.plp-card__price, .pdp-price').forEach(function(el) {
+    if (el.querySelector('.zone-delivery')) return; // redan tillagd
+    const badge = document.createElement('span');
+    badge.className = 'zone-delivery';
+    badge.textContent = '+' + surcharge.toLocaleString('sv-SE') + ' kr frakt';
+    el.appendChild(badge);
+  });
+
+  // Visa zon-banner i header
+  if (!document.getElementById('zoneBanner')) {
+    const banner = document.createElement('div');
+    banner.id = 'zoneBanner';
+    banner.className = 'zone-banner';
+    const zip = localStorage.getItem('vg_zip') || '';
+    banner.innerHTML = '<span>Leverans till <strong>' + zip.slice(0,3) + ' ' + zip.slice(3) + '</strong>: +'
+      + surcharge.toLocaleString('sv-SE') + ' kr</span>'
+      + '<button onclick="localStorage.removeItem(\'vg_zip\');localStorage.removeItem(\'vg_zone\');localStorage.removeItem(\'vg_surcharge\');location.reload()" aria-label="Ändra postnummer">Ändra ×</button>';
+    const header = document.getElementById('header');
+    if (header) header.insertAdjacentElement('afterend', banner);
+  }
+}
 
 // ─── HEADER SCROLL ─────────────────────────────────────────────
 const header = document.getElementById('header');
