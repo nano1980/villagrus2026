@@ -1958,8 +1958,14 @@
   }
   .alt-cat-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
+  }
+  @media (max-width: 1024px) {
+    .alt-cat-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .alt-cat-grid { grid-template-columns: 1fr; gap: 12px; }
   }
   .alt-cat-card {
     position: relative;
@@ -2017,9 +2023,10 @@
     text-overflow: ellipsis;
   }
   .alt-cat-content p {
-    font-size: 0.78rem;
+    font-size: 1rem;
     color: rgba(255,255,255,0.8);
     font-weight: 300;
+    line-height: 1.7;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
