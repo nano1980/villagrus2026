@@ -432,7 +432,7 @@
   /* Gemensam badge — används av både varukorg och pin */
   .nav-badge {
     position: absolute;
-    top: 4px; right: 2px;
+    top: 0px; right: -13px;
     min-width: 18px; height: 18px;
     background: rgba(255,255,255,0.18);
     backdrop-filter: blur(4px);
