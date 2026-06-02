@@ -156,24 +156,20 @@ function villagrus_check_zip() {
         ]);
     }
 
-    // Map surcharge by zone name (robust mot ID-ordning)
-    $name      = strtolower($row->zone_name);
-    $surcharge = 0;
-    if (str_contains($name, 'zon 3') || str_contains($name, 'åkersberga') || str_contains($name, 'vallentuna')) {
-        $surcharge = 600;
-    } elseif (str_contains($name, 'zon 2') || str_contains($name, 'nacka') || str_contains($name, 'lidingö') || str_contains($name, 'täby')) {
-        $surcharge = 300;
-    }
+    // Zonnummer läses direkt ur zonnamnet — 1, 2 eller 3
+    $name        = strtolower($row->zone_name);
+    $zone_number = 1; $surcharge = 0;
+    if (str_contains($name, 'zon 3')) { $zone_number = 3; $surcharge = 600; }
+    elseif (str_contains($name, 'zon 2')) { $zone_number = 2; $surcharge = 300; }
 
     $msg = $surcharge === 0
         ? 'Fri leverans till ditt område!'
-        : 'Vi levererar till dig! Leveranstillägg: +' . number_format($surcharge, 0, ',', ' ') . ' kr';
+        : 'Vi levererar! Leveranstillägg: +' . number_format($surcharge, 0, ',', ' ') . ' kr';
 
     wp_send_json_success([
-        'zone'        => (int) $row->zone_id,
+        'zone'        => $zone_number,
         'surcharge'   => $surcharge,
         'deliverable' => true,
         'message'     => $msg,
-        'zone_name'   => $row->zone_name,
     ]);
 }
