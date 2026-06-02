@@ -1965,7 +1965,7 @@
     position: relative;
     border-radius: var(--radius);
     overflow: hidden;
-    aspect-ratio: 3/5;
+    aspect-ratio: 2/2;
     cursor: pointer;
     transition: transform 0.55s var(--slow), filter 0.55s var(--ease), box-shadow 0.55s var(--ease);
   }
@@ -1992,9 +1992,9 @@
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(10,8,6,0.72) 0%,
-      rgba(10,8,6,0.15) 55%,
-      transparent 75%
+      rgba(10,8,6,0.88) 0%,
+      rgba(10,8,6,0.4) 50%,
+      transparent 80%
     );
     transition: opacity 0.4s;
   }
@@ -2008,7 +2008,7 @@
   .alt-cat-content h3 {
     font-family: var(--serif);
     font-weight: 400;
-    font-size: 1.6rem;
+    font-size: 1.9rem;
     color: white;
     line-height: 1.15;
     margin-bottom: 6px;
@@ -2017,9 +2017,13 @@
     text-overflow: ellipsis;
   }
   .alt-cat-content p {
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.65);
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.8);
     font-weight: 300;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     margin-bottom: 18px;
     line-height: 1.55;
   }
