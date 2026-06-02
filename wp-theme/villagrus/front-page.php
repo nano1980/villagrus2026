@@ -69,7 +69,7 @@ $images      = $theme_uri . '/assets/images';
             $style = isset($cfg['pos']) ? ' style="object-position:' . $cfg['pos'] . '"' : '';
             $d     = $i > 0 ? ' reveal-delay-' . min($i, 4) : '';
     ?>
-    <div class="alt-cat-card reveal<?php echo $d; ?>">
+    <a href="<?php echo esc_url(get_term_link($term)); ?>" class="alt-cat-card reveal<?php echo $d; ?>">
       <img src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr($term->name); ?>"<?php echo $style; ?>>
       <div class="alt-cat-overlay"></div>
       <div class="alt-cat-content">
@@ -77,9 +77,9 @@ $images      = $theme_uri . '/assets/images';
         <p><?php echo $cfg['desc']; ?></p>
       </div>
       <div class="alt-cat-footer">
-        <a href="<?php echo esc_url(get_term_link($term)); ?>" class="alt-cat-btn">Utforska <span class="arr">›</span></a>
+        <span class="alt-cat-btn">Utforska <span class="arr">›</span></span>
       </div>
-    </div>
+    </a>
     <?php endforeach; endif; ?>
   </div>
   <div class="alt-cat-nav" id="altCatNav">

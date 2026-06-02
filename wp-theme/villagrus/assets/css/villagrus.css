@@ -1969,6 +1969,8 @@
   }
   .alt-cat-card {
     position: relative;
+    display: block;
+    text-decoration: none;
     border-radius: var(--radius);
     overflow: hidden;
     aspect-ratio: 2/2;
@@ -2018,19 +2020,12 @@
     color: white;
     line-height: 1.15;
     margin-bottom: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   .alt-cat-content p {
     font-size: 1rem;
     color: rgba(255,255,255,0.8);
     font-weight: 300;
     line-height: 1.7;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
     margin-bottom: 18px;
     line-height: 1.55;
   }
