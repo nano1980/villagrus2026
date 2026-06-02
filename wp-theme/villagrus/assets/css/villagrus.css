@@ -446,42 +446,40 @@
   }
   .nav-cart__count.is-visible { display: flex; }
 
-  /* ── Zip-knapp i header ─────────────────────────────────── */
+  /* ── Zip-knapp i header — matchar contact-btn ───────────── */
   .nav-zip-btn {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     background: none;
-    border: 1px solid rgba(255,255,255,.3);
-    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: var(--radius);
     color: #fff;
-    padding: 6px 12px 6px 10px;
+    padding: 10px 18px 10px 14px;
     cursor: pointer;
     font-family: var(--sans);
-    font-size: .72rem;
-    letter-spacing: .02em;
-    transition: border-color .2s, color .2s, background .2s;
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    transition: all .3s var(--ease);
     white-space: nowrap;
   }
   .nav-zip-btn:hover {
-    border-color: rgba(255,255,255,.7);
-    background: rgba(255,255,255,.08);
+    background: white;
+    color: var(--black);
+    border-color: white;
   }
   header.scrolled .nav-zip-btn {
     color: var(--black);
-    border-color: var(--border);
+    border-color: var(--black);
   }
   header.scrolled .nav-zip-btn:hover {
-    border-color: var(--black);
-    background: var(--stone);
+    background: var(--black);
+    color: white;
   }
-  .nav-zip-btn__label {
-    font-weight: 500;
-    letter-spacing: .04em;
-  }
-  /* Dölj label-text på liten skärm, behåll ikon */
   @media (max-width: 768px) {
-    .nav-zip-btn { padding: 6px 10px; border: none; }
+    .nav-zip-btn { padding: 8px 10px; }
     .nav-zip-btn__label { display: none; }
   }
 
