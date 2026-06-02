@@ -1973,7 +1973,7 @@
     text-decoration: none;
     border-radius: var(--radius);
     overflow: hidden;
-    aspect-ratio: 2/2;
+    aspect-ratio: 2/1;
     cursor: pointer;
     transition: transform 0.55s var(--slow), filter 0.55s var(--ease), box-shadow 0.55s var(--ease);
   }
