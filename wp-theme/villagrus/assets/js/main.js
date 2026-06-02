@@ -162,18 +162,6 @@ function applyZoneSurcharge(surcharge) {
     el.appendChild(badge);
   });
 
-  // Visa zon-banner i header
-  if (!document.getElementById('zoneBanner')) {
-    const banner = document.createElement('div');
-    banner.id = 'zoneBanner';
-    banner.className = 'zone-banner';
-    const zip = localStorage.getItem('vg_zip') || '';
-    banner.innerHTML = '<span>Leverans till <strong>' + zip.slice(0,3) + ' ' + zip.slice(3) + '</strong>: +'
-      + surcharge.toLocaleString('sv-SE') + ' kr</span>'
-      + '<button onclick="localStorage.removeItem(\'vg_zip\');localStorage.removeItem(\'vg_zone\');localStorage.removeItem(\'vg_surcharge\');location.reload()" aria-label="Ändra postnummer">Ändra ×</button>';
-    const header = document.getElementById('header');
-    if (header) header.insertAdjacentElement('afterend', banner);
-  }
 }
 
 // ─── HEADER SCROLL ─────────────────────────────────────────────
