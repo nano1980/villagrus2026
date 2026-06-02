@@ -1775,15 +1775,17 @@
   line-height: 1.4;
 }
 .zip-feedback--ok {
-  background: #f0faf4;
-  color: #1a7a3c;
-  border: 1px solid #b6e8c8;
+  background: rgba(200,169,110,0.1);
+  color: var(--black);
+  border: 1px solid rgba(200,169,110,0.4);
 }
+.zip-feedback--ok svg { stroke: var(--sand); }
 .zip-feedback--err {
-  background: #fff4f4;
-  color: #c0392b;
-  border: 1px solid #f5b7b1;
+  background: rgba(212,113,74,0.08);
+  color: var(--black);
+  border: 1px solid rgba(212,113,74,0.3);
 }
+.zip-feedback--err svg { stroke: var(--cta); }
 
 /* ── Zon-banner under header ─────────────────────────────────── */
 .zone-banner {

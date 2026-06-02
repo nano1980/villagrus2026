@@ -115,8 +115,6 @@
         localStorage.setItem('vg_surcharge', surcharge);
 
         applyZoneSurcharge(surcharge);
-
-        setTimeout(closeModal, 1800);
       } else {
         feedback.classList.add('zip-feedback--err');
         feedback.innerHTML = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" width="16"><path d="M15 5L5 15M5 5l10 10"/></svg> '
