@@ -25,9 +25,11 @@ jobs:
         env:
           SSHPASS: ${{ secrets.SFTP_PASSWORD }}
         run: |
-          sshpass -e rsync -avz --delete \
+          sshpass -e rsync -rlptz \
             -e "ssh -p 22 -o StrictHostKeyChecking=no" \
             --exclude='.DS_Store' \
             --exclude='*.map' \
+            --no-owner --no-group \
+            --inplace \
             wp-theme/villagrus/ \
             "hernangil.com@ssh.hernangil.com:/customers/d/6/9/hernangil.com/httpd.www/vg2026/wp-content/themes/villagrus/"
