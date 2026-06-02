@@ -446,42 +446,22 @@
   }
   .nav-cart__count.is-visible { display: flex; }
 
-  /* ── Zip-knapp i header — matchar contact-btn ───────────── */
+  /* ── Zip-knapp i header — ikon only ─────────────────────── */
   .nav-zip-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
     background: none;
-    border: 1px solid rgba(255,255,255,0.5);
-    border-radius: var(--radius);
+    border: none;
     color: #fff;
-    padding: 10px 18px 10px 14px;
     cursor: pointer;
-    font-family: var(--sans);
-    font-size: .75rem;
-    font-weight: 500;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    transition: all .3s var(--ease);
-    white-space: nowrap;
+    transition: color .3s;
   }
-  .nav-zip-btn:hover {
-    background: white;
-    color: var(--black);
-    border-color: white;
-  }
-  header.scrolled .nav-zip-btn {
-    color: var(--black);
-    border-color: var(--black);
-  }
-  header.scrolled .nav-zip-btn:hover {
-    background: var(--black);
-    color: white;
-  }
-  @media (max-width: 768px) {
-    .nav-zip-btn { padding: 8px 10px; }
-    .nav-zip-btn__label { display: none; }
-  }
+  .nav-zip-btn:hover { opacity: .7; }
+  header.scrolled .nav-zip-btn { color: var(--black); }
+  .nav-zip-btn__label { display: none; }
 
   .contact-btn {
     font-size: 0.75rem;
