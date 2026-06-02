@@ -6,6 +6,7 @@ wplogin.txt
 wordfence.txt
 0af5410f-acfd-497e-bd23-e1baa99cebea.txt
 *.txt
+docker-compose.yml
 .wp-skill-state.json
 Skärmavbild*
 .claude/
