@@ -110,11 +110,11 @@ function villagrus_cart_icon() {
     $count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
     $url   = wc_get_cart_url();
     echo '<a href="' . esc_url($url) . '" class="nav-cart" aria-label="Kundvagn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18">
             <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
             <path d="M16 10a4 4 0 01-8 0"/>
         </svg>
-        <span class="nav-cart__count' . ($count > 0 ? ' is-visible' : '') . '" id="cartCount">' . esc_html($count) . '</span>
+        <span class="nav-badge' . ($count > 0 ? ' is-visible' : '') . '" id="cartCount">' . ($count > 0 ? esc_html($count) : '') . '</span>
     </a>';
 }
 

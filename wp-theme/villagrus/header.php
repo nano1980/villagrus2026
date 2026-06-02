@@ -102,7 +102,7 @@
         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
         <circle cx="12" cy="9" r="2.5"/>
       </svg>
-      <span class="nav-zip-btn__label" id="navZipLabel"></span>
+      <span class="nav-badge" id="navZipBadge"></span>
     </button>
     <?php villagrus_cart_icon(); ?>
     <a href="#" class="contact-btn">Kontakta oss</a>

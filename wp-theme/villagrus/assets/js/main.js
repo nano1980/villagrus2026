@@ -37,7 +37,15 @@
     backdrop.classList.add('visible');
     modal.classList.add('visible');
     document.body.style.overflow = 'hidden';
-    setTimeout(() => input && input.focus(), 400);
+    // Autofyll sparat postnummer
+    if (input) {
+      const saved = localStorage.getItem('vg_zip');
+      if (saved) {
+        let v = saved.slice(0, 3) + ' ' + saved.slice(3);
+        input.value = v;
+      }
+      setTimeout(() => { input.focus(); input.select(); }, 400);
+    }
   }
   function closeModal() {
     backdrop.classList.remove('visible');
@@ -50,11 +58,15 @@
   const zipLabel     = document.getElementById('navZipLabel');
 
   function updateZipHeader() {
-    const zip = localStorage.getItem('vg_zip');
-    if (zip && zipLabel) {
-      zipLabel.textContent = zip.slice(0,3) + ' ' + zip.slice(3);
-    } else if (zipLabel) {
-      zipLabel.textContent = '';
+    const zip   = localStorage.getItem('vg_zip');
+    const badge = document.getElementById('navZipBadge');
+    if (!badge) return;
+    if (zip) {
+      badge.textContent = zip;
+      badge.classList.add('is-visible');
+    } else {
+      badge.textContent = '';
+      badge.classList.remove('is-visible');
     }
   }
   updateZipHeader();

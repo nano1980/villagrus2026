@@ -417,11 +417,11 @@
   }
   .cart-btn,
   .nav-cart {
+    position: relative;
     width: 42px; height: 42px;
     display: flex; align-items: center; justify-content: center;
     color: white;
     transition: color 0.3s;
-    position: relative;
     text-decoration: none;
   }
   header.scrolled .cart-btn,
@@ -429,25 +429,39 @@
   .cart-btn svg,
   .nav-cart svg { width: 22px; height: 22px; }
 
-  .nav-cart__count {
+  /* Gemensam badge — används av både varukorg och pin */
+  .nav-badge {
     position: absolute;
-    top: 4px; right: 4px;
-    min-width: 16px; height: 16px;
-    background: var(--cta);
+    top: 4px; right: 2px;
+    min-width: 18px; height: 18px;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
     border-radius: 100px;
     font-family: var(--sans);
-    font-size: .6rem;
-    font-weight: 700;
+    font-size: .58rem;
+    font-weight: 600;
+    letter-spacing: .02em;
     display: none;
     align-items: center;
     justify-content: center;
-    padding: 0 4px;
+    padding: 0 5px;
+    white-space: nowrap;
   }
-  .nav-cart__count.is-visible { display: flex; }
+  .nav-badge.is-visible { display: flex; }
+  header.scrolled .nav-badge {
+    background: rgba(26,26,26,0.08);
+    color: var(--black);
+    border-color: rgba(26,26,26,0.15);
+  }
+  /* Bakåtkompatibilitet med .nav-cart__count */
+  .nav-cart__count { display: none !important; }
 
   /* ── Zip-knapp i header — ikon only ─────────────────────── */
   .nav-zip-btn {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;

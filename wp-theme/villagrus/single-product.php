@@ -247,7 +247,10 @@ if ($related_ids):
     .then(function(data) {
       if (data.success) {
         const count = document.getElementById('cartCount');
-        if (count) { count.textContent = data.data.cart_count; count.classList.add('is-visible'); }
+        if (count) {
+          count.textContent = data.data.cart_count;
+          count.classList.toggle('is-visible', data.data.cart_count > 0);
+        }
         btn.textContent = '✓ Tillagd i varukorg';
         setTimeout(function() { btn.textContent = 'Lägg i varukorg'; }, 2000);
       } else {
